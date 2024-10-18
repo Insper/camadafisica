@@ -1,6 +1,11 @@
+site_name: Camada Física da Computação - Insper
+site_url: https://insper.github.io/camadafisica/
+theme:
+  name: active-handout-theme
+  locale: pt_BR
+
 INHERIT: active-handout.yml
 
-site_name: Camada Física da Computação
 
 extra:
   custom_variables:
@@ -14,6 +19,7 @@ extra_javascript:
 
 extra_css:
     - css/termynal.css
+    - css/equipe.css
 
 nav:
   - 'Home': index.md
@@ -39,4 +45,8 @@ nav:
     - "04 - Interview 01":
       - classes/04-int01/faq.md
       - classes/04-int01/int01.md
+ 
+
+
+
  

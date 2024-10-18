@@ -1,8 +1,4 @@
 
-theme:
-  name: material
-  locale: en
-
 docs_dir: content
 site_dir: docs
 

@@ -46,6 +46,7 @@ Github da disciplina, pode ser acessado no link:
 ## Aulas
 
 **Laboratório de Informática** - Sala 404
+
 - **Quinta-feira** 13:30 
 - **Sexta-feira** 15:45
 
@@ -56,10 +57,10 @@ Horário de atendimento:
 ## Equipe
 
 !!! people "Equipe"
-    <!-- - ![Carareto](equipe/carareto.jpeg) **Rodrigo Carareto** *Professor*
+    - ![Carareto](equipe/carareto.jpeg) **Rodrigo Carareto** *Professor*
     - ![Arnaldo](equipe/arnaldo.jpeg) **Arnaldo Alves Viana Junior** *Prof. Auxiliar*
-    - ![Rogério](equipe/rogerio.jpeg) **Rogério Cuenca** *Técnico de lab* -->
+    - ![Rogério](equipe/rogerio.jpeg) **Rogério Cuenca** *Técnico de lab*
     
-    - **Rodrigo Carareto** *Professor*
+    <!-- - **Rodrigo Carareto** *Professor*
     - **Arnaldo Alves Viana Junior** *Prof. Auxiliar*
-    - **Rogério Cuenca** *Técnico de lab*
+    - **Rogério Cuenca** *Técnico de lab* -->
