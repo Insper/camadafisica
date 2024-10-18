@@ -7,16 +7,14 @@ Essa página contém todos os materiais para o curso de Camada Física da Comput
 O curso é estruturado em 9 projetos:
 
 - **Projeto 1**: Loop-back
-- **Projeto 2**: Client-Server Simples
-- **Projeto 3**: Client-Server Completo
-- **Projeto 4**:
-- **Projeto 5**: Uart por software
+- **Projeto 2**: Ponto Flutuante
+- **Projeto 3**: Datagrama
+- **Projeto 4**: Checksum
+- **Projeto 5**: Serialização Uart
 - **Projeto 6**: DTMF
-- **Projeto 7**: Transmissõa de áudio
-- **Projeto 8**:
-- **Projeto 9**: Artigo Ciêntifico
-
-Cada projeto tem a duração de uma semana.
+- **Projeto 7**: Filtro Digital
+- **Projeto 8**: Modulação AM
+- **Projeto 9**: Produção Ciêntífica
 
 ### Dinâmica das aulas
 
@@ -27,11 +25,22 @@ A cada projeto, os alunos participarão de:
 
 ### Avaliações
 
-- A cada projeto é realizada uma avaliação QUIZ e no final do semestre a avaliação final (AF),é realizada na semana definida no calendário acadêmico.
+- Um projeto só pode ser avaliado se você já teve o anterior avaliado. Atrasos na entrega
+acarretam penalizações de nota (25% por semana).
+
+- Um projeto deve ser avaliado com a presença dos dois integrantes da dupla. Caso queiram
+apresentar o projeto sem um dos integrantes, o aluno ausente terá a nota reduzida em a 50%.
+
+- Haverá provas (QUIZZES) sobre os projetos.
+
 
 ### Critérios de avaliação
 
-- [Critérios de avaliação](criterios.md)
+- Média projetos: peso 40 %
+- Prova final: peso 30%
+- Média quizzes: peso 30%
+
+Aprovação média ponderada maior ou igual a 5.
 
 ## Principais conteúdos abordados:
 
