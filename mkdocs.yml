@@ -17,7 +17,6 @@ extra_css:
 
 nav:
   - 'Home': index.md
-  - about.md
   - deadlines.md
   - contributions.md
   - Classes:

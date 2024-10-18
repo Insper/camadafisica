@@ -55,7 +55,11 @@ Horário de atendimento:
 
 ## Equipe
 
-!!! people "Equipe atual"
-    - ![Carareto](equipe/carareto.jpg) **Rodrigo Carareto** *Professor*
+!!! people "Equipe"
+    <!-- - ![Carareto](equipe/carareto.jpeg) **Rodrigo Carareto** *Professor*
     - ![Arnaldo](equipe/arnaldo.jpeg) **Arnaldo Alves Viana Junior** *Prof. Auxiliar*
-    - ![Rogério](equipe/rogerio.jpeg) **Rogério Cuenca** *Técnico de lab*
+    - ![Rogério](equipe/rogerio.jpeg) **Rogério Cuenca** *Técnico de lab* -->
+    
+    - **Rodrigo Carareto** *Professor*
+    - **Arnaldo Alves Viana Junior** *Prof. Auxiliar*
+    - **Rogério Cuenca** *Técnico de lab*
