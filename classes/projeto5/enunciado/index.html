@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Enunciado - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 3</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto3/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto3/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 4</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto4/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto4/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item opened">
+    <span class="ah-togglable-handle">Projeto 5</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+
+    <li class="active ah-togglable-item opened">
+      <span class="ah-togglable-handle">Enunciado</span>
+      <ul>
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#introducao">Introdução</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#objetivos">Objetivos</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#materiais-necessarios">Materiais Necessários</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#montagem">Montagem</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#implementacao">Implementação</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#transmissao-e-recepcao-serial">Transmissão e Recepção Serial</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#entrega-e-avaliacao">Entrega e Avaliação</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#data-limite">Data Limite</a>
+              </li>
+            
+        
+      </ul>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 6</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto6/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto6/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 7</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto7/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto7/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 8</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto8/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto8/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 9</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto9/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto9/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto extra</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../02-api/api_deploy/">Api deploy</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                  
+                    <li>Projeto 5</li>
+                  
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="projeto-loopback">Projeto Loopback</h1>
+<h2 id="introducao">Introdução</h2>
+<p>Neste projeto, você irá construir um código em Python para realizar transmissões e recepções seriais simultâneas utilizando um Arduino. O objetivo é enviar uma imagem através da porta serial e receber simultaneamente uma cópia dessa imagem.</p>
+<h2 id="objetivos">Objetivos</h2>
+<ol>
+<li>Enviar uma imagem (a menor possível) através da porta de comunicação serial.</li>
+<li>Receber a imagem simultaneamente ao envio e salvá-la como uma cópia.</li>
+<li>Adquirir compreensão do código base de transmissão UART.</li>
+</ol>
+<h2 id="materiais-necessarios">Materiais Necessários</h2>
+<ul>
+<li><strong>Hardware:</strong></li>
+<li>Arduino (verificar modelo compatível)</li>
+<li>Cabo USB para conexão com o computador</li>
+<li>
+<p>Jumpers para curto-circuitar os pinos RX e TX</p>
+</li>
+<li>
+<p><strong>Software:</strong></p>
+</li>
+<li>Python instalado no computador</li>
+<li>Biblioteca <code>pyserial</code> (instalar com <code>pip install pyserial</code>)</li>
+<li>Arquivos de código fornecidos (5 no total)</li>
+</ul>
+<h2 id="montagem">Montagem</h2>
+<h3 id="configuracao-do-hardware">Configuração do Hardware</h3>
+<div class="admonition exercise self-progress" data-slug="classes/projeto5/enunciado/exercise_1" id="exercise_1_0">
+<p class="admonition-title">Exercício 1</p>
+<form class="exercise-form">
+<p>Conecte o Arduino ao computador via USB. Em seguida, curto-circuite os pinos RX e TX do Arduino:</p>
+<ul>
+<li><strong>Passo 1:</strong> Identifique os pinos RX e TX no seu modelo de Arduino.</li>
+<li><strong>Passo 2:</strong> Utilize um jumper para conectar o pino RX ao pino TX.</li>
+</ul>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Atenção!</p>
+<p>Em alguns modelos de Arduino (como o UNO), é necessário manter o botão de reset pressionado ou aterrar o pino reset.</p>
+</div>
+<h3 id="configuracao-do-software">Configuração do Software</h3>
+<ol>
+<li><strong>Instalação da Biblioteca PySerial:</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pyserial
+</code></pre></div>
+<ol>
+<li><strong>Configuração da Porta Serial:*</strong></li>
+</ol>
+<div class="admonition exercise self-progress" data-slug="classes/projeto5/enunciado/exercise_2" id="exercise_2_0">
+<p class="admonition-title">Exercício 2</p>
+<form class="exercise-form">
+<ul>
+<li>Verifique em seu gerenciador de dispositivos qual porta COM o Arduino está utilizando.</li>
+<li>Ajuste o arquivo de aplicação Python para utilizar essa porta.</li>
+</ul>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h2 id="implementacao">Implementação</h2>
+<h3 id="manipulacao-de-imagens-em-python">Manipulação de Imagens em Python</h3>
+<p>Para transformar uma imagem em uma lista de bytes e vice-versa, você pode usar os seguintes trechos de código:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Caminho da imagem original</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">img_origin</span> <span class="o">=</span> <span class="s2">&quot;original_image.jpg&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Leitura da imagem e conversão para bytes</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">img_origin</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">img_bytes</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Salvando a imagem recebida como uma cópia</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">img_copy</span> <span class="o">=</span> <span class="s2">&quot;copy_image.jpg&quot;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">img_copy</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">img_bytes</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="transmissao-e-recepcao-serial">Transmissão e Recepção Serial</h2>
+<div class="admonition exercise self-progress" data-slug="classes/projeto5/enunciado/exercise_3" id="exercise_3_0">
+<p class="admonition-title">Exercício 3</p>
+<form class="exercise-form">
+<p>Utilize as funções fornecidas nos arquivos de código para enviar e receber os bytes da imagem através da comunicação serial.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h2 id="entrega-e-avaliacao">Entrega e Avaliação</h2>
+<h3 id="conceito-c">Conceito C</h3>
+<ul>
+<li>Demonstrar a transmissão e recepção da imagem ocorrendo corretamente.</li>
+</ul>
+<h3 id="conceito-b">Conceito B</h3>
+<ul>
+<li>
+<p>Responder às perguntas feitas pelo professor sobre as seguintes funções:</p>
+</li>
+<li>
+<p><code>getBufferLen</code></p>
+</li>
+<li><code>getAllBuffer</code></li>
+<li><code>getBuffer</code></li>
+<li><code>getNData</code></li>
+<li><code>sendBuffer</code></li>
+</ul>
+<h3 id="conceito-b_1">Conceito B+</h3>
+<ul>
+<li>
+<p>Entender e explicar os seguintes termos da comunicação UART:</p>
+</li>
+<li>
+<p><strong>Transmissão assíncrona</strong></p>
+</li>
+<li><strong>UART – Start bit</strong></li>
+<li><strong>UART – Stop bit</strong></li>
+<li><strong>UART – TX, RX, GND</strong></li>
+<li><strong>UART – Baud rate</strong></li>
+<li><strong>UART – Bit rate</strong></li>
+<li><strong>UART – Buffer</strong></li>
+<li><strong>UART – Frame</strong></li>
+<li><strong>UART – Bit de Paridade</strong></li>
+<li><strong>UART – CRC</strong></li>
+</ul>
+<h3 id="conceito-a">Conceito A+</h3>
+<ul>
+<li>Corrigir a função <code>getStatus</code>, que não está funcionando corretamente, e apresentar uma solução.</li>
+</ul>
+<h2 id="data-limite">Data Limite</h2>
+<ul>
+<li><strong>15/08</strong> - Após essa data, a nota terá uma redução de 25% a cada semana de atraso.</li>
+</ul>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+            <a href="../intro/"
+               class="ah-prev"
+               title="Intro">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Intro</span>
+            </a>
+          
+          
+            <a href="../../projeto6/intro/"
+               class="ah-next"
+               title="Intro">
+              <span class="nav-label">Próximo</span>
+              <span class="nav-title">Intro</span>
+            </a>
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>
