@@ -24,6 +24,9 @@ extra_css:
 nav:
   - 'Home': index.md
   - deadlines.md
+  - "Projeto 0":
+    - classes/projeto0/intro.md
+    - classes/projeto0/enunciado.md
   - "Projeto 1":
     - classes/projeto1/intro.md
     - classes/projeto1/enunciado.md
