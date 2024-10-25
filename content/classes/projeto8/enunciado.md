@@ -1,117 +1,101 @@
-# Projeto Loopback
+# Modulação AM
 
-## Introdução
+## Descritivo
 
-Neste projeto, você irá construir um código em Python para realizar transmissões e recepções seriais simultâneas utilizando um Arduino. O objetivo é enviar uma imagem através da porta serial e receber simultaneamente uma cópia dessa imagem.
+Neste projeto, vamos implementar a transmissão e recepção em Modulação em Amplitude (AM), que permite transmitir sinais de áudio através de diferentes frequências portadoras. Essa prática permitirá compreender os conceitos de modulação e demodulação, além de técnicas de filtragem e análise de sinais.
 
 ## Objetivos
 
-1. Enviar uma imagem (a menor possível) através da porta de comunicação serial.
-2. Receber a imagem simultaneamente ao envio e salvá-la como uma cópia.
-3. Adquirir compreensão do código base de transmissão UART.
+- Transmitir um áudio que ocupa bandas de baixas frequências (até 4 kHz) através de um canal de transmissão acústico, utilizando apenas as bandas entre 10 kHz e 18 kHz da placa de áudio do PC.
+- Após a transmissão via sinal acústico (alto-falante do PC), o receptor deverá gravar o sinal transmitido, demodular e reproduzi-lo de maneira audível novamente.
 
-## Materiais Necessários
-
-- **Hardware:**
-  - Arduino (verificar modelo compatível)
-  - Cabo USB para conexão com o computador
-  - Jumpers para curto-circuitar os pinos RX e TX
-
-- **Software:**
-  - Python instalado no computador
-  - Biblioteca `pyserial` (instalar com `pip install pyserial`)
-  - Arquivos de código fornecidos (5 no total)
-
-## Montagem
-
-### Configuração do Hardware
-
-!!! exercise
-    Conecte o Arduino ao computador via USB. Em seguida, curto-circuite os pinos RX e TX do Arduino:
-
-    - **Passo 1:** Identifique os pinos RX e TX no seu modelo de Arduino.
-    - **Passo 2:** Utilize um jumper para conectar o pino RX ao pino TX.
-
-!!! warning "Atenção!"
-    Em alguns modelos de Arduino (como o UNO), é necessário manter o botão de reset pressionado ou aterrar o pino reset.
-
-### Configuração do Software
-
-1. **Instalação da Biblioteca PySerial:**
-
-   ```bash
-   pip install pyserial
-   ```
-
-1. **Configuração da Porta Serial:***
-
-
-!!! exercise
-    - Verifique em seu gerenciador de dispositivos qual porta COM o Arduino está utilizando.
-    - Ajuste o arquivo de aplicação Python para utilizar essa porta.
 
 ## Implementação
 
-### Manipulação de Imagens em Python
+Para isso, você deverá construir uma aplicação que executa as seguintes tarefas, sequencialmente:
 
-Para transformar uma imagem em uma lista de bytes e vice-versa, você pode usar os seguintes trechos de código:
 
-```python
-# Caminho da imagem original
-img_origin = "original_image.jpg"
+!!! tip "Dica"
+    Em cada etapa da implementação, verifique por meio da Transformada de Fourie se a mesma está corretamente implementada.
 
-# Leitura da imagem e conversão para bytes
-with open(img_origin, 'rb') as f:
-    img_bytes = f.read()
 
-# Salvando a imagem recebida como uma cópia
-img_copy = "copy_image.jpg"
-with open(img_copy, 'wb') as f:
-    f.write(img_bytes)
+### Modulação
+
+1. Faça a leitura de um arquivo de áudio `.wav` de poucos segundos (entre 2 e 5) previamente gravado com uma `taxa de amostragem de 44100 Hz`. Se o áudio for estéreo, utilize apenas um dos canais (esquerdo ou direito) para simplificar a implementação.
+2. Aplique um filtro passa baixas com fc em `4kHz`.
+3. Reproduza o sinal filtrado e verifique que ele continua audível, embora com menos componentes de alta frequência.
+4. Module esse sinal de áudio em AM com uma `portadora de 14.000 Hz`. A portadora deve ser uma senoide começando em zero, gerada com a mesma taxa de amostragem do sinal de áudio.
+5. Calcule e normalize o vetor de áudio modulado de modo que todos os pontos do sinal permaneçam `dentro do intervalo [-1, 1]`. Isso pode ser feito dividindo todos os valores do sinal pelo valor máximo absoluto encontrado.
+6. Reproduza o sinal modulado e observe que pode não ser audível, devido às altas frequências utilizadas (na faixa superior de audição humana). Isso é esperado e indica que a modulação foi realizada corretamente.
+
+!!! tip "Dica"
+    A modulação do sinal poderá ser feita com a multiplicação entre a portadora de amplitude 1 e o sinal importado e normalizado.
+
+
+### Demodulação
+
+7. No outro computador, grave o áudio transmitido através do microfone, utilizando uma `taxa de amostragem de 44.100 Hz`.
+8. Utilize a Transformada de Fourier para verificar que o sinal recebido tem componentes significativas dentro da banda de `10 kHz a 18 kHz`.
+9. Demodule em AM o sinal usando a `frequência da portadora`.
+10. Aplique um filtro passa-baixas com frequência de corte em `4 kHz` para eliminar as componentes de alta frequência e recuperar o sinal de áudio original.
+11. `Reproduza o sinal demodulado` e verifique que ele é audível novamente. Compare a qualidade do áudio com o sinal original filtrado.
+
+!!! tip "Dica"
+    A demodulação deverá ser feita com um filtro passa-baixa na frequência de corte do sinal importado. O módulo do sinal poderá ser obtido com a multiplicação do sinal de áudio e a portadora.
+
+#### Filtro passa baixas 
+
+A função a seguir aplica um filtro passa baixas de frequência de corte : *cutoff_hz* e frequência de amostragem *fs* no sinal *signal* passado. O filtro utiliza a janela de Kaiser para projetar um filtro FIR com uma determinada atenuação de ripples na banda de parada (60 dB) e largura de transição.
+
+```
+from scipy import signal as sg
+
+def LPF(signal, cutoff_hz, fs):
+        #####################
+        # Filtro
+        #####################
+        # https://scipy.github.io/old-wiki/pages/Cookbook/FIRFilter.html
+        nyq_rate = fs/2
+        width = 5.0/nyq_rate
+        ripple_db = 60.0 #dB
+        N , beta = sg.kaiserord(ripple_db, width)
+        taps = sg.firwin(N, cutoff_hz/nyq_rate, window=('kaiser', beta))
+        return( sg.lfilter(taps, 1.0, signal))
 ```
 
-## Transmissão e Recepção Serial
+Exemplo de uso :
 
-!!! exercise
-    Utilize as funções fornecidas nos arquivos de código para enviar e receber os bytes da imagem através da comunicação serial.
+``` 
+    yDemodFiltrado  = LPF(yDemod, 4000, fs)    
+```
 
+Importando um áudio
+````
+    import soundfile as sf
+
+    audio, samplerate = sf.read('dois.wav')
+    yAudio = audio[:,1] # Se o áudio for estério
+    samplesAudio = len(yAudio)
+````
 
 ## Entrega e Avaliação
 
-### Conceito C
+1. Fazer uma apresentação ao seu professor gravando um áudio, filtrando, modulando e executando esse áudio (antes e depois da modulação). Um segundo computador deve receber esse áudio modulado, demodular e executar o áudio demodulado. Seu professor poderá pedir explicações.
 
-- Demonstrar a transmissão e recepção da imagem ocorrendo corretamente.
+2. Obrigatório: Apresentar os seguintes gráficos, no domínio do tempo e da frequência (Fourier):
 
-### Conceito B
+    - Gráfico 1: Sinal de áudio original normalizado – domínio do tempo.
+    - Gráfico 2: Sinal de áudio filtrado – domínio do tempo.
+    - Gráfico 3: Sinal de áudio filtrado – domínio da frequência.
+    - Gráfico 4: Sinal de áudio modulado – domínio do tempo.
+    - Gráfico 5: Sinal de áudio modulado – domínio da frequência (verifique se as bandas não permitidas não estão sendo ocupadas).
+    - Gráfico 6: Sinal de áudio recebido (após transmissão) – domínio da frequência.
+    - Gráfico 7: Sinal de áudio demodulado – domínio do tempo.
+    - Gráfico 8: Sinal de áudio demodulado – domínio da frequência.
+    - Gráfico 9: Sinal de áudio demodulado e filtrado – domínio da frequência.
 
-- Responder às perguntas feitas pelo professor sobre as seguintes funções:
-
-  - `getBufferLen`
-  - `getAllBuffer`
-  - `getBuffer`
-  - `getNData`
-  - `sendBuffer`
-
-### Conceito B+
-
-- Entender e explicar os seguintes termos da comunicação UART:
-
-  1. **Transmissão assíncrona**
-  2. **UART – Start bit**
-  3. **UART – Stop bit**
-  4. **UART – TX, RX, GND**
-  5. **UART – Baud rate**
-  6. **UART – Bit rate**
-  7. **UART – Buffer**
-  8. **UART – Frame**
-  9. **UART – Bit de Paridade**
-  10. **UART – CRC**
-
-### Conceito A+
-
-- Corrigir a função `getStatus`, que não está funcionando corretamente, e apresentar uma solução.
 
 ## Data Limite
 
-- **15/08** - Após essa data, a nota terá uma redução de 25% a cada semana de atraso.
+- **xx/11** - Após essa data, a nota terá uma redução de 25% a cada semana de atraso.
 
