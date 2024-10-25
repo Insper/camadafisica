@@ -24,27 +24,27 @@ extra_css:
 nav:
   - 'Home': index.md
   - deadlines.md
-  - "Projeto 0":
-    - classes/projeto0/intro.md
-    - classes/projeto0/enunciado.md
-  - "Projeto 1":
-    - classes/projeto1/intro.md
-    - classes/projeto1/enunciado.md
-  - "Projeto 2":
-    - classes/projeto2/intro.md
-    - classes/projeto2/enunciado.md
-  - "Projeto 3":
-    - classes/projeto3/intro.md
-    - classes/projeto3/enunciado.md
-  - "Projeto 4":
-    - classes/projeto4/intro.md
-    - classes/projeto4/enunciado.md
-  - "Projeto 5":
-    - classes/projeto5/intro.md
-    - classes/projeto5/enunciado.md
-  - "Projeto 6":
-    - classes/projeto6/intro.md
-    - classes/projeto6/enunciado.md
+  # - "Projeto 0":
+  #   - classes/projeto0/intro.md
+  #   - classes/projeto0/enunciado.md
+  # - "Projeto 1":
+  #   - classes/projeto1/intro.md
+  #   - classes/projeto1/enunciado.md
+  # - "Projeto 2":
+  #   - classes/projeto2/intro.md
+  #   - classes/projeto2/enunciado.md
+  # - "Projeto 3":
+  #   - classes/projeto3/intro.md
+  #   - classes/projeto3/enunciado.md
+  # - "Projeto 4":
+  #   - classes/projeto4/intro.md
+  #   - classes/projeto4/enunciado.md
+  # - "Projeto 5":
+  #   - classes/projeto5/intro.md
+  #   - classes/projeto5/enunciado.md
+  # - "Projeto 6":
+  #   - classes/projeto6/intro.md
+  #   - classes/projeto6/enunciado.md
   - "Projeto 7":
     - classes/projeto7/intro.md
     - classes/projeto7/enunciado.md
@@ -54,8 +54,8 @@ nav:
   - "Projeto 9":
     - classes/projeto9/intro.md
     - classes/projeto9/enunciado.md
-  - "Projeto extra":
-    - classes/02-api/api_deploy.md
+  # - "Projeto extra":
+  #   - classes/02-api/api_deploy.md
 
 
 
