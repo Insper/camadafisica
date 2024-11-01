@@ -1,6 +1,8 @@
-# Introdução à Modulação
+# Introdução à Modulação e Demodulação
 
 > - arquivo pdf do projeto: [Modulação AM](slides.pdf)
+
+## Modulação
 
 A modulação é um processo utilzado em telecomunicações que permite a transmissão de sinais de informação (como voz ou dados) através de um meio de comunicação, utilizando uma onda portadora. 
 
@@ -9,6 +11,11 @@ A onda portadora é uma onda de alta frequência que pode ser facilmente transmi
 Ao modular esta portadora com o sinal de informação, conseguimos "carregar" a informação ao longo de distâncias maiores e com menor perda de qualidade. 
 
 Essa técnica é aplicada em áreas como processamento de sinais digitais, sistemas embarcados e redes de comunicação.
+
+
+!!! exercise
+    Pense em exemplos cotidianos onde a modulação é essencial (dica: rádio, televisão, telefonia móvel). Pesquise sobre o tipo de modulação e transmissão.
+
 
 As principais propriedades que podem ser modificadas são:
 
@@ -25,16 +32,21 @@ Os principais tipos de modulação são:
 
 ### Modulação Analógica
 
-- Modulação em Amplitude (AM)
-- Modulação em Frequência (FM)
-- Modulação em Fase (PM)
+- Modulação em Amplitude (AM): Modifica a amplitude da portadora conforme o sinal de informação.
+- Modulação em Frequência (FM): Altera a frequência da portadora de acordo com o sinal modulante.
+- Modulação em Fase (PM): Ajusta a fase da portadora baseada no sinal de entrada.
+
 
 ### Modulação Digital
 
-- Modulação por Deslocamento de Amplitude (ASK)
-- Modulação por Deslocamento de Frequência (FSK)
-- Modulação por Deslocamento de Fase (PSK)
-- Modulação em Quadratura de Amplitude (QAM)
+- ASK (Amplitude Shift Keying): Varia a amplitude para representar bits.
+- FSK (Frequency Shift Keying): Usa diferentes frequências para bits "0" e "1".
+- PSK (Phase Shift Keying): Altera a fase para representar dados binários.
+- QAM (Quadrature Amplitude Modulation): Combina amplitude e fase para transmitir mais bits por símbolo.
+
+
+!!! exercise
+    Pesquise aplicações reais de cada tipo de modulação digital.
 
 
 ## Modulação AM (Amplitude Modulation)
@@ -59,6 +71,7 @@ Onde:
 - \( f_c \): Frequência da portadora.
 - \( f_m \): Frequência do sinal modulante.
 
+
 ## Índice de Modulação
 
 O **índice de modulação** (\( m \)) expressa a profundidade da modulação:
@@ -80,14 +93,27 @@ O espectro de um sinal AM consiste em:
 
 ![Espectro de Frequência AM](am-modfreq.png)
 
-## Vantagens da Modulação AM
 
-- **Simplicidade de Implementação**: Circuitos menos complexos para modulação e demodulação.
-- **Largura de Banda**: Requer largura de banda igual ao dobro da frequência máxima do sinal modulante, o que é relativamente eficiente para sinais de voz.
+## Demodulação
 
-## Aplicações da Modulação AM
+A demodulação é o processo de recuperar o sinal original (informação) a partir do sinal modulado recebido.
 
-- **Radiodifusão AM**: Transmissões de rádio em ondas médias e curtas.
-- **Comunicações Aeronáuticas**: Utilizada em sistemas de comunicação entre aeronaves e controladores de tráfego aéreo.
-- **Radiocomunicação de Amadores**: Frequências designadas para operadores de rádio amador.
+Quando um sinal modulado é transmitido através de um meio, ele chega ao receptor ainda "carregado" na onda portadora. Para extrair a informação útil (como áudio ou dados), precisamos remover a portadora, deixando apenas o sinal original.
+
+!!! exercise 
+    Pense em como o rádio do seu carro converte ondas de rádio em som audível. Qual o papel da demodulação nesse processo?
+
+
+
+## Demodulação AM (Amplitude Modulation)
+
+Em AM, o sinal modulado é uma portadora cuja amplitude varia de acordo com o sinal de informação. A demodulação AM visa extrair essas variações de amplitude, descartando a portadora de alta frequência.
+
+### Processo Geral:
+
+- Recepção do Sinal Modulado: O sinal AM chega ao receptor através da antena.
+- Filtragem Inicial: Um filtro passa-faixa seleciona a frequência desejada, atenuando sinais indesejados.
+- Detecção da Envoltória: Extrai a amplitude (envoltória) do sinal modulado.
+- Filtragem de Ruído: Um filtro passa-baixa remove componentes de alta frequência residuais.
+- Amplificação: O sinal recuperado é amplificado para uso final.
 
