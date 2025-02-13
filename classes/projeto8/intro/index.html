@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="introducao-a-modulacao-e-demodulacao">Introdução à Modulação e Demodulação</h1>
+<blockquote>
+<ul>
+<li>arquivo pdf do projeto: <a href="../slides.pdf">Modulação AM</a></li>
+</ul>
+</blockquote>
+<h2 id="modulacao">Modulação</h2>
+<p>A modulação é um processo utilzado em telecomunicações que permite a transmissão de sinais de informação (como voz ou dados) através de um meio de comunicação, utilizando uma onda portadora. </p>
+<p>A onda portadora é uma onda de alta frequência que pode ser facilmente transmitida por meios como cabos, fibras ópticas ou ondas de rádio. </p>
+<p>Ao modular esta portadora com o sinal de informação, conseguimos "carregar" a informação ao longo de distâncias maiores e com menor perda de qualidade. </p>
+<p>Essa técnica é aplicada em áreas como processamento de sinais digitais, sistemas embarcados e redes de comunicação.</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_1" id="exercise_1_0">
+<p class="admonition-title">Exercício 1</p>
+<form class="exercise-form">
+<p>Pense em exemplos cotidianos onde a modulação é essencial (dica: rádio, televisão, telefonia móvel). Pesquise sobre o tipo de modulação e transmissão.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<p>As principais propriedades que podem ser modificadas são:</p>
+<ul>
+<li>Amplitude</li>
+<li>Frequência</li>
+<li>Fase</li>
+</ul>
+<p>Este processo permite que o sinal de informação seja transmitido a distâncias maiores e com melhor eficiência.</p>
+<h2 id="tipos-de-modulacao">Tipos de Modulação</h2>
+<p>Os principais tipos de modulação são:</p>
+<h3 id="modulacao-analogica">Modulação Analógica</h3>
+<ul>
+<li>Modulação em Amplitude (AM): Modifica a amplitude da portadora conforme o sinal de informação.</li>
+<li>Modulação em Frequência (FM): Altera a frequência da portadora de acordo com o sinal modulante.</li>
+<li>Modulação em Fase (PM): Ajusta a fase da portadora baseada no sinal de entrada.</li>
+</ul>
+<h3 id="modulacao-digital">Modulação Digital</h3>
+<ul>
+<li>ASK (Amplitude Shift Keying): Varia a amplitude para representar bits.</li>
+<li>FSK (Frequency Shift Keying): Usa diferentes frequências para bits "0" e "1".</li>
+<li>PSK (Phase Shift Keying): Altera a fase para representar dados binários.</li>
+<li>QAM (Quadrature Amplitude Modulation): Combina amplitude e fase para transmitir mais bits por símbolo.</li>
+</ul>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_2" id="exercise_2_0">
+<p class="admonition-title">Exercício 2</p>
+<form class="exercise-form">
+<p>Pesquise aplicações reais de cada tipo de modulação digital.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h2 id="modulacao-am-amplitude-modulation">Modulação AM (Amplitude Modulation)</h2>
+<p>A <code>Modulação em Amplitude (AM)</code> é uma técnica na qual a amplitude da onda portadora é variada de acordo com o sinal de informação que se deseja transmitir. Nesta modulação, a frequência e a fase da portadora permanecem constantes, enquanto sua amplitude reflete as variações do sinal de áudio ou outro tipo de informação.</p>
+<p><img alt="Gráfico de Modulação AM" src="../am-modulation.png" /></p>
+<h2 id="principio-de-funcionamento">Princípio de Funcionamento</h2>
+<p>A equação de um sinal AM é dada por:</p>
+<p>$$
+s(t) = [A_c + A_m \cos(2\pi f_m t)] \cos(2\pi f_c t)
+$$</p>
+<p>Onde:</p>
+<ul>
+<li>( s(t) ): Sinal modulado em amplitude.</li>
+<li>( A_c ): Amplitude da portadora.</li>
+<li>( A_m ): Amplitude do sinal modulante.</li>
+<li>( f_c ): Frequência da portadora.</li>
+<li>( f_m ): Frequência do sinal modulante.</li>
+</ul>
+<h2 id="indice-de-modulacao">Índice de Modulação</h2>
+<p>O <strong>índice de modulação</strong> (( m )) expressa a profundidade da modulação:</p>
+<p>$$
+m = \frac{A_m}{A_c}
+$$</p>
+<ul>
+<li>( 0 \leq m \leq 1 ): Modulação normal.</li>
+<li>( m &gt; 1 ): Sobremodulação (causa distorção).</li>
+</ul>
+<h2 id="espectro-de-frequencia">Espectro de Frequência</h2>
+<p>O espectro de um sinal AM consiste em:</p>
+<ul>
+<li><strong>Frequência Portadora</strong> (( f_c ))</li>
+<li><strong>Banda Lateral Superior</strong> (( f_c + f_m ))</li>
+<li><strong>Banda Lateral Inferior</strong> (( f_c - f_m ))</li>
+</ul>
+<p><img alt="Espectro de Frequência AM" src="../am-modfreq.png" /></p>
+<h2 id="demodulacao">Demodulação</h2>
+<p>A demodulação é o processo de recuperar o sinal original (informação) a partir do sinal modulado recebido.</p>
+<p>Quando um sinal modulado é transmitido através de um meio, ele chega ao receptor ainda "carregado" na onda portadora. Para extrair a informação útil (como áudio ou dados), precisamos remover a portadora, deixando apenas o sinal original.</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_3" id="exercise_3_0">
+<p class="admonition-title">Exercício 3</p>
+<form class="exercise-form">
+<p>Pense em como o rádio do seu carro converte ondas de rádio em som audível. Qual o papel da demodulação nesse processo?</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h2 id="demodulacao-am-amplitude-modulation">Demodulação AM (Amplitude Modulation)</h2>
+<p>Em AM, o sinal modulado é uma portadora cuja amplitude varia de acordo com o sinal de informação. A demodulação AM visa extrair essas variações de amplitude, descartando a portadora de alta frequência.</p>
+<h3 id="processo-geral">Processo Geral:</h3>
+<ul>
+<li>Recepção do Sinal Modulado: O sinal AM chega ao receptor através da antena.</li>
+<li>Filtragem Inicial: Um filtro passa-faixa seleciona a frequência desejada, atenuando sinais indesejados.</li>
+<li>Detecção da Envoltória: Extrai a amplitude (envoltória) do sinal modulado.</li>
+<li>Filtragem de Ruído: Um filtro passa-baixa remove componentes de alta frequência residuais.</li>
+<li>Amplificação: O sinal recuperado é amplificado para uso final.</li>
+</ul>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

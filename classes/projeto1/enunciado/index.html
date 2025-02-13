@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Enunciado - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item opened">
+    <span class="ah-togglable-handle">Projeto 1</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+
+    <li class="active ah-togglable-item opened">
+      <span class="ah-togglable-handle">Enunciado</span>
+      <ul>
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#neste-projeto-voce-devera-construir-um-codigo-em-python-para-transmissao-e-recepcao-serial-simultaneas">Neste projeto você deverá construir um código em Python para transmissão e recepção serial simultâneas!</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#objetivo">Objetivo:</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#material">Material:</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#montagem">Montagem:</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#a-estrutura-da-camada-enlace">A estrutura da camada enlace:</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#imagens-em-python">Imagens em python.</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#pronto-consegui">Pronto! Consegui!</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#entrega">Entrega</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#conceito-c-mostrar-a-transmissao-e-recepcao-da-imagem-ocorrendo-corretamente">Conceito C: Mostrar a transmissão e recepção da imagem ocorrendo corretamente.</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#conceito-b-responder-as-questoes-feitas-pelo-seu-professor-no-momento-da-apresentacao-a-respeito-das">Conceito B: responder as questões feitas pelo seu professor (no momento da apresentação) a respeito das</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#conceito-b-alem-dos-conceitos-c-e-b-tente-entender-o-que-significa-cada-um-dos-10-termos-presentes-na">Conceito B+: Além dos conceitos C e B, tente entender o que significa cada um dos 10 termos presentes na</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#conceito-a-a-funcao-getstatus-nao-esta-funcionando-corretamente-verifique-o-que-essa-funcao-deveria">Conceito A+: A função getStatus não está funcionando corretamente. Verifique o que essa função deveria</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#data-limite-13-0-2-apos-esse-periodo-sua-nota-tera-uma-reducao-de-25-a-cada-semana">Data limite: 13 /0 2 - Após esse período sua nota terá uma redução de 25% a cada semana.</a>
+              </li>
+            
+        
+      </ul>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                  
+                    <li>Projeto 1</li>
+                  
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="projeto-1-loop-back">PROJETO 1 - LOOP BACK</h1>
+<h4 id="neste-projeto-voce-devera-construir-um-codigo-em-python-para-transmissao-e-recepcao-serial-simultaneas">Neste projeto você deverá construir um código em Python para transmissão e recepção serial simultâneas!</h4>
+<p>O software será uma camada entre o usuário e o chip UART, que irá sequenciar os bits de cada byte seguindo o
+devido protocolo. Para isso voce usará os 5 arquivos fornecidos. Por ora, você deverá apenas editar o arquivo
+“aplicação.py”. Os demais arquivos farão o trabalho de fornecer ao chip UART do seu computador os bytes que você deseja enviar através da função de envio e também disponibilizar os dados recebidos.</p>
+<p>Os arquivos fornecidos já estão prontos para o envio e recebimento de uma pequena mensagem de 4 bytes, ou seja,
+se voce rodar o main, 4 bytes serão enviados, rebatidos pelos arduínos (conforme explicado em aula) e recebido pela aplicação, sendo printados.</p>
+<p>Leia com atenção os comentários no código.</p>
+<h3 id="objetivo">Objetivo:</h3>
+<p>Ao rodar seu arquivo aplicação, o seu software deve:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1) Enviar uma imagem (a menor possível) através da porta de comunicação serial.
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>2) Receber a imagem simultaneamente ao envio e salvá-la como uma cópia. Para isso a recepção do Arduino ( pino rx ) deve estar curto-circuitada com o pino de transmissão ( pino tx ).
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>3) Adquirir compreensão do código base de transmissão UART.
+</code></pre></div>
+<h3 id="material">Material:</h3>
+<ul>
+<li>Você irá utilizar um Arduino, um computador e 5 arquivos código fornecidos.</li>
+<li>No console python, 'pip install pyserial'</li>
+<li>Verificar em gerenciador de dispositivos qual porta COM está o Aduino. Ajustar o arquivo aplicação para
+    essa porta!</li>
+</ul>
+<h3 id="montagem">Montagem:</h3>
+<p>Seu sistema operacional irá abrir uma porta de comunicação serial com o Arduino. Através dessa comunicação você
+terá acesso a tudo que o Arduino enviar ao seu computador (saindo do pino TX do Arduino e RX da sua porta USB).
+Tudo que seu computador enviar ao Arduino (saindo do pino TX da sua USB em seu computador). Desta maneira, ao
+conectar o Arduino ao seu computador, o pino de envio do seu computador (TX) estará conectado ao pino de
+recepção do Arduino (RX). Da mesma forma, o pino de envio do Arduino (TX) estará conectado ao pino de recepção
+do seu computador (RX).</p>
+<p>O queremos é que ao enviarmos uma mensagem (lista de bytes ou bytearray) ao Arduino, este responda com os
+mesmos bytes. Queremos que o Arduino seja um espelho para os bytes enviados. Para isso basta que conectemos o
+pino TX do Arduino ao seu pino RX! Assim, ao enviarmos uma sequência de bytes para o RX do Arduino, a mesma
+sequência de zeros e uns são produzidas no pino de envio do Arduino e recebidos de volta em seu computador.
+Observe a figura:</p>
+<p>Você precisará verificar qual os pinos TX e RX de seu Arduino.</p>
+<p><strong>ATENÇÃO! ALGUNS ARDUINOS (UNO) PRECISAM FICAR COM O BOTAO DE RESET PRESSIONADO. OU O PINO RESET
+ATERRADO!</strong></p>
+<h3 id="a-estrutura-da-camada-enlace">A estrutura da camada enlace:</h3>
+<p>O maior desafio e objetivo do projeto 1 é que você entenda como as funções das classes fazem o trabalho de envio e
+recebimento full-duplex representado nesse esquema. Você deve seguir as funções envolvidas no envio e
+recebimento de um bytearray. Se familiarizar com elas. Ser capaz de utiliza-las, modifica-las e responder a algumas
+perguntas sobre elas. Para isso, não tem outro modo a não ser se debruçar sobre as funções, seguindo todas as
+chamadas de métodos envolvidos no recebimento “enlace.get()” e recebimento emlace.send()”.</p>
+<h3 id="imagens-em-python">Imagens em python.</h3>
+<p>Você terá que transformar uma imagem em uma lista de bytes. No mesmo modo, salvar a lista de bytes recebida,
+como imagem. Para isso pode se basear nos seguintes trechos de código:</p>
+<h4 id="caminhos-das-imagens">Caminhos das imagens</h4>
+<h4 id="lista-de-bytes-com-a-imagem-a-ser-transmitida">Lista de bytes com a imagem a ser transmitida</h4>
+<h4 id="engenharia-da-computacao-rodrigo-carareto">ENGENHARIA DA COMPUTAÇÃO - Rodrigo Carareto</h4>
+<h4 id="escreve-arquivo-copia">Escreve arquivo cópia</h4>
+<h3 id="pronto-consegui">Pronto! Consegui!</h3>
+<p>Se você conseguiu fazer o arquivo cópia através da comunicação serial e este arquivo abre normalmente, parabéns!
+Vamos aproveitar então para explorar um pouco mais nossas classes. Iremos fazer um estudo mais profundo das
+classes na aula 2, mas já é necessário que entendam as funções e estrutura dos arquivos.</p>
+<h3 id="entrega">Entrega</h3>
+<p>Os projetos dessa disciplina serão sempre avaliados presencialmente. Um dos seus professores observar uma breve
+apresentação feita por você e sua dupla e lhes fazer algumas perguntas. Isso ocorrerá em um momento solicitado
+por você, dentro de uma data limite. Caso você solicite a apresentação após a data limite, você será penalizado.</p>
+<h3 id="conceito-c-mostrar-a-transmissao-e-recepcao-da-imagem-ocorrendo-corretamente">Conceito C: Mostrar a transmissão e recepção da imagem ocorrendo corretamente.</h3>
+<h3 id="conceito-b-responder-as-questoes-feitas-pelo-seu-professor-no-momento-da-apresentacao-a-respeito-das">Conceito B: responder as questões feitas pelo seu professor (no momento da apresentação) a respeito das</h3>
+<p>seguintes funções:</p>
+<ul>
+<li>getBufferLen</li>
+<li>getAllBuffer</li>
+<li>getBuffer</li>
+<li>getNData</li>
+<li>sendBuffer</li>
+</ul>
+<h3 id="conceito-b-alem-dos-conceitos-c-e-b-tente-entender-o-que-significa-cada-um-dos-10-termos-presentes-na">Conceito B+: Além dos conceitos C e B, tente entender o que significa cada um dos 10 termos presentes na</h3>
+<p><div class="language-text highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>comunicação UART:
+</code></pre></div>
+1. Transmissão assíncrona
+2. UART – Start bit
+3. UART – Stop bit
+4. UART – TX, RX, GND
+5. UART – Baud rate
+6. UART – Bit rate
+7. UART – Buffer
+8. UART – Frame
+9. UART – Bit de Paridade
+10. UART – CRC</p>
+<h3 id="conceito-a-a-funcao-getstatus-nao-esta-funcionando-corretamente-verifique-o-que-essa-funcao-deveria">Conceito A+: A função getStatus não está funcionando corretamente. Verifique o que essa função deveria</h3>
+<p>retornar e encontre uma solução para corrigi-la.</p>
+<h3 id="data-limite-13-0-2-apos-esse-periodo-sua-nota-tera-uma-reducao-de-25-a-cada-semana">Data limite: 13 /0 2 - Após esse período sua nota terá uma redução de 25% a cada semana.</h3>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+            <a href="../intro/"
+               class="ah-prev"
+               title="Intro">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Intro</span>
+            </a>
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>
