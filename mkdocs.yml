@@ -24,12 +24,12 @@ extra_css:
 nav:
   - 'Home': index.md
   - deadlines.md
-  # - "Projeto 0":
-  #   - classes/projeto0/intro.md
-  #   - classes/projeto0/enunciado.md
-  # - "Projeto 1":
-  #   - classes/projeto1/intro.md
-  #   - classes/projeto1/enunciado.md
+  - "Projeto 0":
+    - classes/projeto0/intro.md
+    - classes/projeto0/enunciado.md
+  - "Projeto 1":
+    - classes/projeto1/intro.md
+    - classes/projeto1/enunciado.md
   # - "Projeto 2":
   #   - classes/projeto2/intro.md
   #   - classes/projeto2/enunciado.md
@@ -45,16 +45,16 @@ nav:
   # - "Projeto 6":
   #   - classes/projeto6/intro.md
   #   - classes/projeto6/enunciado.md
-  - "Projeto 7":
-    - classes/projeto7/intro.md
-    - classes/projeto7/enunciado.md
-  - "Projeto 8 - modulação AM":
-    - classes/projeto8/intro.md
-    - classes/projeto8/enunciado.md
-  - "Projeto 9":
-    - classes/projeto9/intro.md
-    - classes/projeto9/enunciado.md
-  # - "Projeto extra":
+  # - "Projeto 7":
+  #   - classes/projeto7/intro.md
+  #   - classes/projeto7/enunciado.md
+  # - "Projeto 8 - modulação AM":
+  #   - classes/projeto8/intro.md
+  #   - classes/projeto8/enunciado.md
+  # - "Projeto 9":
+  #   - classes/projeto9/intro.md
+  #   - classes/projeto9/enunciado.md
+  #   - "Projeto extra":
   #   - classes/02-api/api_deploy.md
 
 
