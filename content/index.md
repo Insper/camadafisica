@@ -1,6 +1,6 @@
 # Camada Física da Computação
 
-Essa página contém todos os materiais para o curso de Camada Física da Computação de 2024-b. 
+Essa página contém todos os materiais para o curso de Camada Física da Computação de 2025-b. 
 
 ## Estrutura do Curso
 
@@ -55,22 +55,16 @@ Esta disciplina explora os fundamentos teóricos e práticos da camada física e
 - Familiarizar-se com os padrões e protocolos relacionados à camada física.
 - Aplicar conhecimentos em atividades práticas e laboratoriais em grupo.
 
-## Repositório 
-
-Github da disciplina, pode ser acessado no link:
-
-- [Github Camada Física](https://github.com/Insper/camadafisica). 
-
 ## Aulas
 
 **Laboratório de Informática** - Sala 404
 
-- **Quinta-feira** 13:30 
-- **Sexta-feira** 15:45
+- **Quinta-feira** 14:15 
+- **Sexta-feira** 16:30
 
 Horário de atendimento: 
 
-- **Segunda-feira** xx:00  - sala xx
+- **Segunda-feira** xx:00  - Sala 404
 
 ## Equipe
 
