@@ -2,6 +2,6 @@
 
 Data de entrega de cada projeto
 
-| Start Date | Projeto                          | Entrega |
+| Data Inicio | Projeto                          | Entrega |
 |------------|-------------------------------------|----------|
-| Aug-05     | [Aps01](classes/01-intro/aps01_part_1.md)  | Aug-15   |
+| 14-Agosto  | [Projeto-01](classes/projeto1/enunciado.md)  | 22-Agosto   |

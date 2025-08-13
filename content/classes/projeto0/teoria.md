@@ -4,6 +4,8 @@
 
 Esta documentação apresenta os conceitos fundamentais necessários para compreender e realizar os exercícios práticos sobre representação de dados na computação. Durante o estudo, você encontrará exercícios interativos que o ajudarão a fixar os conceitos aprendidos.
 
+[notebook](atividade-aula1.ipynb)
+
 ## Sistemas de Numeração Fundamentais
 
 Na computação, trabalhamos constantemente com diferentes sistemas de numeração. Embora estejamos acostumados com o sistema decimal no dia a dia, os computadores operam internamente com o sistema binário, e frequentemente utilizamos o hexadecimal como uma forma mais compacta de representar dados binários.

@@ -1,219 +1,136 @@
-# Projeto 1: Loop-back
+# Projeto 1 – Loop Back
+
+Neste projeto, você deverá construir um código em **Python** para **transmissão e recepção serial simultâneas**.  
+O software funcionará como **camada intermediária** entre o usuário e o chip UART, sequenciando os bits de cada byte de acordo com o protocolo.
+
+Você utilizará **5 arquivos fornecidos** e deverá **editar apenas o arquivo `aplicação.py`**.  
+Os demais arquivos já estão prontos para enviar bytes ao chip UART e receber dados.
+
+
 
 ## Objetivo
 
-Implementar um sistema de comunicação serial loop-back utilizando a porta USB do computador. O sistema deve ser capaz de transmitir e receber dados através de um cabo USB, demonstrando os conceitos básicos de comunicação serial.
+Ao rodar seu arquivo `aplicação.py`, o software deve:
 
-## Descrição
+1. **Enviar** uma imagem (o menor tamanho possível) através da porta de comunicação serial.
+2. **Receber** a imagem simultaneamente ao envio e salvá-la como uma cópia.
+   - Para isso, o pino RX do Arduino deve estar curto-circuitado com o pino TX.
+3. **Compreender** o código-base de transmissão UART.
 
-Neste projeto, você irá desenvolver um programa que:
 
-1. Estabelece uma comunicação serial através da porta USB
-2. Envia dados de um terminal para outro
-3. Recebe os dados enviados e os exibe no terminal de destino
-4. Implementa um protocolo básico de comunicação
+## Material Necessário
 
-## Requisitos
+- Arduino  
+- Computador  
+- 5 arquivos de código fornecidos pelo professor  
+- **No console Python:**  
+  ```bash
+  pip install pyserial
+  ```
+- Verificar no **Gerenciador de Dispositivos** qual porta COM está o Arduino e ajustar no `aplicação.py`.
 
-- Python 3.x
-- Biblioteca pyserial
-- Cabo USB
-- Dois terminais de computador
 
-## Entregáveis
+## Montagem do Sistema
 
-1. Código fonte do programa implementado
-2. Relatório técnico contendo:
-   - Descrição da implementação
-   - Análise do protocolo de comunicação
-   - Resultados dos testes realizados
-   - Discussão sobre possíveis melhorias
+![alt text](image-9.png)
 
-## Avaliação
+- Ao conectar o Arduino ao computador:
+  - **TX do computador** → **RX do Arduino**
+  - **TX do Arduino** → **RX do computador**
+- Para criar o loopback:
+  - Conecte o **pino TX do Arduino** ao **pino RX do próprio Arduino**.
+- Alguns Arduinos (UNO) precisam:
+  - Ficar com o **botão RESET pressionado**  
+  - Ou **pino RESET aterrado**.
 
-O projeto será avaliado considerando:
+![alt text](image-10.png)
 
-- Funcionalidade do sistema implementado
-- Qualidade do código e documentação
-- Relatório técnico
-- Apresentação oral
 
-## Datas
+## Funcionamento Esperado
 
-- Entrega: [Data a ser definida]
-- Apresentação: [Data a ser definida]
+- Enviar uma sequência de bytes ou bytearray para o **RX do Arduino**  
+- Receber a mesma sequência de bytes de volta no computador (**espelho**)
+- O envio e recepção acontecem **full-duplex**.
 
-## Recursos Adicionais
+---
 
-- [Link para documentação da biblioteca pyserial]
-- [Link para tutoriais sobre comunicação serial]
-- [Link para exemplos de código]
+## Estrutura da Camada Enlace
 
-## Detalhes Técnicos
+O maior desafio é compreender como as funções das classes realizam o envio e recepção **full-duplex**.
 
-### Estrutura da Camada de Enlace
+![alt text](image-11.png)
 
-O maior desafio e objetivo do projeto 1 é que você entenda como as funções das classes fazem o trabalho de envio e recebimento full-duplex representado nesse esquema. Você deve seguir as funções envolvidas no envio e recebimento de um bytearray. Se familiarizar com elas. Ser capaz de utiliza-las, modifica-las e responder a algumas perguntas sobre elas.
+Você deve:
+- Seguir o fluxo das funções no envio e no recebimento.
+- Entender e ser capaz de modificar essas funções.
+- Trabalhar com **imagem em Python**:
+  - Converter imagem → lista de bytes
+  - Receber lista de bytes → salvar como imagem
 
-### Imagens em Python
+---
 
-Você terá que transformar uma imagem em uma lista de bytes. No mesmo modo, salvar a lista de bytes recebida, como imagem. Para isso pode se basear nos seguintes trechos de código:
+## Exemplo de Fluxo para Imagens
 
+1. Definir caminho da imagem.
 ```python
-# Caminhos das imagens
-# Lista de bytes com a imagem a ser transmitida
+# Endereco da imagem a ser transmitida
+imageR = "./imgs/image.png"
 
-# Escreve arquivo cópia
+# Endereco da imagem a ser salva
+imageW = "./imgs/recebidaCopia.png"
 ```
-
-### Conceitos de Avaliação
-
-#### Conceito C
-- Mostrar a transmissão e recepção da imagem ocorrendo corretamente.
-
-#### Conceito B
-- Responder as questões feitas pelo seu professor (no momento da apresentação) a respeito das seguintes funções:
-  - getBufferLen
-  - getAllBuffer
-  - getBuffer
-  - getNData
-  - sendBuffer
-
-#### Conceito B+
-- Além dos conceitos C e B, entender o que significa cada um dos 10 termos presentes na comunicação UART:
-  1. Transmissão assíncrona
-  2. UART – Start bit
-  3. UART – Stop bit
-  4. UART – TX, RX, GND
-  5. UART – Baud rate
-  6. UART – Bit rate
-  7. UART – Buffer
-  8. UART – Frame
-  9. UART – Bit de Paridade
-  10. UART – CRC
-
-#### Conceito A+
-- A função getStatus não está funcionando corretamente. Verifique o que essa função deveria retornar e encontre uma solução para corrigi-la.
-
-### Data Limite
-- 13/02 - Após esse período sua nota terá uma redução de 25% a cada semana.
-
-# PROJETO 1 - LOOP BACK
-
-#### Neste projeto você deverá construir um código em Python para transmissão e recepção serial simultâneas!
-
-O software será uma camada entre o usuário e o chip UART, que irá sequenciar os bits de cada byte seguindo o
-devido protocolo. Para isso voce usará os 5 arquivos fornecidos. Por ora, você deverá apenas editar o arquivo
-"aplicação.py". Os demais arquivos farão o trabalho de fornecer ao chip UART do seu computador os bytes que você deseja enviar através da função de envio e também disponibilizar os dados recebidos.
-
-Os arquivos fornecidos já estão prontos para o envio e recebimento de uma pequena mensagem de 4 bytes, ou seja,
-se voce rodar o main, 4 bytes serão enviados, rebatidos pelos arduínos (conforme explicado em aula) e recebido pela aplicação, sendo printados.
-
-Leia com atenção os comentários no código.
-
-### Objetivo:
-
-Ao rodar seu arquivo aplicação, o seu software deve:
-
+2. Ler imagem e converter para `bytearray`.
+```python
+# Carrega imagem
+print("Carregando imagem para transmissão :)")
+print("- {}".format(imageR))
+print("-------------------------")
+txBuffer = open(imageR, 'rb').read()
 ```
-1) Enviar uma imagem (a menor possível) através da porta de comunicação serial.
-2) Receber a imagem simultaneamente ao envio e salvá-la como uma cópia. Para isso a recepção do Arduino ( pino rx ) deve estar curto-circuitada com o pino de transmissão ( pino tx ).
-3) Adquirir compreensão do código base de transmissão UART.
+3. Enviar via porta serial.
+4. Receber os bytes.
+5. Salvar como **arquivo cópia**.
+```python
+print("Salvando dados no arquivo :")
+print(" - {}".format(imageW))
+f = open(imageW, 'wb')
+f.write(rxBuffer)
+
+# Fecha arquivo de imagem
+f.close()
 ```
-### Material:
-
-- Você irá utilizar um Arduino, um computador e 5 arquivos código fornecidos.
-- No console python, 'pip install pyserial'
-- Verificar em gerenciador de dispositivos qual porta COM está o Aduino. Ajustar o arquivo aplicação para
-    essa porta!
-
-### Montagem:
-
-Seu sistema operacional irá abrir uma porta de comunicação serial com o Arduino. Através dessa comunicação você
-terá acesso a tudo que o Arduino enviar ao seu computador (saindo do pino TX do Arduino e RX da sua porta USB).
-Tudo que seu computador enviar ao Arduino (saindo do pino TX da sua USB em seu computador). Desta maneira, ao
-conectar o Arduino ao seu computador, o pino de envio do seu computador (TX) estará conectado ao pino de
-recepção do Arduino (RX). Da mesma forma, o pino de envio do Arduino (TX) estará conectado ao pino de recepção
-do seu computador (RX).
-
-O queremos é que ao enviarmos uma mensagem (lista de bytes ou bytearray) ao Arduino, este responda com os
-mesmos bytes. Queremos que o Arduino seja um espelho para os bytes enviados. Para isso basta que conectemos o
-pino TX do Arduino ao seu pino RX! Assim, ao enviarmos uma sequência de bytes para o RX do Arduino, a mesma
-sequência de zeros e uns são produzidas no pino de envio do Arduino e recebidos de volta em seu computador.
-Observe a figura:
-
-Você precisará verificar qual os pinos TX e RX de seu Arduino.
-
-**ATENÇÃO! ALGUNS ARDUINOS (UNO) PRECISAM FICAR COM O BOTAO DE RESET PRESSIONADO. OU O PINO RESET
-ATERRADO!**
-
-### A estrutura da camada enlace:
-
-O maior desafio e objetivo do projeto 1 é que você entenda como as funções das classes fazem o trabalho de envio e
-recebimento full-duplex representado nesse esquema. Você deve seguir as funções envolvidas no envio e
-recebimento de um bytearray. Se familiarizar com elas. Ser capaz de utiliza-las, modifica-las e responder a algumas
-perguntas sobre elas. Para isso, não tem outro modo a não ser se debruçar sobre as funções, seguindo todas as
-chamadas de métodos envolvidos no recebimento "enlace.get()" e recebimento emlace.send()".
-
-### Imagens em python.
-
-Você terá que transformar uma imagem em uma lista de bytes. No mesmo modo, salvar a lista de bytes recebida,
-como imagem. Para isso pode se basear nos seguintes trechos de código:
-
-#### Caminhos das imagens
-
-#### Lista de bytes com a imagem a ser transmitida
+6. Verificar se abre corretamente.
 
 
-#### ENGENHARIA DA COMPUTAÇÃO - Rodrigo Carareto
+## Critérios de Avaliação
 
-#### Escreve arquivo cópia
-
-### Pronto! Consegui!
-
-Se você conseguiu fazer o arquivo cópia através da comunicação serial e este arquivo abre normalmente, parabéns!
-Vamos aproveitar então para explorar um pouco mais nossas classes. Iremos fazer um estudo mais profundo das
-classes na aula 2, mas já é necessário que entendam as funções e estrutura dos arquivos.
-
-### Entrega
-
-Os projetos dessa disciplina serão sempre avaliados presencialmente. Um dos seus professores observar uma breve
-apresentação feita por você e sua dupla e lhes fazer algumas perguntas. Isso ocorrerá em um momento solicitado
-por você, dentro de uma data limite. Caso você solicite a apresentação após a data limite, você será penalizado.
-
-### Conceito C: Mostrar a transmissão e recepção da imagem ocorrendo corretamente.
-
-### Conceito B: responder as questões feitas pelo seu professor (no momento da apresentação) a respeito das
-
-seguintes funções:
-
-- getBufferLen
-- getAllBuffer
-- getBuffer
-- getNData
-- sendBuffer
-
-### Conceito B+: Além dos conceitos C e B, tente entender o que significa cada um dos 10 termos presentes na
-
-```
-comunicação UART:
-```
-1. Transmissão assíncrona
-2. UART – Start bit
-3. UART – Stop bit
-4. UART – TX, RX, GND
-5. UART – Baud rate
-6. UART – Bit rate
-7. UART – Buffer
-8. UART – Frame
-9. UART – Bit de Paridade
-10. UART – CRC
-
-### Conceito A+: A função getStatus não está funcionando corretamente. Verifique o que essa função deveria
-
-retornar e encontre uma solução para corrigi-la.
-
-### Data limite: 13 /0 2 - Após esse período sua nota terá uma redução de 25% a cada semana.
+| Conceito | Descrição |
+|----------|-----------|
+| **C**    | Mostrar a transmissão e recepção da imagem ocorrendo corretamente. |
+| **B**    | Atender o conceito C e responder perguntas sobre as funções: `getBufferLen`, `getAllBuffer`, `getBuffer`, `getNData`, `sendBuffer`. |
+| **B+**   | Atender os conceitos C e B, além de explicar os todos os termos da comunicação UART (veja tabela abaixo). |
+| **A+**   | Atender todos os conceitos anteriores e corrigir a função `getStatus` para que funcione corretamente. |
 
 
+### Termos da Comunicação UART
 
+| #  | Termo                  |
+|----|------------------------|
+| 1  | Transmissão assíncrona |
+| 2  | UART – Start bit       |
+| 3  | UART – Stop bit        |
+| 4  | UART – TX, RX, GND     |
+| 5  | UART – Baud rate       |
+| 6  | UART – Bit rate        |
+| 7  | UART – Buffer          |
+| 8  | UART – Frame           |
+| 9  | Bit de Paridade        |
+| 10 | CRC                    |
+
+---
+
+## Entrega
+
+- **Avaliação presencial**: você e sua dupla apresentarão o projeto para o professor, que fará perguntas.
+- A apresentação deve ocorrer até **a próxima semana**.  
+  - Após esta data, há **redução de 25% da nota por semana** de atraso.
