@@ -2,5 +2,4 @@ mkdocs
 pymdown-extensions
 mkdocs-jupyter
 markdown
-mkdocs-git-revision-date-localized-plugin
 git+https://github.com/insper-education/active-handout-plugins-py.git@latest

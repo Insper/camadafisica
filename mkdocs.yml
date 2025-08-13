@@ -23,7 +23,6 @@ extra_css:
 
 # Extensions / plugins
 plugins:
-  - git-revision-date-localized
   - mkdocs-jupyter:
       execute: False
 
