@@ -1,17 +1,17 @@
-# Projeto 9: Modulação FM (Frequency Modulation)
+# Projeto 10: Modulação PM (Phase Modulation)
 
 ## Objetivo
 
-Implementar um sistema de modulação e demodulação FM, demonstrando os conceitos fundamentais de modulação de frequência e comunicação analógica.
+Implementar um sistema de modulação e demodulação PM, demonstrando os conceitos fundamentais de modulação de fase e comunicação analógica.
 
 ## Descrição
 
 Neste projeto, você irá desenvolver um programa que:
 
-1. Implementa a modulação FM
-2. Realiza a demodulação FM
-3. Implementa um sistema de comunicação FM
-4. Demonstra o funcionamento de um sistema FM
+1. Implementa a modulação PM
+2. Realiza a demodulação PM
+3. Implementa um sistema de comunicação PM
+4. Demonstra o funcionamento de um sistema PM
 
 ## Requisitos
 
@@ -25,7 +25,7 @@ Neste projeto, você irá desenvolver um programa que:
 
 1. Código fonte do programa implementado
 2. Relatório técnico contendo:
-   - Descrição da implementação FM
+   - Descrição da implementação PM
    - Análise do espectro de frequência
    - Resultados dos testes realizados
    - Discussão sobre possíveis melhorias
@@ -46,7 +46,6 @@ O projeto será avaliado considerando:
 
 ## Recursos Adicionais
 
-- [Link para documentação sobre modulação FM]
+- [Link para documentação sobre modulação PM]
 - [Link para tutoriais sobre comunicação analógica]
-- [Link para exemplos de código]
-
+- [Link para exemplos de código] 

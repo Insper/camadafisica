@@ -60,4 +60,92 @@ Para se aprofundar na transmissão serial UART, consulte os seguintes links:
 - [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
 - [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
 
+# Introdução à Modulação FM
+
+## Visão Geral
+
+Neste projeto, você irá trabalhar com modulação FM (Frequency Modulation), uma técnica de comunicação analógica que oferece melhor qualidade de áudio e maior imunidade a ruídos quando comparada à modulação AM.
+
+## O que é Modulação FM?
+
+Modulação FM é um processo onde a frequência da onda portadora é variada proporcionalmente ao sinal de mensagem. O sinal modulado mantém amplitude constante, mas sua frequência varia de acordo com a informação.
+
+## Características da Modulação FM
+
+### 1. Espectro de Frequência
+- Desvio de frequência
+- Banda de Carson
+- Componentes laterais
+- Largura de banda
+
+### 2. Índice de Modulação
+- Relação entre desvio e frequência
+- Profundidade da modulação
+- Qualidade do sinal
+- Eficiência espectral
+
+## Tipos de Modulação FM
+
+### 1. FM de Banda Estreita
+- Pequeno desvio
+- Menor largura de banda
+- Menor qualidade
+
+### 2. FM de Banda Larga
+- Grande desvio
+- Maior largura de banda
+- Melhor qualidade
+
+## Demodulação FM
+
+### 1. Detecção de Frequência
+- Discriminador
+- PLL
+- Detecção de zero
+
+### 2. Detecção de Fase
+- Detector de fase
+- Demodulador de quadratura
+- Sincronização
+
+## Aplicações Práticas
+
+### 1. Rádio FM
+- Radiodifusão
+- Comunicação de alta fidelidade
+- Rádio amador
+
+### 2. Comunicações
+- Telefonia móvel
+- Televisão
+- Telemetria
+
+### 3. Sistemas Especiais
+- Radar
+- Sonar
+- Telemetria
+
+## Implementação no Projeto
+
+No seu projeto, você irá:
+
+1. Implementar a modulação FM
+2. Desenvolver a demodulação
+3. Analisar o espectro
+4. Testar o sistema
+
+## Ferramentas e Recursos
+
+- Python para implementação
+- Bibliotecas de processamento de sinais
+- Ferramentas de análise espectral
+- Visualização de sinais
+
+## Próximos Passos
+
+1. Familiarize-se com a modulação FM
+2. Implemente a modulação
+3. Desenvolva a demodulação
+4. Teste e documente
+
 

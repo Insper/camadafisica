@@ -60,4 +60,97 @@ Para se aprofundar na transmissão serial UART, consulte os seguintes links:
 - [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
 - [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
 
+# Introdução à Verificação de Integridade
+
+## Visão Geral
+
+A verificação de integridade é um aspecto fundamental na comunicação de dados, garantindo que as informações transmitidas cheguem corretamente ao destino. O checksum é uma das técnicas mais utilizadas para detectar erros em transmissões.
+
+## O que é Checksum?
+
+Checksum é um valor calculado a partir de um conjunto de dados, usado para detectar erros de transmissão ou armazenamento. As principais características são:
+
+1. **Simplicidade**: Fácil de calcular e verificar
+2. **Eficiência**: Baixo overhead computacional
+3. **Detecção**: Capaz de identificar erros comuns
+
+## Tipos de Checksum
+
+### Checksum Simples
+
+- **Soma de Bytes**
+  - Adição simples
+  - Complemento de 1
+  - Verificação básica
+
+### CRC (Cyclic Redundancy Check)
+
+- **Polinômios Geradores**
+  - CRC-8
+  - CRC-16
+  - CRC-32
+
+- **Tabelas de Lookup**
+  - Otimização
+  - Performance
+
+### Hash Functions
+
+- **MD5**
+  - 128 bits
+  - Rápido
+  - Não seguro
+
+- **SHA-1**
+  - 160 bits
+  - Mais seguro
+  - Mais lento
+
+- **SHA-256**
+  - 256 bits
+  - Muito seguro
+  - Mais lento ainda
+
+## Implementação no Projeto
+
+### 1. Algoritmos Básicos
+
+- Implementar soma de bytes
+- Adicionar complemento de 1
+- Criar verificação simples
+
+### 2. CRC
+
+- Implementar polinômios
+- Criar tabelas de lookup
+- Otimizar performance
+
+### 3. Hash Functions
+
+- Implementar MD5
+- Adicionar SHA-1
+- Incluir SHA-256
+
+## Ferramentas e Recursos
+
+### Bibliotecas Python
+
+- `hashlib`: Funções hash
+- `struct`: Manipulação de bytes
+- `zlib`: CRC
+
+### Recursos Adicionais
+
+- Calculadoras de checksum online
+- Testadores de integridade
+- Ferramentas de análise
+
+## Próximos Passos
+
+1. Familiarize-se com checksum simples
+2. Implemente CRC
+3. Adicione hash functions
+4. Teste e documente
+5. Otimize performance
+
 

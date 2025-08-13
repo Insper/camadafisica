@@ -1,3 +1,66 @@
+# Introdução à Comunicação Serial UART
+
+## Visão Geral
+
+Neste projeto, você irá trabalhar com comunicação serial UART (Universal Asynchronous Receiver-Transmitter), um protocolo fundamental para comunicação entre dispositivos eletrônicos. O projeto foca na implementação de um sistema loop-back, onde os dados enviados são recebidos pelo mesmo dispositivo.
+
+## O que é UART?
+
+UART é um protocolo de comunicação serial assíncrona que permite a troca de dados entre dispositivos. É caracterizado por:
+
+1. **Assincronia**: Não requer clock comum
+2. **Simplicidade**: Requer apenas 2 fios (TX e RX)
+3. **Flexibilidade**: Configurável em velocidade e formato
+
+## Estrutura de Dados UART
+
+### Frame UART
+- Start bit (1 bit)
+- Dados (5-9 bits)
+- Paridade (opcional)
+- Stop bit (1-2 bits)
+
+### Configurações
+- Baud rate
+- Bits de dados
+- Bits de paridade
+- Bits de parada
+
+## Loop-back
+
+### Conceito
+- Conexão TX → RX
+- Teste de comunicação
+- Verificação de integridade
+
+### Aplicações
+- Teste de hardware
+- Debug de software
+- Calibração de sistemas
+
+## Implementação no Projeto
+
+No seu projeto, você irá:
+
+1. Configurar a comunicação UART
+2. Implementar o loop-back
+3. Transmitir e receber dados
+4. Testar a integridade
+
+## Ferramentas e Recursos
+
+- Python para implementação
+- Biblioteca pyserial
+- Arduino para loop-back
+- Osciloscópio (opcional)
+
+## Próximos Passos
+
+1. Familiarize-se com UART
+2. Configure a comunicação
+3. Implemente o loop-back
+4. Teste e documente
+
 ## TRANSMISSÃO SERIAL DE DADOS
 
 A quantidade de bytes transmitidos por minuto no planeta é gigantesca e cresce constantemente. Podemos estimar
@@ -251,7 +314,7 @@ periféricos de baixo custo, onde a simplicidade e a flexibilidade são essencia
 A transmissão com esse protocolo funciona da seguinte maneira: após o start bit, de 7 a 10 bits são produzidos para definir o destinatário. Após isso, o bit seguinte é o R/W (read/write). Se o R/W for 0 significa escrita, ou seja, o mestre quer que o escravo escreva um byte. No contrário, se esse bit for 1 significa leitura, ou seja, o mestre quer que o escravo escreva receba o byte. Após o bit R/W, o escravo produz um bit para acknowlodge, sendo 0 significa que está disponível para se comunicar, se for 1 é um not acknowlodge (algo errado com o identificador ou escravo indisponível). Em seguida vêm os bits de dados seguidos de mais um bit acknowlodge ou not acknowlodge, indicando se a transmissão foi realizada com sucesso ou houve alguma incoerência. O tratamento desse bit deverá ser feito em camadas superiores. Para finalizar, há um bit de parada.
 
 Exemplo do byte 01100100 (em decimal = 100) sendo transmitido para o escravo identificado como 1001101. Ao
-final da transmissão do byte, o not acknowlodge (nack) pode ser usado também para indicar que a “conversa” entre as duas partes acabou, não haverá mais dados.
+final da transmissão do byte, o not acknowlodge (nack) pode ser usado também para indicar que a "conversa" entre as duas partes acabou, não haverá mais dados.
 
 
 #### Chip I2C

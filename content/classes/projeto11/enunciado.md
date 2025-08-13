@@ -1,17 +1,17 @@
-# Projeto 9: Modulação FM (Frequency Modulation)
+# Projeto 11: Modulação QAM (Quadrature Amplitude Modulation)
 
 ## Objetivo
 
-Implementar um sistema de modulação e demodulação FM, demonstrando os conceitos fundamentais de modulação de frequência e comunicação analógica.
+Implementar um sistema de modulação e demodulação QAM, demonstrando os conceitos fundamentais de modulação em quadratura e comunicação digital.
 
 ## Descrição
 
 Neste projeto, você irá desenvolver um programa que:
 
-1. Implementa a modulação FM
-2. Realiza a demodulação FM
-3. Implementa um sistema de comunicação FM
-4. Demonstra o funcionamento de um sistema FM
+1. Implementa a modulação QAM
+2. Realiza a demodulação QAM
+3. Implementa um sistema de comunicação QAM
+4. Demonstra o funcionamento de um sistema QAM
 
 ## Requisitos
 
@@ -25,7 +25,7 @@ Neste projeto, você irá desenvolver um programa que:
 
 1. Código fonte do programa implementado
 2. Relatório técnico contendo:
-   - Descrição da implementação FM
+   - Descrição da implementação QAM
    - Análise do espectro de frequência
    - Resultados dos testes realizados
    - Discussão sobre possíveis melhorias
@@ -46,7 +46,6 @@ O projeto será avaliado considerando:
 
 ## Recursos Adicionais
 
-- [Link para documentação sobre modulação FM]
-- [Link para tutoriais sobre comunicação analógica]
-- [Link para exemplos de código]
-
+- [Link para documentação sobre modulação QAM]
+- [Link para tutoriais sobre comunicação digital]
+- [Link para exemplos de código] 

@@ -60,4 +60,81 @@ Para se aprofundar na transmissão serial UART, consulte os seguintes links:
 - [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
 - [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
 
+# Introdução ao DTMF e Processamento de Sinais
+
+## Visão Geral
+
+Neste projeto, você irá trabalhar com DTMF (Dual-Tone Multi-Frequency), um sistema de sinalização por tons que é amplamente utilizado em telefonia e comunicação. O DTMF combina duas frequências diferentes para representar cada dígito ou caractere.
+
+## O que é DTMF?
+
+DTMF é um sistema de sinalização que usa pares de tons para representar dígitos e caracteres. Cada tecla do teclado telefônico gera uma combinação única de duas frequências:
+
+### Frequências DTMF
+- **Grupo de Baixas Frequências**: 697 Hz, 770 Hz, 852 Hz, 941 Hz
+- **Grupo de Altas Frequências**: 1209 Hz, 1336 Hz, 1477 Hz, 1633 Hz
+
+### Mapeamento de Teclas
+```
+1209 Hz  1336 Hz  1477 Hz  1633 Hz
+697 Hz     1        2        3        A
+770 Hz     4        5        6        B
+852 Hz     7        8        9        C
+941 Hz     *        0        #        D
+```
+
+## Processamento de Sinais DTMF
+
+### 1. Geração de Tons
+- Combinação de senoides
+- Duração do tom
+- Níveis de amplitude
+- Transições suaves
+
+### 2. Detecção de Tons
+- Análise espectral
+- Transformada de Fourier
+- Filtros passa-banda
+- Comparação de amplitudes
+
+## Aplicações Práticas
+
+### 1. Telefonia
+- Discagem por tons
+- Menus de voz
+- Sistemas de resposta
+
+### 2. Controle Remoto
+- Controle de equipamentos
+- Sistemas de segurança
+- Automação residencial
+
+### 3. Comunicação de Dados
+- Transmissão de dados
+- Modem acústico
+- Sistemas de telemetria
+
+## Implementação no Projeto
+
+No seu projeto, você irá:
+
+1. Implementar a geração de tons DTMF
+2. Desenvolver a detecção de tons
+3. Criar um sistema de comunicação
+4. Testar diferentes cenários
+
+## Ferramentas e Recursos
+
+- Python para implementação
+- Bibliotecas de processamento de sinais
+- Ferramentas de análise espectral
+- Testes de áudio
+
+## Próximos Passos
+
+1. Familiarize-se com o DTMF
+2. Implemente a geração de tons
+3. Desenvolva a detecção
+4. Teste e documente
+
 

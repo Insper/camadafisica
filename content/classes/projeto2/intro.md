@@ -1,63 +1,86 @@
-# Transmissão e Recepção Serial UART
+# Introdução à Representação em Ponto Flutuante
 
-## Introdução à Comunicação Serial
+## Visão Geral
 
-A comunicação serial é uma forma de transmitir dados entre dispositivos eletrônicos de forma sequencial, enviando um bit por vez, ao longo de uma única linha de comunicação. Ao contrário da comunicação paralela, onde vários bits são enviados simultaneamente em várias linhas, a comunicação serial utiliza menos cabos, é mais simples e é frequentemente utilizada em dispositivos que precisam enviar informações a longas distâncias ou com recursos limitados.
+A representação em ponto flutuante é um método fundamental para armazenar e manipular números reais em sistemas computacionais. Este conceito é essencial para compreender como os computadores lidam com números decimais e suas limitações.
 
-## O Que é UART?
+## O que é Ponto Flutuante?
 
-UART, ou **Universal Asynchronous Receiver-Transmitter**, é um protocolo de comunicação serial assíncrona amplamente utilizado para permitir a troca de dados entre um dispositivo (como um microcontrolador) e um periférico (como um computador). Esse protocolo é assíncrono porque não requer um sinal de clock comum para sincronizar os dispositivos comunicantes.
+Ponto flutuante é uma representação numérica que permite expressar números reais de forma aproximada em sistemas computacionais. A principal característica é a separação do número em três partes:
 
-### Estrutura de Dados na Comunicação UART
+1. **Sinal**: Indica se o número é positivo ou negativo
+2. **Expoente**: Define a posição do ponto decimal
+3. **Mantissa**: Contém os dígitos significativos do número
 
-A comunicação UART transmite os dados em "frames". Um frame é uma sequência de bits que inclui os dados a serem transmitidos e informações de controle, como bits de início, parada e, opcionalmente, paridade. A estrutura básica de um frame UART é a seguinte:
+## Características do Ponto Flutuante
 
-1. **Start Bit**: Um único bit que indica o início da transmissão de um frame. O start bit é sempre um '0' (nível baixo).
-2. **Data Bits**: Entre 5 e 9 bits que representam os dados a serem transmitidos.
-3. **Parity Bit (Opcional)**: Um bit adicional utilizado para verificar erros durante a transmissão.
-4. **Stop Bit**: Um ou dois bits que indicam o final de um frame. O stop bit é sempre '1' (nível alto).
+### Precisão
 
-### Diagrama de um Frame UART:
+- **Precisão Simples (32 bits)**
+  - Menor precisão
+  - Menor consumo de memória
+  - Mais rápido em operações
 
-| Start | Data Bits (5-9) | Paridade (Opcional) | Stop (1-2) |
+- **Precisão Dupla (64 bits)**
+  - Maior precisão
+  - Maior consumo de memória
+  - Mais lento em operações
 
+### Limitações
 
-## Termos Importantes
+1. **Erros de Arredondamento**
+   - Números não podem ser representados exatamente
+   - Erros se acumulam em operações sucessivas
 
-Aqui estão alguns termos que você precisa entender para compreender a comunicação UART:
+2. **Overflow/Underflow**
+   - Números muito grandes ou pequenos
+   - Limites da representação
 
-1. **Transmissão Assíncrona**: É um tipo de comunicação onde o receptor e o transmissor não compartilham um sinal de clock comum. Em vez disso, o receptor sincroniza com o transmissor através dos bits de start e stop do frame de dados.
-   
-2. **Start Bit**: Sinaliza o início da transmissão. Normalmente, é um nível lógico baixo (0).
-   
-3. **Stop Bit**: Indica o fim de uma transmissão. É um nível lógico alto (1) e pode haver um ou dois bits de stop.
-   
-4. **TX, RX, GND**: TX é o pino de transmissão, RX é o pino de recepção, e GND é o aterramento comum entre os dispositivos.
-   
-5. **Baud Rate**: A taxa de bits por segundo (bps) transmitidos na comunicação UART. Exemplo: 9600 bps significa que 9600 bits são transmitidos a cada segundo.
-   
-6. **Bit Rate**: Refere-se à quantidade de dados (bits) transmitidos ou recebidos por unidade de tempo.
-   
-7. **Buffer**: Área de memória usada temporariamente para armazenar os dados durante a comunicação.
-   
-8. **Frame**: A estrutura completa de dados transmitidos, composta por bits de início, dados, paridade e parada.
-   
-9. **Bit de Paridade**: Bit opcional usado para detecção de erros. Pode ser par ou ímpar.
-   
-10. **CRC (Cyclic Redundancy Check)**: Um método de verificação de erros mais robusto do que a paridade simples, utilizado para garantir a integridade dos dados.
+3. **Números Especiais**
+   - Infinito
+   - NaN (Not a Number)
+   - Zero com sinal
 
-## O Que é Loopback?
+## Implementação no Projeto
 
-O conceito de **loopback** envolve conectar o pino de transmissão (TX) ao pino de recepção (RX) para criar um ciclo fechado de comunicação. Nesse projeto, o loopback é feito para que tudo o que o seu computador enviar ao Arduino seja imediatamente devolvido, espelhando a transmissão de dados. Isso é útil para testar a comunicação sem um segundo dispositivo.
+### 1. Representação IEEE 754
 
+- Implementar conversão decimal → IEEE 754
+- Implementar conversão IEEE 754 → decimal
+- Tratar casos especiais
 
-## Leituras Recomendadas
+### 2. Operações Básicas
 
-Para se aprofundar na transmissão serial UART, consulte os seguintes links:
+- Adição e subtração
+- Multiplicação e divisão
+- Comparações
 
-- [UART em FreeBSD](https://docs.freebsd.org/pt-br/articles/serial-uart/)
-- [Transmissão Serial UART](http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf)
-- [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
-- [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
+### 3. Análise de Precisão
+
+- Calcular erros absolutos e relativos
+- Identificar fontes de erro
+- Propor melhorias
+
+## Ferramentas e Recursos
+
+### Bibliotecas Python
+
+- `struct`: Manipulação de bytes
+- `numpy`: Operações numéricas
+- `decimal`: Precisão decimal arbitrária
+
+### Recursos Adicionais
+
+- Calculadoras IEEE 754 online
+- Visualizadores de representação binária
+- Ferramentas de análise de precisão
+
+## Próximos Passos
+
+1. Familiarize-se com o padrão IEEE 754
+2. Implemente as conversões básicas
+3. Desenvolva as operações aritméticas
+4. Realize testes de precisão
+5. Documente suas descobertas
 
 

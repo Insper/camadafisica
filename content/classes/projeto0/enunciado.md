@@ -1,22 +1,50 @@
-# Projeto 0
+# Projeto 0: Projeto Inicial
 
-## Bem-vindo ao projeto zero!
+## Objetivo
 
-Este é o primeiro projeto da disciplina Camada Física da Computação. O objetivo deste projeto é que você tenha um primeiro contato com o material prático que iremos utilizar durante o curso. A ideia é que você entenda a estrutura dos arquivos fornecidos, explore os códigos anexos e desenvolva uma visão inicial sobre como implementar e testar os conceitos que vamos estudar.
+Implementar um sistema básico de comunicação, demonstrando os conceitos fundamentais de transmissão e recepção de dados.
 
-### O que você vai encontrar nos arquivos anexos?
+## Descrição
 
-Dentro dos arquivos anexos, você terá acesso a:
+Neste projeto, você irá desenvolver um programa que:
 
-- Códigos de base: Estes são exemplos de implementação relacionados ao conteúdo da camada física. São códigos que servem como ponto de partida para os experimentos que faremos.
+1. Implementa a transmissão de dados
+2. Realiza a recepção de dados
+3. Implementa um protocolo básico de comunicação
+4. Demonstra o funcionamento de um sistema de comunicação simples
 
-- **Software:**
-  - Python instalado no computador
-  - Biblioteca `pyserial` (instalar com `pip install pyserial`)
-  - Arquivos de código fornecidos (5 no total)
+## Requisitos
 
-### Dicas para o sucesso:
+- Python 3.x
+- Biblioteca numpy
+- Conhecimentos básicos de programação
+- Familiaridade com conceitos de comunicação
 
-- **Não se apresse!** Esse é o seu projeto zero, e a meta principal é entender. Não se preocupe em fazer tudo rapidamente. O importante é que você compreenda os conceitos que iremos aplicar no decorrer do curso.
-- **Explore cada parte:** Muitas vezes, as soluções estão nos detalhes. Explore os códigos e a documentação de forma atenta.
-- **Peça ajuda:** Se encontrar alguma dificuldade, não hesite em perguntar. Utilize os fóruns de discussão ou traga suas dúvidas para as aulas.
+## Entregáveis
+
+1. Código fonte do programa implementado
+2. Relatório técnico contendo:
+   - Descrição da implementação
+   - Análise do protocolo de comunicação
+   - Resultados dos testes realizados
+   - Discussão sobre possíveis melhorias
+
+## Avaliação
+
+O projeto será avaliado considerando:
+
+- Funcionalidade do sistema implementado
+- Qualidade do código e documentação
+- Relatório técnico
+- Apresentação oral
+
+## Datas
+
+- Entrega: [Data a ser definida]
+- Apresentação: [Data a ser definida]
+
+## Recursos Adicionais
+
+- [Link para documentação sobre comunicação de dados]
+- [Link para tutoriais sobre Python]
+- [Link para exemplos de código]

@@ -60,4 +60,90 @@ Para se aprofundar na transmissão serial UART, consulte os seguintes links:
 - [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
 - [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
 
+# Introdução à Comunicação por Datagramas
+
+## Visão Geral
+
+A comunicação por datagramas é um método fundamental de transmissão de dados em redes de computadores, onde as informações são enviadas em pacotes independentes. Este conceito é essencial para compreender como funciona a comunicação na Internet e em outras redes de dados.
+
+## O que é um Datagrama?
+
+Um datagrama é uma unidade de dados que contém informações suficientes para ser roteada independentemente de outros pacotes. As principais características são:
+
+1. **Independência**: Cada pacote é tratado de forma isolada
+2. **Não-orientado a conexão**: Não há estabelecimento de conexão
+3. **Não confiável**: Não há garantia de entrega ou ordem
+
+## Características do Datagrama
+
+### Estrutura
+
+- **Cabeçalho**
+  - Informações de controle
+  - Endereçamento
+  - Sequenciamento
+
+- **Dados**
+  - Payload
+  - Padding
+
+### Funcionalidades
+
+1. **Fragmentação**
+   - Divisão de pacotes grandes
+   - Geração de fragmentos
+   - Controle de sequência
+
+2. **Reassemblagem**
+   - Ordenação de fragmentos
+   - Verificação de integridade
+   - Tratamento de perdas
+
+3. **Controle**
+   - Controle de fluxo
+   - Retransmissão
+   - Timeout
+
+## Implementação no Projeto
+
+### 1. Estrutura do Datagrama
+
+- Definir formato do cabeçalho
+- Implementar campos necessários
+- Criar funções de serialização
+
+### 2. Fragmentação
+
+- Implementar divisão de pacotes
+- Gerar fragmentos
+- Controlar sequência
+
+### 3. Reassemblagem
+
+- Ordenar fragmentos
+- Verificar integridade
+- Tratar perdas
+
+## Ferramentas e Recursos
+
+### Bibliotecas Python
+
+- `struct`: Manipulação de bytes
+- `socket`: Comunicação em rede
+- `threading`: Concorrência
+
+### Recursos Adicionais
+
+- Wireshark para análise de pacotes
+- Testadores de rede
+- Simuladores de rede
+
+## Próximos Passos
+
+1. Familiarize-se com o conceito de datagramas
+2. Implemente a estrutura básica
+3. Desenvolva a fragmentação
+4. Adicione reassemblagem
+5. Teste e documente
+
 

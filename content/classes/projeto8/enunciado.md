@@ -1,3 +1,55 @@
+# Projeto 8: Modulação AM (Amplitude Modulation)
+
+## Objetivo
+
+Implementar um sistema de modulação e demodulação AM, demonstrando os conceitos fundamentais de modulação de amplitude e comunicação analógica.
+
+## Descrição
+
+Neste projeto, você irá desenvolver um programa que:
+
+1. Implementa a modulação AM
+2. Realiza a demodulação AM
+3. Implementa um sistema de comunicação AM
+4. Demonstra o funcionamento de um sistema AM
+
+## Requisitos
+
+- Python 3.x
+- Biblioteca numpy
+- Biblioteca scipy
+- Conhecimentos sobre modulação
+- Familiaridade com processamento de sinais
+
+## Entregáveis
+
+1. Código fonte do programa implementado
+2. Relatório técnico contendo:
+   - Descrição da implementação AM
+   - Análise do espectro de frequência
+   - Resultados dos testes realizados
+   - Discussão sobre possíveis melhorias
+
+## Avaliação
+
+O projeto será avaliado considerando:
+
+- Funcionalidade do sistema implementado
+- Qualidade do código e documentação
+- Relatório técnico
+- Apresentação oral
+
+## Datas
+
+- Entrega: [Data a ser definida]
+- Apresentação: [Data a ser definida]
+
+## Recursos Adicionais
+
+- [Link para documentação sobre modulação AM]
+- [Link para tutoriais sobre comunicação analógica]
+- [Link para exemplos de código]
+
 # Modulação AM
 
 ## Descritivo

@@ -10,7 +10,7 @@ O curso é estruturado em 9 projetos:
 - **Projeto 2**: Ponto Flutuante
 - **Projeto 3**: Datagrama
 - **Projeto 4**: Checksum
-- **Projeto 5**: Serialização Uart
+- **Projeto 5**: Serialização Uart (arduino)
 - **Projeto 6**: DTMF
 - **Projeto 7**: Filtro Digital
 - **Projeto 8**: Modulação AM

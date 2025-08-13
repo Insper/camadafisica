@@ -60,4 +60,103 @@ Para se aprofundar na transmissão serial UART, consulte os seguintes links:
 - [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
 - [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
 
+# Introdução aos Filtros Digitais
+
+## Visão Geral
+
+Neste projeto, você irá trabalhar com filtros digitais, que são sistemas que processam sinais discretos para modificar suas características em frequência. Os filtros digitais são fundamentais em processamento de sinais e têm aplicações em diversas áreas.
+
+## O que são Filtros Digitais?
+
+Filtros digitais são sistemas que processam sinais discretos para:
+1. **Selecionar** frequências específicas
+2. **Remover** ruídos indesejados
+3. **Modificar** características do sinal
+4. **Realizar** análise espectral
+
+## Tipos de Filtros Digitais
+
+### 1. Filtros FIR (Finite Impulse Response)
+- Resposta ao impulso finita
+- Sem feedback
+- Estável
+- Linear em fase
+
+### 2. Filtros IIR (Infinite Impulse Response)
+- Resposta ao impulso infinita
+- Com feedback
+- Pode ser instável
+- Menor ordem
+
+## Características dos Filtros
+
+### 1. Resposta em Frequência
+- Banda passante
+- Banda de rejeição
+- Frequência de corte
+- Ripple
+
+### 2. Resposta ao Impulso
+- Duração
+- Forma
+- Estabilidade
+- Causalidade
+
+## Projeto de Filtros
+
+### 1. Especificações
+- Tipo de filtro
+- Frequências de corte
+- Atenuação
+- Ripple
+
+### 2. Implementação
+- Cálculo dos coeficientes
+- Estrutura do filtro
+- Quantização
+- Otimização
+
+## Aplicações Práticas
+
+### 1. Processamento de Áudio
+- Equalização
+- Redução de ruído
+- Compressão
+- Efeitos sonoros
+
+### 2. Processamento de Imagens
+- Suavização
+- Detecção de bordas
+- Realce
+- Restauração
+
+### 3. Comunicações
+- Modulação
+- Demodulação
+- Sincronização
+- Equalização
+
+## Implementação no Projeto
+
+No seu projeto, você irá:
+
+1. Projetar diferentes filtros
+2. Implementar os filtros
+3. Analisar a resposta
+4. Testar aplicações
+
+## Ferramentas e Recursos
+
+- Python para implementação
+- Bibliotecas de processamento de sinais
+- Ferramentas de análise espectral
+- Visualização de sinais
+
+## Próximos Passos
+
+1. Familiarize-se com os filtros digitais
+2. Projete os filtros
+3. Implemente as soluções
+4. Teste e documente
+
 
