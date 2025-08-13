@@ -21,6 +21,12 @@ extra_css:
     - css/termynal.css
     - css/equipe.css
 
+# Extensions / plugins
+plugins:
+  - git-revision-date-localized
+  - mkdocs-jupyter:
+      execute: False
+
 nav:
   - Home: index.md
   - deadlines.md
