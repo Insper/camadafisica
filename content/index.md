@@ -35,9 +35,9 @@ apresentar o projeto sem um dos integrantes, o aluno ausente terá a nota reduzi
 
 ### Critérios de avaliação
 
-- Média projetos: peso 40 %
-- Prova final: peso 30%
-- Média quizzes: peso 30%
+- Média projetos: peso 33%
+- Prova final: peso 33%
+- Média quizzes: peso 33%
 
 Aprovação média ponderada maior ou igual a 5.
 
@@ -64,7 +64,7 @@ Esta disciplina explora os fundamentos teóricos e práticos da camada física e
 
 Horário de atendimento: 
 
-- **Segunda-feira** xx:00  - Sala 404
+- **Quarta-feira** 12:00  - Sala 404
 
 ## Equipe
 
