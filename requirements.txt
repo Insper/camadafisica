@@ -1,5 +1,4 @@
 mkdocs
 pymdown-extensions
-mkdocs-jupyter
-markdown
+mknotebooks
 git+https://github.com/insper-education/active-handout-plugins-py.git@latest

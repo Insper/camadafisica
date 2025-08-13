@@ -7,6 +7,8 @@ theme:
 INHERIT: active-handout.yml
 
 
+
+
 extra:
   custom_variables:
     repo_aps: https://github.com/insper/camadafisica
@@ -21,10 +23,10 @@ extra_css:
     - css/termynal.css
     - css/equipe.css
 
-# Extensions / plugins
 plugins:
-  - mkdocs-jupyter:
-      execute: False
+    - active-handout
+    - mknotebooks
+
 
 nav:
   - Home: index.md

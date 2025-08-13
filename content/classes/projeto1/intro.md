@@ -5,6 +5,10 @@ Faça o download do pdf de Introdução.
 
 
 
+!!! pdf
+    ![](slides.pdf)
+
+
 ## Visão Geral
 
 Neste projeto, você irá trabalhar com comunicação serial UART (Universal Asynchronous Receiver-Transmitter), um protocolo fundamental para comunicação entre dispositivos eletrônicos. O projeto foca na implementação de um sistema loop-back, onde os dados enviados são recebidos pelo mesmo dispositivo.
