@@ -189,12 +189,6 @@ Para **depuração e análise**, a representação hexadecimal facilita enormeme
 !!! exercise
     Pense em uma situação onde você precisa transmitir o texto "Hi!" através de uma rede. Descreva como essa informação seria representada em bytes usando ASCII, e depois em binário.
 
-## Estratégias para os Exercícios Práticos
-
-Ao trabalhar com os exercícios do notebook, algumas estratégias podem ajudar significativamente. Primeiro, **pratique conversões manuais** antes de usar o computador - isso desenvolve intuição sobre os sistemas numéricos. Sempre **verifique seus cálculos** usando as funções Python após fazer as conversões manualmente.
-
-**Observe padrões** nas conversões, especialmente as potências de 2 que aparecem frequentemente na computação. Sempre **verifique se está usando a ordem de bytes correta** (big ou little endian) quando trabalhar com funções como `int.from_bytes()`. Por fim, **memorize alguns códigos ASCII importantes** como A=65, a=97, 0=48, pois eles aparecem com frequência.
-
 !!! exercise choice "Question"
     Quantos bits são necessários para representar o número 1024 em binário?
 
@@ -206,17 +200,6 @@ Ao trabalhar com os exercícios do notebook, algumas estratégias podem ajudar s
     !!! answer "Answer!"
         1024 = 2¹⁰, que em binário é 10000000000 (um 1 seguido de 10 zeros), necessitando de 11 bits para representação.
 
-## Exercícios de Preparação
-
-Antes de iniciar os exercícios do notebook, teste seus conhecimentos com estes desafios:
-
-!!! exercise
-    1. **Conversões básicas**: Converta manualmente 8, 16, 32 para binário e verifique os resultados com Python
-    2. **Hexadecimal**: Converta 0x10, 0x20, 0x100 para decimal
-    3. **Capacidade**: Determine quantos valores diferentes podem ser representados com 12 bits
-    4. **ASCII**: Qual o valor ASCII de 'Z' e qual sua representação em hexadecimal?
-    5. **Complemento de dois**: Como seria representado o número -1 em complemento de dois com 8 bits?
-
 !!! exercise choice "Final Challenge"
     Qual seria o valor hexadecimal do texto "AB" quando codificado em ASCII?
 
@@ -227,7 +210,3 @@ Antes de iniciar os exercícios do notebook, teste seus conhecimentos com estes 
 
     !!! answer "Answer!"
         'A' = 0x41 e 'B' = 0x42, então "AB" = 0x4142. Note que em little endian seria 0x4241, mas a representação padrão de texto segue a ordem natural (big endian).
-
----
-
-*Esta base teórica fornece todos os conceitos necessários para compreender e resolver os exercícios propostos no notebook de atividades. Use-a como referência durante a prática!*

@@ -24,7 +24,8 @@ extra_css:
 nav:
   - Home: index.md
   - deadlines.md
-  - Projeto 0 - Inicial:
+  - Instalação: infra.md
+  - Projeto 0 - Base Python:
     - Introdução: classes/projeto0/teoria.md
     - Atividade Python: classes/projeto0/atividade-aula1.ipynb
   - Projeto 1 - Loopback:
