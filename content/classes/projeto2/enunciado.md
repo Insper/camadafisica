@@ -1,105 +1,95 @@
-# Projeto 2: Ponto Flutuante
+# Projeto 2 – Desafios Client/Server
 
-## Objetivo
+Nesse segundo projeto você e sua dupla irão construir uma aplicação utilizando os arquivos base fornecidos no projeto 1. No entanto, para que vocês fiquem mais íntimos desses arquivos, preparando o terreno para o projeto 3, alguns desafios serão propostos.
 
-Implementar um sistema de comunicação que utilize números em ponto flutuante, demonstrando a representação e manipulação desses números em sistemas computacionais.
+## 1) Arquitetura
 
-## Descrição
+Primeiramente, agora vocês deverão ter arquivos separados para o cliente e para o servidor. Aconselha-se ter os 5 arquivos cliente em um computador e os 5 arquivos server em outro computador. Quando estivermos comunicando dois computadores a arquitetura deverá envolver dois arduinos, cada um conectado a um computador. Você terá que descobrir como conectar os Arduinos. Precisará de jumpers.
 
-Neste projeto, você irá desenvolver um programa que:
+![alt text](image.png)
 
-1. Implementa a representação de números em ponto flutuante
-2. Realiza operações básicas com números em ponto flutuante
-3. Demonstra as limitações e precisão da representação
-4. Implementa um protocolo de comunicação que utiliza números em ponto flutuante
+## 2) Inicialização
 
-## Requisitos
+A aplicação server deverá ser inicializada antes da aplicação cliente. Feito isso a aplicação server deve permanecer em um estado de espera por qualquer envio de dados vindos do cliente.
 
-- Python 3.x
-- Biblioteca numpy (opcional)
-- Conhecimentos sobre representação de números em ponto flutuante
-- Entendimento sobre precisão e arredondamento
+O primeiro byte a ser então enviado pelo client deve ser um byte de sacrifício. Isso porque há um problema de hardware com as portas dos computadores que geram dados espúrios ao serem inicializadas e corrompem o promeiro byte. Sendo assim, usamos um primeiro byte para gerar o erro e depois tudo ocorrer normalmente.
 
-## Entregáveis
+O server deve então ser iniciado de maneira a ficar esperando esse byte de sacrifício. Para isso, copie o seguinte código na aplicação server logo após o enable da porta COM:
 
-1. Código fonte do programa implementado
-2. Relatório técnico contendo:
-   - Descrição da implementação da representação em ponto flutuante
-   - Análise da precisão e limitações
-   - Resultados dos testes realizados
-   - Discussão sobre possíveis melhorias
+```python
+print("esperando 1 byte de sacrifício")
+rxBuffer, nRx = com1.getData(1)
+com1.rx.clearBuffer()
+time.sleep(.1)
+```
 
-## Avaliação
+No lado cliente, ao ser inicializado (após a inicialização do server), deverá enviar o byte de sacrifício. Para o envio desse byte de sacrifício, copie as linhas a seguir logo após o enable da porta COM:
 
-O projeto será avaliado considerando:
+```python
+time.sleep(.2)
+com1.sendData(b'00')
+time.sleep(1)
+```
 
-- Corretude da implementação
-- Qualidade do código e documentação
-- Relatório técnico
-- Apresentação oral
+Feito o envio (pelo lado client) do byte de sacrifício, o server deve receber esse byte (corrompido) e desprezá-lo.
+Você deverá ver no prompt uma mensagem de erro do tipo:
 
-## Datas
+```python
+"[ERRO] interfaceFisica, read, decode. buffer:"
+```
 
-- Entrega: [Data a ser definida]
-- Apresentação: [Data a ser definida]
+Esse erro foi causado porque o byte foi corrompido e não foi possível decodificá-lo. Mas agora tudo funcionará bem para os próximos bytes.
 
-## Recursos Adicionais
+Após receber e desprezar esse byte de sacrifício, o server deve voltar ao estado de espera da um próximo envio.
 
-- [Link para documentação sobre ponto flutuante]
-- [Link para tutoriais sobre representação numérica]
-- [Link para exemplos de código]
+## 3) O que deve ser enviado
 
-## Detalhes Técnicos
+Uma aplicação (client) deverá enviar via transmissão serial UART uma sequência de números. Cada número deverá estar entre os intervalos `[− 1 ⋅ 1038 ; + 1 ⋅ 1038 ]` e possuir no mínimo 6 casas de precisão. Exemlo:
 
-### Representação IEEE 754
+- 45 , 450000
+- − 1 , 43567
+- 1 , 23 ⋅ 1023
 
-O padrão IEEE 754 define dois formatos principais para números em ponto flutuante:
+Os números serão recebidos pelo server, que deverá “printá-los” no prompt **separadamente (1 número por linha).**
 
-1. **Precisão Simples (32 bits)**
-   - 1 bit para sinal
-   - 8 bits para expoente
-   - 23 bits para mantissa
+O cliente deverá enviar uma certa quantidade de números, entre 5 e 15. O server não saberá a quantidade denúmeros que irá receber. Os números a serem enviados podem estar “hard coded” ou informado pelo usuário.
 
-2. **Precisão Dupla (64 bits)**
-   - 1 bit para sinal
-   - 11 bits para expoente
-   - 52 bits para mantissa
+Após a recepção, o server deverá retornar ao client uma mensagem informando a soma de todos os números
+recebidos. Essa resposta deve também ter a mesma precisão de 6 dígitos.
 
-### Operações Básicas
+Caso a soma retornada pelo server não esteja correto na resposta, o cliente deverá expor uma mensagem avisando a inconsistência.
 
-Você deve implementar:
+Se o server não retornar nada em até 5 segundos, o cliente deverá expor uma mensagem de `time out`.
 
-1. **Conversão**
-   - Decimal para IEEE 754
-   - IEEE 754 para decimal
+!!! info
+    **Importante! Lembre-se que o server não conhece a quantidade de números que serão transmitidos!**
 
-2. **Operações**
-   - Adição
-   - Subtração
-   - Multiplicação
-   - Divisão
+## 4) Avaliação
 
-3. **Análise**
-   - Precisão
-   - Erros de arredondamento
-   - Overflow/Underflow
+Você e sua dupla deverão apresentar para seu professor o código funcionando em 3 situações.
 
-### Conceitos de Avaliação
+1. Você deverá simular um caso de sucesso de transmissão.
+2. Um caso de erro (server recebeu os comandos com problema de interpretação). Nesse caso você pode
+    forçar um erro com algo “hard coded” no seu código server para simular a situação.
+3. Um caso de ausência de resposta por parte do server e mensagem de time out do cliente.
 
-#### Conceito C
-- Implementar corretamente a representação IEEE 754
-- Realizar operações básicas
+- **Nota C** conseguir enviar os números corretamente e o print for feito corretamente no lado server.
 
-#### Conceito B
-- Implementar todas as operações
-- Analisar erros de arredondamento
+- **Nota C+** conseguir enviar os comandos, server respondendo com a soma dos números recebido, não há excesso de
+dados e metadados sendo transferidos e o tempo de envio não for alto, sem pausas ou esperas.
 
-#### Conceito B+
-- Implementar operações avançadas
-- Otimizar precisão
+- **Nota B** Adicionar time out.
 
-#### Conceito A+
-- Implementar todas as operações
-- Otimizar precisão
-- Documentar limitações
+- **Nota A+** Todos os itens anteriores no formato de ponto flutuante 32 bis IEEE, conforme explicado em aula.
 
+!!! tip
+    Tente **não alterar** as camadas _enlace, enlaceRx, enlaceTx_ e _InterfaceFisica_.
+
+
+### Base teórica sobre ponto flutuante 32 bits IEEE- 754
+
+Lembre-se da explicação feita em sala pelo seu professor. Tente codificar os números no padrão IEEE- 754 ou usar uma biblioteca. Ao usar a biblioteca você deverá verificar a codificação.
+
+Use sites e informações de sua IA favorita para relembrar o ponto flutuante 32bits.
+
+![alt text](image-1.png)

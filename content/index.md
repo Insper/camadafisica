@@ -7,7 +7,7 @@ Essa página contém todos os materiais para o curso de Camada Física da Comput
 O curso é estruturado em 9 projetos:
 
 - **Projeto 1**: Loop-back
-- **Projeto 2**: Ponto Flutuante
+- **Projeto 2**: Client-Server
 - **Projeto 3**: Datagrama
 - **Projeto 4**: Checksum
 - **Projeto 5**: Serialização Uart (arduino)
