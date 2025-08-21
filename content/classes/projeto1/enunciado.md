@@ -1,5 +1,9 @@
 # Projeto 1 – Loop Back
 
+
+<a href="HandOut.rar" download>Baixar o arquivo do projeto</a>
+
+
 Neste projeto, você deverá construir um código em **Python** para **transmissão e recepção serial simultâneas**.  
 O software funcionará como **camada intermediária** entre o usuário e o chip UART, sequenciando os bits de cada byte de acordo com o protocolo.
 
