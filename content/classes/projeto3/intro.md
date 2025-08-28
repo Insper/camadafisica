@@ -1,149 +1,174 @@
-# Transmissão e Recepção Serial UART
-
-## Introdução à Comunicação Serial
-
-A comunicação serial é uma forma de transmitir dados entre dispositivos eletrônicos de forma sequencial, enviando um bit por vez, ao longo de uma única linha de comunicação. Ao contrário da comunicação paralela, onde vários bits são enviados simultaneamente em várias linhas, a comunicação serial utiliza menos cabos, é mais simples e é frequentemente utilizada em dispositivos que precisam enviar informações a longas distâncias ou com recursos limitados.
-
-## O Que é UART?
-
-UART, ou **Universal Asynchronous Receiver-Transmitter**, é um protocolo de comunicação serial assíncrona amplamente utilizado para permitir a troca de dados entre um dispositivo (como um microcontrolador) e um periférico (como um computador). Esse protocolo é assíncrono porque não requer um sinal de clock comum para sincronizar os dispositivos comunicantes.
-
-### Estrutura de Dados na Comunicação UART
-
-A comunicação UART transmite os dados em "frames". Um frame é uma sequência de bits que inclui os dados a serem transmitidos e informações de controle, como bits de início, parada e, opcionalmente, paridade. A estrutura básica de um frame UART é a seguinte:
-
-1. **Start Bit**: Um único bit que indica o início da transmissão de um frame. O start bit é sempre um '0' (nível baixo).
-2. **Data Bits**: Entre 5 e 9 bits que representam os dados a serem transmitidos.
-3. **Parity Bit (Opcional)**: Um bit adicional utilizado para verificar erros durante a transmissão.
-4. **Stop Bit**: Um ou dois bits que indicam o final de um frame. O stop bit é sempre '1' (nível alto).
-
-### Diagrama de um Frame UART:
-
-| Start | Data Bits (5-9) | Paridade (Opcional) | Stop (1-2) |
-
-
-## Termos Importantes
-
-Aqui estão alguns termos que você precisa entender para compreender a comunicação UART:
-
-1. **Transmissão Assíncrona**: É um tipo de comunicação onde o receptor e o transmissor não compartilham um sinal de clock comum. Em vez disso, o receptor sincroniza com o transmissor através dos bits de start e stop do frame de dados.
-   
-2. **Start Bit**: Sinaliza o início da transmissão. Normalmente, é um nível lógico baixo (0).
-   
-3. **Stop Bit**: Indica o fim de uma transmissão. É um nível lógico alto (1) e pode haver um ou dois bits de stop.
-   
-4. **TX, RX, GND**: TX é o pino de transmissão, RX é o pino de recepção, e GND é o aterramento comum entre os dispositivos.
-   
-5. **Baud Rate**: A taxa de bits por segundo (bps) transmitidos na comunicação UART. Exemplo: 9600 bps significa que 9600 bits são transmitidos a cada segundo.
-   
-6. **Bit Rate**: Refere-se à quantidade de dados (bits) transmitidos ou recebidos por unidade de tempo.
-   
-7. **Buffer**: Área de memória usada temporariamente para armazenar os dados durante a comunicação.
-   
-8. **Frame**: A estrutura completa de dados transmitidos, composta por bits de início, dados, paridade e parada.
-   
-9. **Bit de Paridade**: Bit opcional usado para detecção de erros. Pode ser par ou ímpar.
-   
-10. **CRC (Cyclic Redundancy Check)**: Um método de verificação de erros mais robusto do que a paridade simples, utilizado para garantir a integridade dos dados.
-
-## O Que é Loopback?
-
-O conceito de **loopback** envolve conectar o pino de transmissão (TX) ao pino de recepção (RX) para criar um ciclo fechado de comunicação. Nesse projeto, o loopback é feito para que tudo o que o seu computador enviar ao Arduino seja imediatamente devolvido, espelhando a transmissão de dados. Isso é útil para testar a comunicação sem um segundo dispositivo.
-
-
-## Leituras Recomendadas
-
-Para se aprofundar na transmissão serial UART, consulte os seguintes links:
-
-- [UART em FreeBSD](https://docs.freebsd.org/pt-br/articles/serial-uart/)
-- [Transmissão Serial UART](http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf)
-- [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
-- [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
-
 # Introdução à Comunicação por Datagramas
 
-## Visão Geral
+Normalmente, a camada responsável pela transmissão dos dados gerados em camadas superiores realiza a transmissão de duas formas: dados fragmentados em pacotes (datagramas) ou streaming. As principais diferenças entre uma transmissão em streaming e uma transmissão baseada em pacotes (datagramas) estão relacionadas à forma como os dados são enviados, recebidos e processados. Vamos analisar cada uma:
 
-A comunicação por datagramas é um método fundamental de transmissão de dados em redes de computadores, onde as informações são enviadas em pacotes independentes. Este conceito é essencial para compreender como funciona a comunicação na Internet e em outras redes de dados.
+## Transmissão em Streaming
 
-## O que é um Datagrama?
+- **Definição**: É uma forma de transmissão contínua de dados, geralmente usada para conteúdos multimídia (áudio e vídeo).
+- **Protocolo comum**: Utiliza protocolos como RTP (Real-time Transport Protocol) sobre UDP ou HLS/DASH sobre HTTP.
+- **Modo de entrega**: Os dados são entregues e processados continuamente, permitindo a reprodução do conteúdo quase em tempo real, sem necessidade de download completo.
+- **Latência**: Baixa a moderada, dependendo da técnica utilizada (por exemplo, buffering para evitar interrupções).
+- **Controle de erro**: Pode tolerar pequenas perdas sem comprometer significativamente a experiência do usuário.
+- **Exemplos de uso**: Plataformas como Netflix, YouTube, Spotify e transmissões ao vivo.
 
-Um datagrama é uma unidade de dados que contém informações suficientes para ser roteada independentemente de outros pacotes. As principais características são:
+## Transmissão em Pacotes (Datagramas)
 
-1. **Independência**: Cada pacote é tratado de forma isolada
-2. **Não-orientado a conexão**: Não há estabelecimento de conexão
-3. **Não confiável**: Não há garantia de entrega ou ordem
+- **Definição**: Baseia-se no envio de pacotes de dados independentes, onde cada datagrama pode seguir um caminho diferente na rede.
+- **Exemplos**: Protocolos como UDP (User Datagram Protocol), que não garante a entrega ou a ordem dos pacotes. E protocolos como o TCP (Transmission Control Protocol), que provê garantia de entrega.
+- **Modo de entrega**: Os pacotes são enviados de forma discreta, sem garantir que chegarão na mesma ordem ou mesmo que serão entregues (dependendo do protocolo).
+- **Latência**: Aumenta quando há necessidade de confirmação de recebimento de pacotes, como no TCP.
+- **Controle de erro**: Garantia de retransmissão no caso do TCP.
+- **Exemplos de uso**: Aplicações em tempo real como VoIP (ligações pela internet), jogos online, DNS, transmissões multicast.
 
-## Características do Datagrama
+!!! exercise choice "Diferenças entre Streaming e Datagramas"
+    Qual das características abaixo é específica da transmissão em streaming?
 
-### Estrutura
+    - [X] Permite reprodução do conteúdo quase em tempo real sem download completo
+    - [ ] Utiliza pacotes independentes que podem seguir caminhos diferentes
+    - [ ] Garante a entrega de todos os dados transmitidos
+    - [ ] Requer confirmação de recebimento para cada pacote
 
-- **Cabeçalho**
-  - Informações de controle
-  - Endereçamento
-  - Sequenciamento
+    !!! answer "Resposta!"
+        A transmissão em streaming permite a reprodução do conteúdo quase em tempo real sem necessidade de download completo, diferentemente da transmissão por datagramas que envia pacotes independentes.
 
-- **Dados**
-  - Payload
-  - Padding
+## Como são os pacotes (datagramas)
 
-### Funcionalidades
+Um datagrama é tipicamente dividido em 3 partes:
 
-1. **Fragmentação**
-   - Divisão de pacotes grandes
-   - Geração de fragmentos
-   - Controle de sequência
+- Um cabeçalho (header)
+- Payload (dados)
+- EOP (end of package)
 
-2. **Reassemblagem**
-   - Ordenação de fragmentos
-   - Verificação de integridade
-   - Tratamento de perdas
+![alt text](image.png)
 
-3. **Controle**
-   - Controle de fluxo
-   - Retransmissão
-   - Timeout
+Nos bytes reservados ao cabeçalho são colocados os bytes de comunicação entre as partes. O metadado. Com os bytes posicionados nas posições corretas, as partes podem conversar. Confirmar envio, informar quem está enviando, qual o número do pacote, qual o tamanho do payload, confirmar recebimento... Enfim, esses bytes são utilizados para uma conversa entre as partes.
 
-## Implementação no Projeto
+No payload são colocados os bytes de dados que foram acomodados no pacote.
 
-### 1. Estrutura do Datagrama
+O EOP é uma espécie de fim de pacote, é uma sequência combinada que marca o fim do pacote.
 
-- Definir formato do cabeçalho
-- Implementar campos necessários
-- Criar funções de serialização
+!!! exercise choice "Estrutura do Datagrama"
+    Qual é a função principal do cabeçalho (header) em um datagrama?
 
-### 2. Fragmentação
+    - [ ] Armazenar os dados úteis da transmissão
+    - [X] Contém metadados para comunicação entre as partes
+    - [ ] Indicar o fim do pacote
+    - [ ] Comprimir os dados para economizar banda
 
-- Implementar divisão de pacotes
-- Gerar fragmentos
-- Controlar sequência
+    !!! answer "Resposta!"
+        O cabeçalho contém metadados essenciais para a comunicação entre as partes, como informações de controle, endereçamento, numeração de pacotes e confirmações.
 
-### 3. Reassemblagem
+## Por que enviar os dados segmentados em pacotes?
 
-- Ordenar fragmentos
-- Verificar integridade
-- Tratar perdas
+Os principais motivos para o uso de transmissão em pacotes são:
 
-## Ferramentas e Recursos
+### 1. Eficiência na utilização da rede
+- Dividir dados em pacotes permite que várias transmissões ocorram simultaneamente na rede.
+- Diferentes pacotes podem seguir rotas distintas para evitar congestionamentos.
+- Se um pacote for perdido, somente ele será retransmitido, e não toda a mensagem.
 
-### Bibliotecas Python
+### 2. Melhor controle de erro
+- Cada pacote contém um *checksum* para verificar a integridade dos dados.
+- Se houver erro na transmissão, apenas o pacote corrompido será reenviado, reduzindo desperdício de banda.
 
-- `struct`: Manipulação de bytes
-- `socket`: Comunicação em rede
-- `threading`: Concorrência
+### 3. Gerenciamento de tráfego e controle de congestionamento
+- Protocolos como **TCP** ajustam o tamanho dos pacotes e a taxa de envio conforme a capacidade da rede.
+- Se a rede estiver congestionada, pacotes podem ser redirecionados ou retransmitidos.
 
-### Recursos Adicionais
+### 4. Fragmentação e reassemblagem
+- Pacotes menores são mais fáceis de transportar e evitam bloqueios em redes de diferentes capacidades.
+- Dispositivos intermediários, como roteadores, podem fragmentar ou juntar pacotes conforme necessário.
 
-- Wireshark para análise de pacotes
-- Testadores de rede
-- Simuladores de rede
+### 5. Comunicação mais robusta e confiável
+- Se uma conexão for interrompida, pacotes já transmitidos não são perdidos.
+- A comunicação pode ser mantida mesmo com falhas parciais na rede.
 
-## Próximos Passos
+!!! exercise choice "Vantagens da Segmentação"
+    Qual é a principal vantagem de segmentar dados em pacotes quando ocorre um erro de transmissão?
 
-1. Familiarize-se com o conceito de datagramas
-2. Implemente a estrutura básica
-3. Desenvolva a fragmentação
-4. Adicione reassemblagem
-5. Teste e documente
+    - [ ] Todos os dados precisam ser retransmitidos
+    - [ ] A velocidade de transmissão aumenta automaticamente
+    - [X] Apenas o pacote corrompido precisa ser reenviado
+    - [ ] O erro é automaticamente corrigido sem retransmissão
 
+    !!! answer "Resposta!"
+        Uma das principais vantagens da segmentação é que, em caso de erro, apenas o pacote corrompido precisa ser retransmitido, não toda a mensagem, economizando banda e tempo.
 
+## Exemplo de datagrama: Cabeçalho TCP  
+
+Exemplo de datagrama: Cabeçalho TCP *(20 bytes fixos + opções variáveis)*
+
+| Campo               | Tamanho (bits) | Descrição |
+|---------------------|----------------|-----------|
+| **Porta de origem** | 16             | Número da porta do remetente |
+| **Porta de destino**| 16             | Número da porta do destinatário |
+| **Número de sequência** | 32        | Indica a posição do primeiro byte deste segmento dentro do fluxo de dados |
+| **Número de confirmação (ACK)** | 32 | Confirma o recebimento do último segmento válido do emissor |
+| **Tamanho do cabeçalho** | 4        | Indica o tamanho do cabeçalho TCP (mínimo 20 bytes) |
+| **Reservado**       | 3              | Reservado para uso futuro |
+| **Flags de controle** | 9            | Indica o estado da conexão (SYN, ACK, FIN, etc.) |
+| **Tamanho da janela** | 16           | Quantidade de bytes que o receptor pode aceitar sem receber confirmação |
+| **Checksum**        | 16             | Verifica a integridade do segmento |
+| **Ponteiro de urgência** | 16        | Indica se há dados urgentes (caso a flag URG esteja ativa) |
+| **Opções TCP**      | Variável       | Usado para configurações extras, como escala de janela, timestamps, etc. |
+
+Além do cabeçalho, o protocolo TCP possui um **payload variável**, com tamanho máximo de **1469 bytes**.  
+O tamanho do payload de cada pacote é normalmente informado no próprio cabeçalho.
+
+!!! exercise choice "Cabeçalho TCP"
+    Qual campo do cabeçalho TCP é responsável por garantir que os dados não foram corrompidos durante a transmissão?
+
+    - [ ] Número de sequência
+    - [ ] Flags de controle
+    - [X] Checksum
+    - [ ] Tamanho da janela
+
+    !!! answer "Resposta!"
+        O campo Checksum é responsável por verificar a integridade do segmento, garantindo que os dados não foram corrompidos durante a transmissão.
+
+## Explicação dos principais campos do cabeçalho TCP
+
+### 1. Número de sequência (*Sequence Number*)
+- Indica qual é o primeiro byte do segmento dentro do fluxo de dados.
+- Importante para **remontar os dados na ordem correta**.
+
+### 2. Número de confirmação (*Acknowledgment Number*)
+- Usado pelo destinatário para informar **qual o próximo byte esperado**.
+- Se um segmento for perdido, ele não será confirmado, e o remetente o reenviará.
+
+### 3. Flags de controle (*9 bits*)
+- **URG (Urgent)** → Indica dados urgentes.
+- **ACK (Acknowledgment)** → Confirma recebimento de dados.
+- **PSH (Push)** → Solicita entrega imediata ao aplicativo.
+- **RST (Reset)** → Reinicia a conexão abruptamente.
+- **SYN (Synchronize)** → Inicia uma conexão.
+- **FIN (Finish)** → Finaliza uma conexão.
+
+### 4. Tamanho da Janela (*Window Size*)
+- Define **quantos bytes o receptor pode armazenar** antes de precisar enviar uma confirmação.
+- Essencial para o **controle de congestionamento** e **fluxo de dados**.
+
+### 5. Checksum
+- Validado pelo receptor para garantir que os dados **não foram corrompidos** durante a transmissão.
+
+!!! exercise choice "Flags de Controle TCP"
+    Qual flag TCP é utilizada para iniciar uma nova conexão?
+
+    - [ ] ACK (Acknowledgment)
+    - [X] SYN (Synchronize)
+    - [ ] FIN (Finish)
+    - [ ] RST (Reset)
+
+    !!! answer "Resposta!"
+        A flag SYN (Synchronize) é utilizada para iniciar uma nova conexão TCP, fazendo parte do processo de estabelecimento de conexão conhecido como "three-way handshake".
+
+!!! exercise choice "Controle de Fluxo"
+    O campo "Tamanho da Janela" no cabeçalho TCP é utilizado principalmente para:
+
+    - [ ] Indicar o tamanho total do arquivo sendo transmitido
+    - [ ] Definir o número máximo de conexões simultâneas
+    - [X] Controlar quantos bytes podem ser enviados antes de receber confirmação
+    - [ ] Especificar a velocidade de transmissão da rede
+
+    !!! answer "Resposta!"
+        O campo "Tamanho da Janela" define quantos bytes o receptor pode armazenar antes de precisar enviar uma confirmação, sendo essencial para o controle de fluxo e prevenção de congestionamento.
