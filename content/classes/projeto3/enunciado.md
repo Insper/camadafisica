@@ -1,7 +1,7 @@
 # Enunciado do Projeto 03
 
-Nesse projeto, sua aplicação que exerce o papel de **client** deverá enviar um arquivo para a aplicação **server**.  
-Esse arquivo deverá ser fragmentado e enviado através de “pacotes” (*datagramas*).  
+Neste projeto, sua aplicação que exerce o papel de **client** deverá enviar um arquivo para a aplicação **server**.  
+Esse arquivo deverá ser fragmentado e enviado através de "pacotes" (*datagramas*).  
 Deverá existir **handshake** e **confirmação de recebimento** de cada pacote.
 
 ## Estrutura do Datagrama
@@ -17,10 +17,9 @@ Estrutura definida:
 
 > Não importa o tipo de mensagem, sempre será enviada através de um datagrama como definido acima, tanto de *client* para *server* como no sentido oposto.
 
-
 ## Handshake
 
-Antes do envio da mensagem, o **client** deve enviar uma mensagem para verificar se o **server** está “vivo” e pronto para receber o arquivo.  
+Antes do envio da mensagem, o **client** deve enviar uma mensagem para verificar se o **server** está "vivo" e pronto para receber o arquivo.  
 O **server** responde confirmando que está pronto para receber.
 
 - Enquanto a mensagem de confirmação não for recebida, o cliente **não inicia** o envio.
@@ -29,7 +28,6 @@ O **server** responde confirmando que está pronto para receber.
 - Se o usuário escolher **S**, outra mensagem de verificação é enviada ao *server*.  
   Se escolher **N**, o processo se encerra.
 - Caso o servidor responda em menos de 3 segundos, o cliente inicia a transmissão enviando o **primeiro pacote**.
-
 
 ## Fragmentação
 
@@ -41,7 +39,6 @@ Cada pacote deve seguir obrigatoriamente a estrutura do datagrama.
 - Gestão do tempo de ocupação do canal de comunicação.
 - Evitar retransmissão completa em caso de erro, possibilitando reenviar apenas o fragmento com problema.
 
-
 ## Acknowledge / Not Acknowledge
 
 Durante a transmissão, é comum trocar mensagens de:
@@ -50,7 +47,6 @@ Durante a transmissão, é comum trocar mensagens de:
 
 > Isso aumenta a robustez da comunicação, mas pode afetar a velocidade de transmissão.  
 > Existe um compromisso entre velocidade e segurança no que diz respeito à integridade dos dados.
-
 
 ## Funcionalidades Obrigatórias
 
@@ -73,10 +69,9 @@ Durante a transmissão, é comum trocar mensagens de:
 - Se houver erro de transmissão:
   - O cliente **encerra** a comunicação sem tentar corrigir e prosseguir.
 
-
 ## Critérios de Entrega
 
-Fique atento a data de entrega.
+Fique atento à data de entrega.
 
 ### Conceito C
 - Transmissão de sucesso, com o servidor recebendo os pacotes, conferindo e respondendo ao cliente.
@@ -89,8 +84,6 @@ Fique atento a data de entrega.
 
 ### Conceito A+
 - Simulação em que, se os fios entre os Arduinos forem desconectados e reconectados, a transmissão retorna e termina com sucesso.
-
-
 
 # Exemplo de Protocolo em Pacotes com Garantia Total de Entrega  
 *(Este exemplo é mais complexo que o Projeto 3)*
@@ -112,26 +105,21 @@ Fique atento a data de entrega.
 | **h7** | Último pacote recebido com sucesso |
 | **h8 – h9** | CRC (*Por ora deixe em branco. Fará parte do Projeto 5*) |
 
-
 ## Estrutura do PAYLOAD
 
 - Variável, entre **0 e 114 bytes**.  
 - Reservado à transmissão dos arquivos.
 
-
 ## Estrutura do EOP
 
 - **4 bytes**: `0xAA 0xBB 0xCC 0xDD`
 
-
 **Importante:**  
 > A métrica para seu sucesso são **a integridade dos dados recebidos** e o **throughput**!
-
 
 ## Padrão de Comunicação
 
 - **UART**, baudrate **115200**, sem bit de paridade.
-
 
 ## Definição de Datagrama
 
@@ -174,7 +162,6 @@ Mensagem de envio de dados.
   - `h0` = **4** (tipo da mensagem).
   - Deve conter o **número do último pacote** recebido e validado.
 
-
 ### **TIPO 5**
 - Mensagem de **timeout**.
 - Condições para envio:
@@ -183,7 +170,6 @@ Mensagem de envio de dados.
   - Encerrar a conexão após falha por tempo excedido.
 - Estrutura:
   - `h0` = **5** (tipo da mensagem).
-
 
 ### **TIPO 6**
 - Mensagem de **erro** enviada **do servidor para o cliente** quando uma mensagem **TIPO 3** é inválida.
@@ -196,6 +182,20 @@ Mensagem de envio de dados.
   - Orientar para o **reenvio** do pacote correto.
 - Estrutura:
   - `h0` = **6** (tipo da mensagem).
-  - `h6` = **número correto do pacote esperado pelo servidor**, independente do motivo da invalidez.
+  - `h6` = **número correto do pacote esperado pelo servidor**, independentemente do motivo da invalidez.
 
-  
+## Diagrama
+
+A comunicação **deve** ocorrer de acordo com os diagramas a seguir (atente para a legenda):
+
+1. **Legenda**
+
+![alt text](image-4.png)
+
+2. **PROTOCOLO CLIENTE**
+
+   ![alt text](image-2.png)
+
+3. **PROTOCOLO SERVER**
+
+   ![alt text](image-3.png)
