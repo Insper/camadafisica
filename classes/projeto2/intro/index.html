@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 3 - Datagrama</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto3/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto3/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="introducao-a-representacao-em-ponto-flutuante">Introdução à Representação em Ponto Flutuante</h1>
+<h2 id="visao-geral">Visão Geral</h2>
+<p>A representação em ponto flutuante é um método fundamental para armazenar e manipular números reais em sistemas computacionais. Este conceito é essencial para compreender como os computadores lidam com números decimais e suas limitações.</p>
+<h2 id="o-que-e-ponto-flutuante">O que é Ponto Flutuante?</h2>
+<p>Ponto flutuante é uma representação numérica que permite expressar números reais de forma aproximada em sistemas computacionais. A principal característica é a separação do número em três partes:</p>
+<ol>
+<li><strong>Sinal</strong>: Indica se o número é positivo ou negativo</li>
+<li><strong>Expoente</strong>: Define a posição do ponto decimal</li>
+<li><strong>Mantissa</strong>: Contém os dígitos significativos do número</li>
+</ol>
+<h2 id="caracteristicas-do-ponto-flutuante">Características do Ponto Flutuante</h2>
+<h3 id="precisao">Precisão</h3>
+<ul>
+<li><strong>Precisão Simples (32 bits)</strong></li>
+<li>Menor precisão</li>
+<li>Menor consumo de memória</li>
+<li>
+<p>Mais rápido em operações</p>
+</li>
+<li>
+<p><strong>Precisão Dupla (64 bits)</strong></p>
+</li>
+<li>Maior precisão</li>
+<li>Maior consumo de memória</li>
+<li>Mais lento em operações</li>
+</ul>
+<h3 id="limitacoes">Limitações</h3>
+<ol>
+<li><strong>Erros de Arredondamento</strong></li>
+<li>Números não podem ser representados exatamente</li>
+<li>
+<p>Erros se acumulam em operações sucessivas</p>
+</li>
+<li>
+<p><strong>Overflow/Underflow</strong></p>
+</li>
+<li>Números muito grandes ou pequenos</li>
+<li>
+<p>Limites da representação</p>
+</li>
+<li>
+<p><strong>Números Especiais</strong></p>
+</li>
+<li>Infinito</li>
+<li>NaN (Not a Number)</li>
+<li>Zero com sinal</li>
+</ol>
+<h2 id="implementacao-no-projeto">Implementação no Projeto</h2>
+<h3 id="1-representacao-ieee-754">1. Representação IEEE 754</h3>
+<ul>
+<li>Implementar conversão decimal → IEEE 754</li>
+<li>Implementar conversão IEEE 754 → decimal</li>
+<li>Tratar casos especiais</li>
+</ul>
+<h3 id="2-operacoes-basicas">2. Operações Básicas</h3>
+<ul>
+<li>Adição e subtração</li>
+<li>Multiplicação e divisão</li>
+<li>Comparações</li>
+</ul>
+<h3 id="3-analise-de-precisao">3. Análise de Precisão</h3>
+<ul>
+<li>Calcular erros absolutos e relativos</li>
+<li>Identificar fontes de erro</li>
+<li>Propor melhorias</li>
+</ul>
+<h2 id="ferramentas-e-recursos">Ferramentas e Recursos</h2>
+<h3 id="bibliotecas-python">Bibliotecas Python</h3>
+<ul>
+<li><code>struct</code>: Manipulação de bytes</li>
+<li><code>numpy</code>: Operações numéricas</li>
+<li><code>decimal</code>: Precisão decimal arbitrária</li>
+</ul>
+<h3 id="recursos-adicionais">Recursos Adicionais</h3>
+<ul>
+<li>Calculadoras IEEE 754 online</li>
+<li>Visualizadores de representação binária</li>
+<li>Ferramentas de análise de precisão</li>
+</ul>
+<h2 id="proximos-passos">Próximos Passos</h2>
+<ol>
+<li>Familiarize-se com o padrão IEEE 754</li>
+<li>Implemente as conversões básicas</li>
+<li>Desenvolva as operações aritméticas</li>
+<li>Realize testes de precisão</li>
+<li>Documente suas descobertas</li>
+</ol>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>
