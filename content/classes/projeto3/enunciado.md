@@ -1,201 +1,63 @@
 # Enunciado do Projeto 03
 
-Neste projeto, sua aplicação que exerce o papel de **client** deverá enviar um arquivo para a aplicação **server**.  
-Esse arquivo deverá ser fragmentado e enviado através de "pacotes" (*datagramas*).  
-Deverá existir **handshake** e **confirmação de recebimento** de cada pacote.
+Nesse projeto, sua aplicação que exerce o papel de **client** deverá realizar **download de arquivos** vindos da
+aplicação **server**. Esses arquivos deverão ser fragmentados e enviados através de "pacotes" (*datagramas*). Deverá
+existir **handshake** e **confirmação de recebimento** de cada pacote, como explicado a seguir!
 
-## Estrutura do Datagrama
+## Datagrama
 
-A partir de agora, você está **PROIBIDO** de trocar mensagens entre *server* e *client* que não sejam um datagrama completo (um pacote).  
-Isso significa que, mesmo que queira enviar um único byte, mesmo que não faça parte dos dados a serem enviados, deverá enviar um pacote compondo um datagrama.
-
-Estrutura definida:
-
-- **HEAD** – 12 bytes (fixo)  
-- **PAYLOAD** – variável, entre 0 e 70 bytes (pode variar de pacote para pacote)  
-- **EOP** – 3 bytes (fixo, valores de livre escolha)  
+Você pode definir como será seu datagrama, mas aconselhamos a reservar uma boa quantidade de bytes (10 ou 12 bytes) para o head, a fim de ter espaço suficiente para uma boa comunicação entre as partes. O tamanho do head deve ser fixo. O payload pode ter tamanho variável durante a transmissão, mas **nunca poderá ser maior que 100 Bytes**. Além disso sugerimos um EOP de sua libre escolha com 3 ou 4 bytes.
 
 > Não importa o tipo de mensagem, sempre será enviada através de um datagrama como definido acima, tanto de *client* para *server* como no sentido oposto.
 
 ## Handshake
 
-Antes do envio da mensagem, o **client** deve enviar uma mensagem para verificar se o **server** está "vivo" e pronto para receber o arquivo.  
-O **server** responde confirmando que está pronto para receber.
+Antes do envio da mensagem, o **client** deve enviar uma mensagem para verificar se o **server** está "vivo" e indagar quais arquivos estão disponíveis.
 
-- Enquanto a mensagem de confirmação não for recebida, o cliente **não inicia** o envio.
-- Caso o cliente não receba resposta dentro de **3 segundos**, o usuário deve receber a mensagem:  
-  `"Servidor inativo. Tentar novamente? S/N"`.
-- Se o usuário escolher **S**, outra mensagem de verificação é enviada ao *server*.  
-  Se escolher **N**, o processo se encerra.
-- Caso o servidor responda em menos de 3 segundos, o cliente inicia a transmissão enviando o **primeiro pacote**.
+O **server** deve responder com os nomes dos arquivos disponíveis, e esses nomes deverão aparecer no terminal do cliente caso contrario um Timeout de 3 segundos se não houver resposta.
 
-## Fragmentação
 
-Como o *payload* é menor que o arquivo, ele deve ser enviado em partes (pacotes).  
-Cada pacote deve seguir obrigatoriamente a estrutura do datagrama.
 
-**Motivos para fragmentar:**
-- Limitação de hardware (pouco espaço no *buffer*).
-- Gestão do tempo de ocupação do canal de comunicação.
-- Evitar retransmissão completa em caso de erro, possibilitando reenviar apenas o fragmento com problema.
 
-## Acknowledge / Not Acknowledge
+## Escolha de 2 ou mais arquivos.
 
-Durante a transmissão, é comum trocar mensagens de:
-- Confirmação de recebimento de um pacote.
-- Notificação de erro na recepção de um pacote.
+O client então solicita um dos arquivos. O server deve responder algo como: “arquivo x escolhido, deseja adicionar outro arquivo?”
+O cliente deverá então escolher um segundo arquivo.
+O server deve responder com “arquivo x e y escolhidos, deseja adicionar outro arquivo?”
+Se o client responder que sim, o server fornece a lista disponível, o cliente escolhe outro arquivo, e o server vai
+registrando as escolhas. Se o cliente responder que não, o server deve responder algo como: “entendido. Vou iniciar
+a transmissão simultânea dos arquivos escolhidos”
 
-> Isso aumenta a robustez da comunicação, mas pode afetar a velocidade de transmissão.  
-> Existe um compromisso entre velocidade e segurança no que diz respeito à integridade dos dados.
+## Transmissão
 
-## Funcionalidades Obrigatórias
+A transmissão deve ser necessariamente feita da seguinte maneira:
 
-- O datagrama **não pode ultrapassar 85 bytes**.  
-  O *payload* será menor, exigindo fragmentação da imagem a ser enviada.
-- Ao enviar um pacote, o cliente deve indicar no **HEAD**:
-  - Número do pacote.
-  - Número total de pacotes a serem transmitidos.
-- Ao receber um pacote, o servidor deve:
-  - Verificar se o número do pacote é **1 a mais** que o anterior (ordem correta).
-  - Verificar se o **EOP** está no local correto e completo.
-- Se tudo estiver correto:
-  - O servidor envia mensagem para que o cliente envie o próximo pacote.
-- O cliente **não envia** o próximo pacote sem a confirmação do servidor.
-- Se houver erro:
-  - O servidor solicita o **reenvio** do pacote (payload incorreto ou ordem errada).
-- Ao receber o último pacote:
-  - O servidor reagrupa os pacotes e salva o arquivo original.
-  - Responde ao cliente confirmando **sucesso na transmissão**.
-- Se houver erro de transmissão:
-  - O cliente **encerra** a comunicação sem tentar corrigir e prosseguir.
+Toda vez que o server enviar um pacote de um dos arquivos, o cliente deve responder confirmando o recebimento, e só então o server envia o próximo. Todas essas confirmações devem estar sendo printadas no terminal. Descreva tudo que esteja ocorrendo através de prints.
+
+Os pacotes devem ser alternados, ou seja, um pacote de cada arquivo, sendo que os dois ou mais arquivos sejam transmitidos simultaneamente enquanto a transmissão não termina. À medida que arquivos sejam enviados completamente, apenas os pacotes dos arquivos ainda em transmissão são enviados, obviamente.
+
+## Fim
+
+Os arquivos devem ser salvos no computador do cliente e não podem estar "corrompidos".
+Um print com o resumo da transmissão deve aparecer, mostrando tamanho dos arquivos recebidos, número de pacotes de cada arquivo.
+
 
 ## Critérios de Entrega
 
 Fique atento à data de entrega.
 
-### Conceito C
-- Transmissão de sucesso, com o servidor recebendo os pacotes, conferindo e respondendo ao cliente.
+### Conceito C (nota 5)
+- Uma transmissão de sucesso de 2 arquivos simultâneos escolhidos pelo usuário.
 
-### Conceito B-
-- Simulação de *server* inativo por mais de 3 segundos, forçando novo handshake.  
-  - O cliente tenta **2 vezes** iniciar sem sucesso e na **3ª vez** o servidor responde e inicia a transmissão.
-- Simulação em que o cliente envia pacote com número errado e o servidor responde adequadamente.
-- Simulação em que o tamanho real do *payload* não corresponde ao informado no HEAD.
+### Conceito B (nota 7,5)
+- Transmissão de sucesso mais a funcionalidade em que o usuário client poderá apartar uma tecla para pausar
+o processo, uma outra tecla para reiniciar o processo e outra para abortar a transmissão.
 
-### Conceito A+
-- Simulação em que, se os fios entre os Arduinos forem desconectados e reconectados, a transmissão retorna e termina com sucesso.
+### Conceito A (nota 9)
+- Uma simulação em que se os fios entre os Arduinos (qualquer um deles ou ambos) forem desconectados e conectados novamente, a transmissão retorna e termina com sucesso!
 
-# Exemplo de Protocolo em Pacotes com Garantia Total de Entrega  
-*(Este exemplo é mais complexo que o Projeto 3)*
+### Conceito A+ (nota 10)
+- Todas as funcionalidades com prints caprichados de todo o processo no lado cliente e também server!
 
-![alt text](image-1.png)
 
-## Estrutura do HEAD
-
-| Campo | Descrição |
-|-------|-----------|
-| **h0** | Tipo de mensagem |
-| **h1** | Livre |
-| **h2** | Livre |
-| **h3** | Número total de pacotes do arquivo |
-| **h4** | Número do pacote sendo enviado |
-| **h5** | Tipo para *handshake*: ID do arquivo (crie um) |
-| **h5** | Se tipo for *dados*: tamanho do payload |
-| **h6** | Pacote solicitado para recomeço quando há erro no envio |
-| **h7** | Último pacote recebido com sucesso |
-| **h8 – h9** | CRC (*Por ora deixe em branco. Fará parte do Projeto 5*) |
-
-## Estrutura do PAYLOAD
-
-- Variável, entre **0 e 114 bytes**.  
-- Reservado à transmissão dos arquivos.
-
-## Estrutura do EOP
-
-- **4 bytes**: `0xAA 0xBB 0xCC 0xDD`
-
-**Importante:**  
-> A métrica para seu sucesso são **a integridade dos dados recebidos** e o **throughput**!
-
-## Padrão de Comunicação
-
-- **UART**, baudrate **115200**, sem bit de paridade.
-
-## Definição de Datagrama
-
-Cada envio deve ser feito como um **datagrama completo**, contendo **head**, **payload** e **EOP**.  
-Não é permitido envios que não contenham *head*, *payload* (ocasionalmente nulo) e *EOP*.  
-
-**Restrições:**
-- Tamanho máximo do *payload*: **114 bytes**
-- Tamanho máximo do *datagrama*: **128 bytes**
-
-## Tipos de Mensagens
-
-### **TIPO 1**
-Mensagem enviada pelo cliente convidando o servidor para a transmissão.  
-- `h0` = **1** (indica mensagem tipo 1)  
-- Outro *byte* com identificador do arquivo.  
-- O servidor verifica se é para ele mesmo e confirma o envio.  
-- Inclui o número total de pacotes que serão enviados.
-
-### **TIPO 2**
-Mensagem enviada pelo servidor ao cliente após receber a **TIPO 1** com sucesso.  
-- Indica que está pronto para receber e enviar pacotes.  
-- `h0` = **2**.
-
-### **TIPO 3**
-Mensagem de envio de dados.  
-- Forma um bloco do arquivo.  
-- Contém:
-  - Número do pacote enviado (começando em 1)
-  - Número total de pacotes a serem enviados
-
-### **TIPO 4**
-- Enviada **do servidor para o cliente** sempre que uma mensagem **TIPO 3** for recebida e validada com sucesso.
-- Condições para envio:
-  - O pacote recebido é exatamente o esperado pelo servidor.
-  - A mensagem chegou **em perfeitas condições** (EOP no local correto).
-- Função:
-  - Confirmar ao cliente que o pacote foi recebido.
-- Estrutura:
-  - `h0` = **4** (tipo da mensagem).
-  - Deve conter o **número do último pacote** recebido e validado.
-
-### **TIPO 5**
-- Mensagem de **timeout**.
-- Condições para envio:
-  - Sempre que o tempo limite de espera (timer) for excedido, **em qualquer um dos lados** da comunicação.
-- Função:
-  - Encerrar a conexão após falha por tempo excedido.
-- Estrutura:
-  - `h0` = **5** (tipo da mensagem).
-
-### **TIPO 6**
-- Mensagem de **erro** enviada **do servidor para o cliente** quando uma mensagem **TIPO 3** é inválida.
-- Condições de invalidez:
-  - Pacote com bytes faltando.
-  - Formato incorreto.
-  - Pacote não esperado (repetido ou fora de ordem).
-- Função:
-  - Informar ao cliente que o pacote recebido é inválido.
-  - Orientar para o **reenvio** do pacote correto.
-- Estrutura:
-  - `h0` = **6** (tipo da mensagem).
-  - `h6` = **número correto do pacote esperado pelo servidor**, independentemente do motivo da invalidez.
-
-## Diagrama
-
-A comunicação **deve** ocorrer de acordo com os diagramas a seguir (atente para a legenda):
-
-1. **Legenda**
-
-![alt text](image-4.png)
-
-2. **PROTOCOLO CLIENTE**
-
-   ![alt text](image-2.png)
-
-3. **PROTOCOLO SERVER**
-
-   ![alt text](image-3.png)
+> Dica! Lembre-se sempre que server e client podem conversar autonomamente através de mensagens no head. Cada byte em cada posição do head pode significar algo! Além disso, o time out pode ser usado para tomada de decisões caso algo esperado não ocorra... Criem seu próprio protocolo de download baseado em datagramas!
