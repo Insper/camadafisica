@@ -71,6 +71,7 @@ Seu professor irá solicitar transmissões simulando essas condições.
 ## Durante a Apresentação
 
 Durante a correção, seu professor poderá:
+
 - Fazer perguntas sobre o funcionamento do protocolo
 - Testar o sistema diante de falhas, como desligamento e religamento de jumpers
 - Analisar o comportamento do sistema para verificar a detecção e correção dos erros
