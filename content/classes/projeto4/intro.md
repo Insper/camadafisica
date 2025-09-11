@@ -1,156 +1,50 @@
-# Transmissão e Recepção Serial UART
+# Introdução ao Checksum
 
-## Introdução à Comunicação Serial
+Neste projeto, serão adicionadas novas funcionalidades ao protocolo em desenvolvimento, sendo uma delas o **checksum**.
 
-A comunicação serial é uma forma de transmitir dados entre dispositivos eletrônicos de forma sequencial, enviando um bit por vez, ao longo de uma única linha de comunicação. Ao contrário da comunicação paralela, onde vários bits são enviados simultaneamente em várias linhas, a comunicação serial utiliza menos cabos, é mais simples e é frequentemente utilizada em dispositivos que precisam enviar informações a longas distâncias ou com recursos limitados.
+O **checksum** (ou *soma de verificação*) é um valor numérico gerado a partir de um conjunto de dados, utilizado para verificar a **integridade** dessas informações.  
+Esse valor é obtido por meio de uma função *hash* ou algoritmo matemático, resultando em um identificador único baseado no conteúdo original.  
 
-## O Que é UART?
+Caso os dados sejam alterados, o checksum calculado será diferente, evidenciando que houve modificação, seja ela **intencional** ou **acidental**.
 
-UART, ou **Universal Asynchronous Receiver-Transmitter**, é um protocolo de comunicação serial assíncrona amplamente utilizado para permitir a troca de dados entre um dispositivo (como um microcontrolador) e um periférico (como um computador). Esse protocolo é assíncrono porque não requer um sinal de clock comum para sincronizar os dispositivos comunicantes.
+No contexto de transmissão de dados, a função *hash* é aplicada aos dados originais, e o valor gerado é transmitido junto com eles.  
+No lado receptor, a mesma função é aplicada novamente sobre os dados recebidos, e o valor obtido é comparado com o checksum enviado pelo transmissor.
 
-### Estrutura de Dados na Comunicação UART
+---
 
-A comunicação UART transmite os dados em "frames". Um frame é uma sequência de bits que inclui os dados a serem transmitidos e informações de controle, como bits de início, parada e, opcionalmente, paridade. A estrutura básica de um frame UART é a seguinte:
+## Como Funciona
 
-1. **Start Bit**: Um único bit que indica o início da transmissão de um frame. O start bit é sempre um '0' (nível baixo).
-2. **Data Bits**: Entre 5 e 9 bits que representam os dados a serem transmitidos.
-3. **Parity Bit (Opcional)**: Um bit adicional utilizado para verificar erros durante a transmissão.
-4. **Stop Bit**: Um ou dois bits que indicam o final de um frame. O stop bit é sempre '1' (nível alto).
+1. **Geração do checksum:** um algoritmo específico (ex.: MD5, SHA-256, CRC32) processa os dados e gera um valor fixo.  
+2. **Transmissão ou armazenamento:** o dado e seu checksum são enviados ou armazenados juntos.  
+3. **Verificação:** o receptor recalcula o checksum a partir dos dados recebidos e compara com o original.  
+   - Se os valores coincidirem, os dados provavelmente estão intactos.  
+   - Se forem diferentes, houve alteração ou erro no processo.
 
-### Diagrama de um Frame UART:
+---
 
-| Start | Data Bits (5-9) | Paridade (Opcional) | Stop (1-2) |
+## Aplicações Comuns
 
+- **Verificação de integridade de arquivos:** validar se um arquivo baixado não foi corrompido.  
+- **Transmissão de dados:** proteger contra erros em redes de comunicação.  
+- **Segurança:** detectar alterações não autorizadas em arquivos.
 
-## Termos Importantes
+---
 
-Aqui estão alguns termos que você precisa entender para compreender a comunicação UART:
+![alt text](image.png)
 
-1. **Transmissão Assíncrona**: É um tipo de comunicação onde o receptor e o transmissor não compartilham um sinal de clock comum. Em vez disso, o receptor sincroniza com o transmissor através dos bits de start e stop do frame de dados.
-   
-2. **Start Bit**: Sinaliza o início da transmissão. Normalmente, é um nível lógico baixo (0).
-   
-3. **Stop Bit**: Indica o fim de uma transmissão. É um nível lógico alto (1) e pode haver um ou dois bits de stop.
-   
-4. **TX, RX, GND**: TX é o pino de transmissão, RX é o pino de recepção, e GND é o aterramento comum entre os dispositivos.
-   
-5. **Baud Rate**: A taxa de bits por segundo (bps) transmitidos na comunicação UART. Exemplo: 9600 bps significa que 9600 bits são transmitidos a cada segundo.
-   
-6. **Bit Rate**: Refere-se à quantidade de dados (bits) transmitidos ou recebidos por unidade de tempo.
-   
-7. **Buffer**: Área de memória usada temporariamente para armazenar os dados durante a comunicação.
-   
-8. **Frame**: A estrutura completa de dados transmitidos, composta por bits de início, dados, paridade e parada.
-   
-9. **Bit de Paridade**: Bit opcional usado para detecção de erros. Pode ser par ou ímpar.
-   
-10. **CRC (Cyclic Redundancy Check)**: Um método de verificação de erros mais robusto do que a paridade simples, utilizado para garantir a integridade dos dados.
+---
 
-## O Que é Loopback?
+## Principais Algoritmos
 
-O conceito de **loopback** envolve conectar o pino de transmissão (TX) ao pino de recepção (RX) para criar um ciclo fechado de comunicação. Nesse projeto, o loopback é feito para que tudo o que o seu computador enviar ao Arduino seja imediatamente devolvido, espelhando a transmissão de dados. Isso é útil para testar a comunicação sem um segundo dispositivo.
+Diversos algoritmos podem ser utilizados como checksum, atribuindo um valor numérico a um conjunto de dados.  
+A tabela a seguir apresenta alguns exemplos comuns:
 
-
-## Leituras Recomendadas
-
-Para se aprofundar na transmissão serial UART, consulte os seguintes links:
-
-- [UART em FreeBSD](https://docs.freebsd.org/pt-br/articles/serial-uart/)
-- [Transmissão Serial UART](http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf)
-- [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
-- [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
-
-# Introdução à Verificação de Integridade
-
-## Visão Geral
-
-A verificação de integridade é um aspecto fundamental na comunicação de dados, garantindo que as informações transmitidas cheguem corretamente ao destino. O checksum é uma das técnicas mais utilizadas para detectar erros em transmissões.
-
-## O que é Checksum?
-
-Checksum é um valor calculado a partir de um conjunto de dados, usado para detectar erros de transmissão ou armazenamento. As principais características são:
-
-1. **Simplicidade**: Fácil de calcular e verificar
-2. **Eficiência**: Baixo overhead computacional
-3. **Detecção**: Capaz de identificar erros comuns
-
-## Tipos de Checksum
-
-### Checksum Simples
-
-- **Soma de Bytes**
-  - Adição simples
-  - Complemento de 1
-  - Verificação básica
-
-### CRC (Cyclic Redundancy Check)
-
-- **Polinômios Geradores**
-  - CRC-8
-  - CRC-16
-  - CRC-32
-
-- **Tabelas de Lookup**
-  - Otimização
-  - Performance
-
-### Hash Functions
-
-- **MD5**
-  - 128 bits
-  - Rápido
-  - Não seguro
-
-- **SHA-1**
-  - 160 bits
-  - Mais seguro
-  - Mais lento
-
-- **SHA-256**
-  - 256 bits
-  - Muito seguro
-  - Mais lento ainda
-
-## Implementação no Projeto
-
-### 1. Algoritmos Básicos
-
-- Implementar soma de bytes
-- Adicionar complemento de 1
-- Criar verificação simples
-
-### 2. CRC
-
-- Implementar polinômios
-- Criar tabelas de lookup
-- Otimizar performance
-
-### 3. Hash Functions
-
-- Implementar MD5
-- Adicionar SHA-1
-- Incluir SHA-256
-
-## Ferramentas e Recursos
-
-### Bibliotecas Python
-
-- `hashlib`: Funções hash
-- `struct`: Manipulação de bytes
-- `zlib`: CRC
-
-### Recursos Adicionais
-
-- Calculadoras de checksum online
-- Testadores de integridade
-- Ferramentas de análise
-
-## Próximos Passos
-
-1. Familiarize-se com checksum simples
-2. Implemente CRC
-3. Adicione hash functions
-4. Teste e documente
-5. Otimize performance
-
+| **Algoritmo** | **Bits (valor gerado)** | **Aplicação principal** |
+|---------------|------------------------|-------------------------|
+| CRC32         | 32                     | Redes, compressão de arquivos (ZIP, RAR) |
+| MD5           | 128                    | Verificação de arquivos (obsoleto para fins de segurança) |
+| SHA-1         | 160                    | Git, certificados digitais (inseguro para criptografia) |
+| SHA-256       | 256                    | Segurança, Blockchain, SSL/TLS |
+| BLAKE2        | 256+                   | Alternativa rápida ao SHA-2 |
+| Adler-32      | 32                     | Checksum simples (mais rápido que CRC32, porém menos seguro) |
 
