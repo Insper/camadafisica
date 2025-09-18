@@ -1,243 +1,81 @@
-# Introdução à Serialização de Dados
+## Serialização de dados
 
-## Visão Geral
+Quando seu computador se comunica com seu Arduino, mensagens seriais são trocadas entre eles. Isso ocorre quando você está carregando o Arduino com algum código e também quando você quer monitorar o valor de alguma variável do código rodando no Arduino. Para fazer essa monitoração o código carregado no Arduino deve conter uma declaração de comunicação serial e comandos de envio de valores. No seu computador, na IDE, você pode então observar e até plotar o valor dessa variável. Veja o exemplo abaixo:
 
-A serialização é um processo fundamental na comunicação de dados, permitindo a conversão de estruturas de dados complexas em formatos que podem ser transmitidos ou armazenados. Este conceito é essencial para a interoperabilidade entre diferentes sistemas e plataformas.
+![alt text](image.png)
 
-## O que é Serialização?
+Neste exemplo foi utilizada a função `Serial.available()`para verificar se há dado disponível no buffer da serial. Quando há um byte para leitura, o mesmo é lido pela função `Serial.read()` e armazenado na variavel byteRead. A próxima função, `Serial.write()`, imprime de volta o dado recebido para o computador. Para acessar o valor enviado, em seu IDE você deve abrir o terminal `monitor serial` e configurar o baudrate.
 
-Serialização é o processo de converter estruturas de dados em um formato que pode ser facilmente transmitido ou armazenado. As principais características são:
+![alt text](image-1.png)
 
-1. **Conversão**: Transformação de objetos em bytes
-2. **Reversibilidade**: Capacidade de reconstruir os dados originais
-3. **Compatibilidade**: Suporte a diferentes plataformas
 
-## Tipos de Serialização
+Nesse projeto, você deve utilizar a comunicação serial entre Arduino e computador para monitorar variáveis, porém, faremos uma outra comunicação serial, entre dois Arduinos, utilizando **pinos digitais genéricos ao invés dos pinos próprios para transmissões UART (RX e TX)!** Isso significa que para cada byte enviado de um Arduino para outro voce terá que produzir o frame UART relativo ao byte e receber esse byte no outro Arduino. Você poderá
+utilizar a comunicação serial “built in” do Arduino apenas para verificar se o byte trocado entre os dois microcontroladores foi recebido corretamente. 
 
-### Serialização Binária
+Em outras palavras, o objetivo desse projeto é te `desafiar` a produzir a serialização de um byte e enviá-lo através de um pino digital qualquer de um Arduino para outro Arduino, que receberá a mensagens no padrão UART através de outro pino digital qualquer. Obviamente você não poderá usar os pinos 𝑡𝑥 e 𝑟𝑥 dos Arduinos (esses pinos são os que também estão conectados ao computados através do cabo). 
 
-- **Formato Binário**
-  - Compacto
-  - Eficiente
-  - Não legível
+A ideia é que você construa um algoritmo que produza a saída UART em um pino digital genérico. Para isso, você deverá codificar o caractere através da tabela ASCII e enviar os bits de acordo com frame UART com 1 bit de paridade, 1 start, 1 stop bit e um certo 𝑏𝑎𝑢𝑑𝑟𝑎𝑡𝑒. No arduino que receberá o byte enviado, você poderá observar se o recebimento ocorreu através do monitor serial do Arduino receptor.
 
-- **Performance**
-  - Rápida
-  - Baixo overhead
-  - Menor tamanho
+## Lembre-se de como funciona o 𝑓𝑟𝑎𝑚𝑖𝑛𝑔 da comunicação UART:
 
-### Serialização JSON
+![alt text](image-2.png)
 
-- **Formato Texto**
-  - Legível
-  - Humano
-  - Universal
 
-- **Compatibilidade**
-  - Web
-  - APIs
-  - Sistemas heterogêneos
+Você deve gerar um código que produza num pino do Arduino a serialização correta de um frame UART respeitando os tempos corretos entre os bits. Se fizer tudo corretamente, seu caractere será transmitido via transmissão serial UART e você não estará usando o chip UART do Arduino!
 
-### Serialização XML
+### Programando em Arduino
 
-- **Estrutura Hierárquica**
-  - Complexa
-  - Flexível
-  - Extensível
+Você precisará aprender, caso não saiba, como:
 
-- **Validação**
-  - Schemas
-  - Tipos
-  - Regras
+- Definir pinos digitais de escrita e leitura no arduino.
+- Habilitar a saída serial para monitoramento de uma variável.
+- Como construir um byte representando o caractere, a partir de leitura de cada bit! Para isso, pesquise e entenda o funcionamento dos operadores “<<” (left shift) e também do |= (compound bitwise or)
+- Como produzir cada bit na saída digital a partir de leitura de um byte! Para isso, pesquise e entenda o
+funcionamento dos operadores “>>” (right shift) e também do & (compound bitwise and) .
+- Não se esqueça que a leitura dos níveis lógicos no receptor não pode ser feitas nos instantes de transição do nível lógico (como comentado em aula).
+- Escrever esse caractere na saída serial.
 
-## Implementação no Projeto
+Caso você ainda não tenha tido experiência de programação em Arduino, procure tutoriais para os primeiros passos, como por exemplo:
 
-### 1. Serialização Binária
+- [https://www.circuitar.com.br/tutoriais/programacao-para-arduino-primeiros-passos/](https://www.circuitar.com.br/tutoriais/programacao-para-arduino-primeiros-passos/)
+- [https://www.makerhero.com/blog/primeiros-passos-com-arduino/](https://www.makerhero.com/blog/primeiros-passos-com-arduino/)
+- [https://www.arduino.cc/reference/pt/language/functions/digital-io/digitalwrite/](https://www.arduino.cc/reference/pt/language/functions/digital-io/digitalwrite/)
+- [https://www.arduino.cc/reference/pt/language/functions/digital-io/digitalread/](https://www.arduino.cc/reference/pt/language/functions/digital-io/digitalread/)
 
-- Implementar conversão
-- Adicionar compactação
-- Otimizar performance
+## Exemplos de códigos
 
-### 2. JSON
+### Função de espera
 
-- Implementar parser
-- Adicionar validação
-- Criar schemas
+Você poderá fazer a função espera utilizando loop com a função de `asm(“NOP”)`
 
-### 3. XML
+![alt text](image-3.png)
 
-- Implementar DOM
-- Adicionar validação
-- Criar DTDs
+Se utilizar essa estratégia de timer, você deve descobrir antes, quanto tempo o Arduino leva por loop!!! Sinta-se livre para utilizar outras funções ou estratégias de espera, lembrando para transmissões mais velozes funções como delay podem não ser precisas o suficiente.
 
-## Ferramentas e Recursos
+### Cálculo de paridade
 
-### Bibliotecas Python
+Você poderá utilizar funções para calcular a paridade baseadas em bit shift e o operador and:
 
-- `pickle`: Serialização nativa
-- `json`: Formato JSON
-- `xml`: Processamento XML
+![alt text](image-4.png)
 
-### Recursos Adicionais
+### Montando o byte recebido:
 
-- Validadores de formato
-- Ferramentas de teste
-- Analisadores de performance
+Você deverá usar a estratégia de bit shift e o operador or para compor o byte recebido.
 
-## Próximos Passos
+![alt text](image-5.png)
 
-1. Familiarize-se com serialização binária
-2. Implemente JSON
-3. Adicione XML
-4. Teste e documente
-5. Otimize performance
+### Escrita no monitor serial para conferência
 
-# Introdução à Serialização UART com Arduino
+Utilize a saída serial do Arduino conectada ao seu computador para printar a variável recebida.
 
-## Visão Geral
+## Montagem
 
-Neste projeto, você irá trabalhar com comunicação serial entre um Arduino e um computador, implementando um sistema de serialização e deserialização de dados. Este é um conceito fundamental em sistemas embarcados e comunicação de dados.
+Você precisará de 2 Arduinos. Um deles irá funcionar como o transmissor de um caractere qualquer, em loop, utilizando para isso o padrão UART. Você deverá entao conectar um dos pinos digitais de um Arduino a outro pino digital do segundo Arduino. Não esqueça de que agora os botões resetes não deverão mais estar aterrados, pois você estará usando o processador do Arduino. Lembre-se também de que voce terá de conectar os terras dos
+dispositivo.
 
-## O que é Serialização?
 
-Serialização é o processo de converter estruturas de dados complexas em um formato que pode ser facilmente transmitido e armazenado. No contexto de comunicação UART, isso significa:
+## Analog Discovery
 
-1. **Estruturação dos Dados**
-   - Organização em bytes
-   - Formato de transmissão
-   - Protocolo de comunicação
+Você deverá utilizar o Wave Forms para analisar a transmissão. Para isso, você irá conectar uma das entradas digitais do Analog Discovery ao pino que está produzindo o sinal UART. No menu do software Wave Forms você irá selecionar o analisador lógico e configurar um canal UART. Você poderá observar então, ao configurar uma escala de tempo adequada, os bits que compõem o frame UART e o caractere transmitido!
 
-2. **Transmissão**
-   - Envio sequencial
-   - Controle de fluxo
-   - Verificação de integridade
-
-## Comunicação UART com Arduino
-
-### Hardware
-1. **Pinos UART**
-   - TX (Transmissão)
-   - RX (Recepção)
-   - GND (Terra)
-
-2. **Configuração**
-   - Baud rate
-   - Bits de dados
-   - Bits de paridade
-   - Bits de parada
-
-### Software
-1. **Arduino**
-   - Biblioteca Serial
-   - Funções de transmissão
-   - Funções de recepção
-
-2. **Python**
-   - Biblioteca pyserial
-   - Configuração da porta
-   - Leitura e escrita
-
-## Protocolos de Comunicação
-
-### 1. Estrutura do Pacote
-- Cabeçalho
-- Dados
-- Verificação
-- Finalização
-
-### 2. Controle de Fluxo
-- Handshake
-- Buffer
-- Timeout
-
-### 3. Tratamento de Erros
-- Detecção
-- Correção
-- Retransmissão
-
-## Implementação no Projeto
-
-No seu projeto, você irá:
-
-1. Configurar a comunicação UART
-2. Implementar a serialização
-3. Desenvolver o protocolo
-4. Testar o sistema
-
-## Ferramentas e Recursos
-
-- Arduino IDE
-- Python 3.x
-- Biblioteca pyserial
-- Osciloscópio (opcional)
-
-## Próximos Passos
-
-1. Familiarize-se com o Arduino
-2. Configure a comunicação UART
-3. Implemente a serialização
-4. Teste e documente
-
-# Transmissão e Recepção Serial UART
-
-## Introdução à Comunicação Serial
-
-A comunicação serial é uma forma de transmitir dados entre dispositivos eletrônicos de forma sequencial, enviando um bit por vez, ao longo de uma única linha de comunicação. Ao contrário da comunicação paralela, onde vários bits são enviados simultaneamente em várias linhas, a comunicação serial utiliza menos cabos, é mais simples e é frequentemente utilizada em dispositivos que precisam enviar informações a longas distâncias ou com recursos limitados.
-
-## O Que é UART?
-
-UART, ou **Universal Asynchronous Receiver-Transmitter**, é um protocolo de comunicação serial assíncrona amplamente utilizado para permitir a troca de dados entre um dispositivo (como um microcontrolador) e um periférico (como um computador). Esse protocolo é assíncrono porque não requer um sinal de clock comum para sincronizar os dispositivos comunicantes.
-
-### Estrutura de Dados na Comunicação UART
-
-A comunicação UART transmite os dados em "frames". Um frame é uma sequência de bits que inclui os dados a serem transmitidos e informações de controle, como bits de início, parada e, opcionalmente, paridade. A estrutura básica de um frame UART é a seguinte:
-
-1. **Start Bit**: Um único bit que indica o início da transmissão de um frame. O start bit é sempre um '0' (nível baixo).
-2. **Data Bits**: Entre 5 e 9 bits que representam os dados a serem transmitidos.
-3. **Parity Bit (Opcional)**: Um bit adicional utilizado para verificar erros durante a transmissão.
-4. **Stop Bit**: Um ou dois bits que indicam o final de um frame. O stop bit é sempre '1' (nível alto).
-
-### Diagrama de um Frame UART:
-
-| Start | Data Bits (5-9) | Paridade (Opcional) | Stop (1-2) |
-
-
-## Termos Importantes
-
-Aqui estão alguns termos que você precisa entender para compreender a comunicação UART:
-
-1. **Transmissão Assíncrona**: É um tipo de comunicação onde o receptor e o transmissor não compartilham um sinal de clock comum. Em vez disso, o receptor sincroniza com o transmissor através dos bits de start e stop do frame de dados.
-   
-2. **Start Bit**: Sinaliza o início da transmissão. Normalmente, é um nível lógico baixo (0).
-   
-3. **Stop Bit**: Indica o fim de uma transmissão. É um nível lógico alto (1) e pode haver um ou dois bits de stop.
-   
-4. **TX, RX, GND**: TX é o pino de transmissão, RX é o pino de recepção, e GND é o aterramento comum entre os dispositivos.
-   
-5. **Baud Rate**: A taxa de bits por segundo (bps) transmitidos na comunicação UART. Exemplo: 9600 bps significa que 9600 bits são transmitidos a cada segundo.
-   
-6. **Bit Rate**: Refere-se à quantidade de dados (bits) transmitidos ou recebidos por unidade de tempo.
-   
-7. **Buffer**: Área de memória usada temporariamente para armazenar os dados durante a comunicação.
-   
-8. **Frame**: A estrutura completa de dados transmitidos, composta por bits de início, dados, paridade e parada.
-   
-9. **Bit de Paridade**: Bit opcional usado para detecção de erros. Pode ser par ou ímpar.
-   
-10. **CRC (Cyclic Redundancy Check)**: Um método de verificação de erros mais robusto do que a paridade simples, utilizado para garantir a integridade dos dados.
-
-## O Que é Loopback?
-
-O conceito de **loopback** envolve conectar o pino de transmissão (TX) ao pino de recepção (RX) para criar um ciclo fechado de comunicação. Nesse projeto, o loopback é feito para que tudo o que o seu computador enviar ao Arduino seja imediatamente devolvido, espelhando a transmissão de dados. Isso é útil para testar a comunicação sem um segundo dispositivo.
-
-
-## Leituras Recomendadas
-
-Para se aprofundar na transmissão serial UART, consulte os seguintes links:
-
-- [UART em FreeBSD](https://docs.freebsd.org/pt-br/articles/serial-uart/)
-- [Transmissão Serial UART](http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf)
-- [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
-- [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
-
-
+Link de ajuda: [https://digilent.com/blog/uart-explained/](https://digilent.com/blog/uart-explained/)
