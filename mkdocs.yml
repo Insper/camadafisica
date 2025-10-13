@@ -50,9 +50,9 @@ nav:
   - Projeto 5 - Serialização:
     - Introdução: classes/projeto5/intro.md
     - Enunciado: classes/projeto5/enunciado.md
-    - Projeto 6 - Digitalização de Áudio:
-    - classes/projeto6/intro.md
-    - classes/projeto6/enunciado.md
+  - Projeto 6 - Digitalização de Áudio:
+      - classes/projeto6/intro.md
+      - classes/projeto6/enunciado.md
   # - Projeto 7:
   #   - classes/projeto7/intro.md
   #   - classes/projeto7/enunciado.md
