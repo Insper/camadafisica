@@ -1,140 +1,83 @@
-# Transmissão e Recepção Serial UART
+# Digitalização  
 
-## Introdução à Comunicação Serial
+## O Mundo Analógico e a Digitalização
 
-A comunicação serial é uma forma de transmitir dados entre dispositivos eletrônicos de forma sequencial, enviando um bit por vez, ao longo de uma única linha de comunicação. Ao contrário da comunicação paralela, onde vários bits são enviados simultaneamente em várias linhas, a comunicação serial utiliza menos cabos, é mais simples e é frequentemente utilizada em dispositivos que precisam enviar informações a longas distâncias ou com recursos limitados.
+Embora dependentes dos equipamentos digitais, vivemos num mundo de grandezas analógicas. As grandezas físicas no nosso mundo são analógicas, como temperatura, pressão, velocidade, massa etc. Isso quer dizer que essas grandezas apresentam valores contínuos no tempo, podendo apresentar qualquer valor dentro de qualquer intervalo. Pense, por exemplo, na temperatura do ambiente em que você está. Existe algum valor impossível para a temperatura no intervalo, por exemplo, entre 10 e 30 graus? A resposta é não. A temperatura de um ponto pode variar continuamente ocupando qualquer valor pertencente a esse intervalo. Porém, se quisermos digitalizar o valor da temperatura, guardando o histórico de temperatura de um ponto em um computador, não teremos mais infinitos possíveis valores. Teríamos que fazer algumas amostras da temperatura (como e fossem fotos) e guardá-las em uma variável de n-bits. Assim, ao se digitalizar uma grandeza física que varie no tempo, temos duas perdas:  
 
-## O Que é UART?
+1. Não podemos ter o valor registrado em todos os instantes, pois seriam infinitas amostras.  
+2. Ao fazer uma amostra, temos que aproximar o valor ao valor mais próximo que podemos escrever com os n bits que utilizamos para registrar a amostra. Essa aproximação é chamada de **quantização**.  
 
-UART, ou **Universal Asynchronous Receiver-Transmitter**, é um protocolo de comunicação serial assíncrona amplamente utilizado para permitir a troca de dados entre um dispositivo (como um microcontrolador) e um periférico (como um computador). Esse protocolo é assíncrono porque não requer um sinal de clock comum para sincronizar os dispositivos comunicantes.
+A variável física, contínua por natureza, torna-se uma série de amostras. Dizemos que a variável deixou de ser contínua e passou a ser discreta. A digitalização de uma variável é um processo de discretização da variável. O mundo digital é discreto, ou seja, as variáveis possuem valores quantizados (aproximados a níveis possíveis) e com quantidade finita de amostras (representam um número limitado de instantes).  
 
-### Estrutura de Dados na Comunicação UART
+![alt text](image.png)
 
-A comunicação UART transmite os dados em "frames". Um frame é uma sequência de bits que inclui os dados a serem transmitidos e informações de controle, como bits de início, parada e, opcionalmente, paridade. A estrutura básica de um frame UART é a seguinte:
+No gráfico acima, o gráfico senoidal representa uma variável contínua. Os pontos redondos representam os valores amostrados no processo de digitalização. Os pontos quadrados são os valores de fato armazenados em variáveis de n bits, com as quais não é possível escrever qualquer valor.  
 
-1. **Start Bit**: Um único bit que indica o início da transmissão de um frame. O start bit é sempre um '0' (nível baixo).
-2. **Data Bits**: Entre 5 e 9 bits que representam os dados a serem transmitidos.
-3. **Parity Bit (Opcional)**: Um bit adicional utilizado para verificar erros durante a transmissão.
-4. **Stop Bit**: Um ou dois bits que indicam o final de um frame. O stop bit é sempre '1' (nível alto).
+Durante o processo de digitalização, dá-se o nome de **taxa (ou frequência) de amostragem** à quantidade de amostras que é feita por segundo. **Período de amostragem** é o nome dado ao tempo decorrido entre duas amostras consecutivas.  
 
-### Diagrama de um Frame UART:
+Quanto menor forem os erros de quantização numa conversão analógico-digital, dizemos que melhor é a **resolução** da digitalização. Assim, para uma digitalização ser feita com boa resolução, as amostras devem ser feitas e guardadas em variáveis com um bom número de bits. Por outro lado, a resolução pode também ser melhorada, se o intervalo do sinal analógico for reduzido, assim os possíveis valores que podem ser guardados com o n bits das variáveis serão distribuídos em um intervalo pequeno, diminuindo a diferença entre dois valores possíveis consecutivos. Iremos voltar a falar disso.  
 
-| Start | Data Bits (5-9) | Paridade (Opcional) | Stop (1-2) |
+De maneira resumida, o processo de digitalização então envolve as 3 seguintes etapas:  
 
+1. **Amostragem (Sampling):**  
+   - O sinal analógico é medido em intervalos regulares de tempo (frequência de amostragem).  
+   - Isso gera uma série de amostras pontuais do sinal contínuo.  
 
-## Termos Importantes
+2. **Quantização (Quantization):**  
+   - Cada amostra é arredondada para o valor mais próximo dentro de um conjunto finito de níveis discretos.  
+   - Isso introduz um pequeno erro chamado **erro de quantização**.  
 
-Aqui estão alguns termos que você precisa entender para compreender a comunicação UART:
-
-1. **Transmissão Assíncrona**: É um tipo de comunicação onde o receptor e o transmissor não compartilham um sinal de clock comum. Em vez disso, o receptor sincroniza com o transmissor através dos bits de start e stop do frame de dados.
-   
-2. **Start Bit**: Sinaliza o início da transmissão. Normalmente, é um nível lógico baixo (0).
-   
-3. **Stop Bit**: Indica o fim de uma transmissão. É um nível lógico alto (1) e pode haver um ou dois bits de stop.
-   
-4. **TX, RX, GND**: TX é o pino de transmissão, RX é o pino de recepção, e GND é o aterramento comum entre os dispositivos.
-   
-5. **Baud Rate**: A taxa de bits por segundo (bps) transmitidos na comunicação UART. Exemplo: 9600 bps significa que 9600 bits são transmitidos a cada segundo.
-   
-6. **Bit Rate**: Refere-se à quantidade de dados (bits) transmitidos ou recebidos por unidade de tempo.
-   
-7. **Buffer**: Área de memória usada temporariamente para armazenar os dados durante a comunicação.
-   
-8. **Frame**: A estrutura completa de dados transmitidos, composta por bits de início, dados, paridade e parada.
-   
-9. **Bit de Paridade**: Bit opcional usado para detecção de erros. Pode ser par ou ímpar.
-   
-10. **CRC (Cyclic Redundancy Check)**: Um método de verificação de erros mais robusto do que a paridade simples, utilizado para garantir a integridade dos dados.
-
-## O Que é Loopback?
-
-O conceito de **loopback** envolve conectar o pino de transmissão (TX) ao pino de recepção (RX) para criar um ciclo fechado de comunicação. Nesse projeto, o loopback é feito para que tudo o que o seu computador enviar ao Arduino seja imediatamente devolvido, espelhando a transmissão de dados. Isso é útil para testar a comunicação sem um segundo dispositivo.
+3. **Codificação (Encoding):**  
+   - Os valores quantizados são convertidos em códigos binários (0s e 1s).  
+   - O número de bits usados determina a resolução do conversor. Por exemplo:  
+     - Um ADC de 8 bits pode representar 2⁸ = 256 níveis diferentes.  
+     - Um ADC de 12 bits pode representar 4096 níveis, e assim por diante.  
 
 
-## Leituras Recomendadas
+## Exemplo: Digitalização de Áudio
 
-Para se aprofundar na transmissão serial UART, consulte os seguintes links:
+Vamos construir um exemplo baseado na digitalização do som. O que chamamos de som é uma perturbação no ar devido à vibração mecânica de um corpo. Essa vibração causa uma variação da pressão dos pontos do ar, que, devido à sua característica elástica, propaga essa perturbação. Assim tem-se no meio elástico (ar) uma variação na pressão, correspondente à vibração do corpo que produziu a perturbação. É exatamente o que faz um alto-falante ou nosso corpo quando falamos. Quando a variação de pressão atinge nosso ouvido, uma complexa estrutura produz impulsos elétricos para nosso cérebro nos dando a sensação auditiva. Nosso ouvido converte uma grandeza analógica mecânica para uma grandeza analógica elétrica. Estruturas que fazem isso são chamadas de **transdutores**.  
 
-- [UART em FreeBSD](https://docs.freebsd.org/pt-br/articles/serial-uart/)
-- [Transmissão Serial UART](http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf)
-- [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
-- [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
+Porém, o som pode ser digitalizado e guardado em nossos computadores, celulares etc.? Assim como nosso ouvido, precisamos antes transformar a grandeza mecânica (pressão) em grandeza elétrica (força eletromotriz e, consequentemente, corrente) através de um transdutor, chamado **microfone**. O microfone transforma a variação de pressão ao seu redor em um campo elétrico que varia no tempo de forma correspondente à variação da pressão. Há vários tipos de microfones, sendo talvez o mais comum o de **bobina móvel**. Esse tipo de microfone possui uma leve bobina acoplada a um diafragma que vibra quando exposto ao som. A vibração faz com que a bobina, que está num campo magnético, também vibre e tenha então o fluxo magnético variando no tempo. Bem, esse fluxo variando no tempo dá origem a uma força eletromotriz correspondente à vibração mecânica.  
 
-# Introdução ao DTMF e Processamento de Sinais
+Agora temos o som “representado” por uma força eletromotriz. O próximo passo é, através de um hardware
+próprio (falaremos mais tarde) amostrar essa força e guardar os valores em variáveis de n bits. Se fizermos isso, digitalizaremos o som.  
 
-## Visão Geral
+Vamos fazer algumas considerações:  
 
-Neste projeto, você irá trabalhar com DTMF (Dual-Tone Multi-Frequency), um sistema de sinalização por tons que é amplamente utilizado em telefonia e comunicação. O DTMF combina duas frequências diferentes para representar cada dígito ou caractere.
+- A amostragem será feita a uma frequência de **44,1 kHz**. Essa taxa é a que normalmente é utilizada por placas de áudio, algumas utilizam **48 kHz**.  
+- Normalmente a amostra é feita em dois canais, sendo **estéreo**. Isso significa que os equipamentos utilizam dois microfones. Assim, duas listas de valores são arquivadas. Tudo é feito duplamente. Isso permite muitas vezes gerar uma sensação de **espacialidade** para o som gravado.  
+- Cada amostra realizada no processo de digitalização é guardada em uma variável de **16 bits**.  
 
-## O que é DTMF?
+Com essas considerações vamos tentar responder as seguintes perguntas:  
 
-DTMF é um sistema de sinalização que usa pares de tons para representar dígitos e caracteres. Cada tecla do teclado telefônico gera uma combinação única de duas frequências:
-
-### Frequências DTMF
-- **Grupo de Baixas Frequências**: 697 Hz, 770 Hz, 852 Hz, 941 Hz
-- **Grupo de Altas Frequências**: 1209 Hz, 1336 Hz, 1477 Hz, 1633 Hz
-
-### Mapeamento de Teclas
-```
-1209 Hz  1336 Hz  1477 Hz  1633 Hz
-697 Hz     1        2        3        A
-770 Hz     4        5        6        B
-852 Hz     7        8        9        C
-941 Hz     *        0        #        D
-```
-
-## Processamento de Sinais DTMF
-
-### 1. Geração de Tons
-- Combinação de senoides
-- Duração do tom
-- Níveis de amplitude
-- Transições suaves
-
-### 2. Detecção de Tons
-- Análise espectral
-- Transformada de Fourier
-- Filtros passa-banda
-- Comparação de amplitudes
-
-## Aplicações Práticas
-
-### 1. Telefonia
-- Discagem por tons
-- Menus de voz
-- Sistemas de resposta
-
-### 2. Controle Remoto
-- Controle de equipamentos
-- Sistemas de segurança
-- Automação residencial
-
-### 3. Comunicação de Dados
-- Transmissão de dados
-- Modem acústico
-- Sistemas de telemetria
-
-## Implementação no Projeto
-
-No seu projeto, você irá:
-
-1. Implementar a geração de tons DTMF
-2. Desenvolver a detecção de tons
-3. Criar um sistema de comunicação
-4. Testar diferentes cenários
-
-## Ferramentas e Recursos
-
-- Python para implementação
-- Bibliotecas de processamento de sinais
-- Ferramentas de análise espectral
-- Testes de áudio
-
-## Próximos Passos
-
-1. Familiarize-se com o DTMF
-2. Implemente a geração de tons
-3. Desenvolva a detecção
-4. Teste e documente
+!!! exercise
+    Quanto de memória computacional é necessário para gravarmos em um computador 1 hora de áudio
+   estéreo?  
 
 
+## Hardware A/D
+
+Existem vários tipos de hardwares para converter um sinal analógico em digital. Um tipo muito rápido, e comumente utilizado, é construído com um **banco de comparadores**, que são na verdade amplificadores operacionais. 
+Repare o circuito abaixo. À medida que o sinal analógico cresce, sequencialmente os amplificadores operacionais mudam sua saída, pois em cada um há um sinal de referência diferente. Esse sinal de referência que vai crescendo em cada amp op é construído com um divisor resistivo. Um encoder reproduz em base 2 o número de amplificadores em estado alterado, ou seja, o nível do sinal analógico.  
+
+
+![alt text](image-1.png)
+
+## Exercícios
+
+
+!!! exercise
+    1. Um sinal de **eletrocardiograma (ECG)** de 5 minutos necessita ser enviado por um enlace de comunicação que consegue transmitir dados a um **baudrate de 1000 bps** porém possui um **overhead de 10%**. O ECG é amostrado a uma taxa de **1 kHz** e possui resolução de **14 bits**.
+    **Em quantos minutos o ECG será transmitido aproximadamente?**
+
+---
+
+!!! exercise
+    2. Um sinal proveniente de um **captador de guitarra elétrica** deve ser digitalizado.
+    O "range" do sinal é de **–50 a +50 mV**. Deseja-se uma resolução de, no mínimo, **10 microvolts**. **Quantos bits, no mínimo, serão necessários por amostra?**
+
+---
+
+!!! exercise
+    3. Um sinal de áudio **senoidal de 4400 Hz** foi digitalizado e armazenado com um **Ts (período de amostragem)** de **25 microssegundos** (entenda o período de amostragem como o tempo entre duas amostras, ou seja, o inverso da taxa de amostragem). Posteriormente foi reproduzido (convertido de digital para analógico) com uma **frequência de amostragem (sample rate)** de **80000 Hz**. **Nesse caso, qual a frequência da senoide analógica ouvida?**
