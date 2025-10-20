@@ -53,9 +53,9 @@ nav:
   - Projeto 6 - Digitalização de Áudio:
       - classes/projeto6/intro.md
       - classes/projeto6/enunciado.md
-  # - Projeto 7:
-  #   - classes/projeto7/intro.md
-  #   - classes/projeto7/enunciado.md
+  - Projeto 7 - Filtros Digitais:
+    - classes/projeto7/intro.md
+    - classes/projeto7/enunciado.md
   # - "Projeto 8 - modulação AM":
   #   - classes/projeto8/intro.md
   #   - classes/projeto8/enunciado.md

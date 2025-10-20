@@ -1,52 +1,47 @@
-# Projeto 7: Filtro Digital
+# Projeto 7 – Equalizador de Áudio Multibanda
 
 ## Objetivo
 
-Implementar um sistema de filtro digital, demonstrando os conceitos de processamento de sinais digitais e projeto de filtros.
+**`Após a resolução dos exercícios propostos`**, você deverá construir um equalizador de áudio capaz de atuar em **12 bandas de frequências** (ou mais, se desejar).
 
-## Descrição
+## Funcionalidades Requeridas
 
-Neste projeto, você irá desenvolver um programa que:
+- O usuário deve poder configurar o filtro para atenuar ou amplificar cada uma das frequências em diferentes níveis
+- Interface com o usuário pode ser CLI ou GUI
+- A atenuação e amplificação de cada faixa deve estar entre **-10dB a +10dB**
+- Utilizar as frequências especificadas na figura fornecida
+- Obter a função de transferência discreta dos filtros usando o código `filtro_peak_EQ` disponibilizado via BB (código-base: [filtro_peak_EQ.ipynb](filtro_peaking_EQ.ipynb))
+- Manter um áudio curto gravado para testes
+- Plotar o **Diagrama de Bode do filtro completo**
+- Desenvolver método para obter uma função de transferência equivalente a todas as funções individuais de cada banda
 
-1. Implementa diferentes tipos de filtros digitais
-2. Realiza a análise de frequência de sinais
-3. Implementa um sistema de processamento de sinais
-4. Demonstra o funcionamento de filtros digitais
+## Arquitetura Recomendada
+![alt text](image-6.png)
 
-## Requisitos
+### Fluxo da Aplicação
 
-- Python 3.x
-- Biblioteca numpy
-- Biblioteca scipy
-- Conhecimentos sobre processamento de sinais
-- Familiaridade com transformada de Fourier
+1. **Configuração inicial**: usuário define amplificação/atenuação de cada banda
+2. **Processamento**: código obtém as funções de transferência coerentes com a configuração
+3. **Aplicação dos filtros**: aplicar os filtros um a um ao sinal
+4. **Reprodução**: executar o sinal resultante após o sinal original para comparação
 
-## Entregáveis
+## Especificações Técnicas
 
-1. Código fonte do programa implementado
-2. Relatório técnico contendo:
-   - Descrição dos filtros implementados
-   - Análise da resposta em frequência
-   - Resultados dos testes realizados
-   - Discussão sobre possíveis melhorias
+| Parâmetro          | Valor / Faixa                     |
+|--------------------|-----------------------------------|
+| Bandas de frequência | 31 Hz, 63 Hz, 125 Hz, 250 Hz, 500 Hz, 1 kHz, 2 kHz, 4 kHz, 8 kHz, 16 kHz, 20 kHz (ajuste conforme necessário) |
+| Ganho por banda     | –10 dB ➔ +10 dB (passo 1 dB)      |
+| Tipo de filtro      | **Peaking EQ** (código-base: [filtro_peak_EQ.ipynb](filtro_peaking_EQ.ipynb)) |
+| Ordem do filtro     | 2ª ordem (bi-quad) por banda      |
+| Taxa de amostragem  | 44,1 kHz (ou igual ao do arquivo de teste) |
+| Formato do áudio    | `.wav`, 16 bits, mono ou estéreo (tratar ambos os canais) |
 
-## Avaliação
 
-O projeto será avaliado considerando:
+## Rubrica
 
-- Funcionalidade do sistema implementado
-- Qualidade do código e documentação
-- Relatório técnico
-- Apresentação oral
-
-## Datas
-
-- Entrega: [Data a ser definida]
-- Apresentação: [Data a ser definida]
-
-## Recursos Adicionais
-
-- [Link para documentação sobre filtros digitais]
-- [Link para tutoriais sobre processamento de sinais]
-- [Link para exemplos de código]
-
+| Nota | Requisitos |
+|------|------------|
+| **C** | Filtros implementados e atuando no sinal |
+| **B** | Interface com usuário bem construída, execução dos áudios |
+| **A** | Diagrama de Bode do filtro completo |
+| **C+, B+, A+** | Atribuídas mediante contexto geral, capricho e resolução dos exercícios |
