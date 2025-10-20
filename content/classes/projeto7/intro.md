@@ -11,20 +11,25 @@ Um filtro digital pode então ser visto como uma **“peneira”** que deixa pas
 
 Adotando como critério as frequências que um filtro **bloqueia** e as que **mantém** ou **amplifica**, categorizamos os filtros digitais em quatro tipos principais:
 
-### 🔹 Filtro Passa-Baixa (*Low Pass Filter*)
-Elimina as frequências que compõem o sinal e que estejam **acima** de um dado limite denominado **frequência de corte** (𝑓₍corte₎).
+**Filtro Passa-Baixa (*Low Pass Filter*)**
 
-### 🔹 Filtro Passa-Alta (*High Pass Filter*)
-Elimina as frequências que compõem o sinal e que estejam **abaixo** de um dado limite denominado **frequência de corte** (𝑓₍corte₎).
+- Elimina as frequências que compõem o sinal e que estejam **acima** de um dado limite denominado **frequência de corte** (𝑓₍corte₎).
 
-### 🔹 Filtro Passa-Faixa (*Band Pass Filter*)
-Elimina todas as frequências que estejam **fora de uma faixa (intervalo)** de frequências.
+**Filtro Passa-Alta (*High Pass Filter*)**
 
-### 🔹 Filtro Rejeita-Faixa (*Notch Filter*)
-Elimina todas as frequências que estejam **dentro de uma faixa (intervalo)** de frequências.
+- Elimina as frequências que compõem o sinal e que estejam **abaixo** de um dado limite denominado **frequência de corte** (𝑓₍corte₎).
 
-### 🔹 Filtro de Picos (*Peak Filter*)
-Amplifica ou atenua uma **certa faixa de frequências** em uma quantidade desejada.
+**Filtro Passa-Faixa (*Band Pass Filter*)**
+
+- Elimina todas as frequências que estejam **fora de uma faixa (intervalo)** de frequências.
+
+**Filtro Rejeita-Faixa (*Notch Filter*)**
+
+- Elimina todas as frequências que estejam **dentro de uma faixa (intervalo)** de frequências.
+
+**Filtro de Picos (*Peak Filter*)**
+
+- Amplifica ou atenua uma **certa faixa de frequências** em uma quantidade desejada.
 
 
 ## Comportamento de um Filtro Passa-Baixa
@@ -58,9 +63,9 @@ Em outras palavras, **cada posição de \( Y[k] \)** é uma **combinação ponde
 
 Um exemplo de filtro que atua sobre o sinal original \( X[k] \) e produz o sinal filtrado \( Y[k] \) é:
 
-\[
+$$
 Y[k] = 1.8 \, Y[k - 1] - 0.7 \, Y[k - 2] + 0.2 \, X[k] + 0.3 \, X[k - 1] + 0.2 \, X[k - 2]
-\]
+$$
 
 Observe que o sinal filtrado \( Y[k] \):
 
@@ -99,9 +104,9 @@ for k in range(2, len(X)):
 Ainda considerando o exemplo anterior, podemos **avançar duas posições** em todos os termos da equação.  
 Se a equação vale para \( k \), também valerá para \( k + 2 \):
 
-\[
+$$
 Y[k + 2] = 1.8 \, Y[k + 1] - 0.7 \, Y[k] + 0.2 \, X[k + 2] + 0.3 \, X[k + 1] + 0.2 \, X[k]
-\]
+$$
 
 ---
 
@@ -112,41 +117,41 @@ Esse operador representa o **avanço** na posição de uma lista (ou sequência 
 
 Por exemplo:
 
-\[
+$$
 Z \cdot Y[k] = Y[k + 1]
-\]
-\[
+$$
+$$
 Z \cdot Z \cdot Y[k] = Z^2 Y[k] = Y[k + 2]
-\]
+$$
 
 ### Reescrevendo a Equação com o Operador Z
 
 Aplicando o operador \( Z \) à equação anterior, temos:
 
-\[
+$$
 Z^2 Y[k] = 1.8 \, Z \, Y[k] - 0.7 \, Y[k] + 0.2 \, Z^2 X[k] + 0.3 \, Z \, X[k] + 0.2 \, X[k]
-\]
+$$
 
 Agrupando os termos, obtemos:
 
-\[
+$$
 Y[k] \, (Z^2 - 1.8Z + 0.7) = X[k] \, (0.2Z^2 + 0.3Z + 0.2)
-\]
+$$
 
 
 ### Função de Transferência no Domínio Z
 
 Dividindo ambos os lados por \( X[k] \), temos a **relação entre a saída e a entrada** do filtro:
 
-\[
+$$
 \frac{Y[k]}{X[k]} = \frac{0.2Z^2 + 0.3Z + 0.2}{Z^2 - 1.8Z + 0.7}
-\]
+$$
 
 Chamando essa relação de **função de transferência discreta**:
 
-\[
+$$
 G(Z) = \frac{Y[k]}{X[k]} = \frac{0.2Z^2 + 0.3Z + 0.2}{Z^2 - 1.8Z + 0.7}
-\]
+$$
 
 Essa expressão é **análoga às funções de transferência contínuas** que você estuda em **Controle de Sistemas**, porém definida no **domínio discreto (Z)**.
 
@@ -157,17 +162,17 @@ Existe uma correspondência entre o **domínio de Laplace (s)** e o **domínio Z
 
 A aproximação é dada por:
 
-\[
+$$
 s \approx \frac{X[k + 1] - X[k]}{T} \quad \Rightarrow \quad s \approx \frac{Z X[k] - X[k]}{T}
-\]
+$$
 
 Assim, o operador \( Z \) pode ser interpretado como o **equivalente discreto do operador de Laplace**, permitindo analisar sistemas digitais de forma semelhante aos sistemas analógicos.
 
 
 !!! info
+    As **teorias utilizadas para calcular os coeficientes** corretos (os valores multiplicadores de \( X[k] \) e \( Y[k] \)) são extensas e envolvem métodos avançados de projeto de filtros digitais.  
 
-As **teorias utilizadas para calcular os coeficientes** corretos (os valores multiplicadores de \( X[k] \) e \( Y[k] \)) são extensas e envolvem métodos avançados de projeto de filtros digitais.  
-Esses métodos estão **além do escopo deste curso**, mas **ferramentas como Python, MATLAB** — ou mesmo llms como **Gemini ou ChatGPT** — podem auxiliar na **obtenção automática das funções de transferência** para filtros desejados (passa-baixa, passa-alta, etc.).
+    Esses métodos estão **além do escopo deste curso**, mas **ferramentas como Python, MATLAB** — ou mesmo llms como **Gemini ou ChatGPT** — podem auxiliar na **obtenção automática das funções de transferência** para filtros desejados (passa-baixa, passa-alta, etc.).
 
 ---
 
@@ -182,19 +187,19 @@ superiores a 500 Hz presentes num sinal de entrada, ou seja, um filtro passa bai
 O filtro fornecido pelo Python é do tipo **Butterworth** (em homenagem a *Stephen Butterworth*).  
 Sua **função de transferência discreta** (no domínio **Z**, usando o **operador de avanço** \(Z\)) é:
 
-\[
+$$
 G(Z) \;=\; \frac{Y[K]}{X[K]} \;=\;
 \frac{0.00120741\,Z^2 + 0.00241481\,Z + 0.00120741}{Z^2 - 1.8993342\,Z + 0.90416304}
-\]
+$$
 
 Lembrando: \(Z\) representa **avanço** na sequência (ex.: \(Z \cdot Y[k] = Y[k+1]\)).  
 A partir de \(G(Z)\), obtemos a **equação a diferenças** (forma causal, em termos de amostras passadas):
 
-\[
+$$
 \boxed{
 \; y[k] \;=\; 1.8993342\,y[k-1] \;-\; 0.90416304\,y[k-2]
 \;+\; 0.00120741\,x[k] \;+\; 0.00241481\,x[k-1] \;+\; 0.00120741\,x[k-2] \;}
-\]
+$$
 
 
 Os filtros passa-baixa são muito utilizados para eliminar ruídos de alta frequência contaminando um sinal de frequências mais baixas. Já os filtros passa-alta, teriam o efeito oposto, eliminando as baixas frequências de um sinal. Repare na figura a seguir o sinal original, filtrado por passa-baixa e filtrado por passa-alta:
@@ -231,9 +236,9 @@ Vamos entender o porquê essa unidade é tão usada e como ela funciona.
 
 Para o ouvido humano **perceber um som**, é necessária uma **intensidade acústica mínima** de:
 
-\[
+$$
 10^{-12} \; \text{W/m}^2
-\]
+$$
 
 Por outro lado, quando a **intensidade atinge 1 W/m²**, começamos a **sentir dor** e até **risco de lesão auditiva**.  
 
@@ -245,9 +250,9 @@ Em vez de usar essa escala linear inconveniente, utiliza-se uma **escala logarí
 
 A intensidade acústica em decibéis (\(I_{dB}\)) é definida como:
 
-\[
+$$
 I_{dB} = 10 \cdot \log \left( \frac{I}{10^{-12}} \right)
-\]
+$$
 
 onde:  
 - \(I_{dB}\) → intensidade expressa em decibéis (dB)  
@@ -258,28 +263,28 @@ onde:
 Usamos o **logaritmo da razão** entre a **intensidade medida** e o **limiar de audição**, multiplicado por 10.  
 Dessa forma, a **intensidade expressa em decibéis (𝐼₍dB₎)** varia aproximadamente dentro do intervalo:
 
-\[
+$$
 0 \; \text{dB} \; \text{(limiar da audição)} \quad \text{até} \quad 120 \; \text{dB} \; \text{(limiar da dor)}
-\]
+$$
 
 
 ### Exemplo Prático
 
 Suponha que temos uma onda sonora com intensidade:
 
-\[
+$$
 I = 10^{-4} \; \text{W/m}^2
-\]
+$$
 
 Aplicando a fórmula do decibel:
 
-\[
+$$
 I_{dB} = 10 \cdot \log \left( \frac{10^{-4}}{10^{-12}} \right)
-\]
+$$
 
-\[
+$$
 I_{dB} = 10 \cdot \log (10^{8}) = 10 \cdot 8 = 80 \, \text{dB}
-\]
+$$
 
 
 Portanto, uma intensidade de \(10^{-4} \, \text{W/m}^2\) corresponde a **80 dB**, um valor típico de sons altos, como o ruído intenso de trânsito ou uma música alta.
@@ -289,14 +294,14 @@ Portanto, uma intensidade de \(10^{-4} \, \text{W/m}^2\) corresponde a **80 dB**
 Expresse em **decibéis (dB)**:
 
 1. A **intensidade limiar da audição**:  
-   \[
+   $$
    I = 10^{-12} \, \text{W/m}^2
-   \]
+   $$
 
 2. A **intensidade limiar da dor**:  
-   \[
+   $$
    I = 100 \, \text{W/m}^2
-   \]
+   $$
 
 
 ## Decibel para Sinais Elétricos
@@ -305,9 +310,9 @@ Quando tratamos de **sinais elétricos** provenientes de **transdução** (isto 
 
 Lembre-se da relação fundamental:
 
-\[
+$$
 P = U \cdot I = \frac{U^2}{R}
-\]
+$$
 
 
 ### Razão de Intensidades e Ganho
@@ -316,30 +321,30 @@ Em processamento de sinais e técnicas de controle, é comum expressarmos a **ra
 
 Essa razão é denominada **ganho do processo**, e expressa em **decibéis (dB)** pela fórmula:
 
-\[
+$$
 Ganho = 10 \cdot \log \left( \frac{I_{saída}}{I_{entrada}} \right)
-\]
+$$
 
 Sabendo que \( I \propto V^2 \), podemos substituir:
 
-\[
+$$
 Ganho = 10 \cdot \log \left( \frac{V_{saída}^2}{V_{entrada}^2} \right)
-\]
+$$
 
 Aplicando a propriedade dos logaritmos:
 
-\[
+$$
 Ganho = 20 \cdot \log \left( \frac{V_{saída}}{V_{entrada}} \right)
-\]
+$$
 
 
 ### Expressão Geral do Ganho em Decibéis
 
 Assim, quando falamos de **sinais elétricos** (de entrada e saída de um sistema), o **ganho do sistema** ou o **ganho da função de transferência** pode ser expresso como:
 
-\[
+$$
 G_{dB} = 20 \cdot \log \left( \frac{V_{saída}}{V_{entrada}} \right)
-\]
+$$
 
 
 
@@ -356,9 +361,9 @@ Existe também uma **defasagem** entre os sinais de entrada e saída, mas por or
 
 Repara no exemplo abaixo que mostra o diagrama de Bode do filtro utilizado no exercício 1:
 
-\[
+$$
 G(z) = \frac{Y[k]}{X[k]} = \frac{0{,}00120741\,z^2 + 0{,}00241481\,z + 0{,}00120741}{z^2 - 1{,}8993342\,z + 0{,}90416304}
-\]
+$$
 
 ![alt text](image-4.png)
 
