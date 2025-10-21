@@ -42,39 +42,31 @@ A figura abaixo ilustra o comportamento de um filtro passa-baixa:
 
 ## Aplicação de um Filtro Digital a um Sinal
 
-Considere que temos um sinal contínuo \( x(t) \) que foi **digitalizado** e salvo em uma variável como uma lista de valores \( X[k] \), onde \( k = 0, 1, 2, 3, \ldots, \text{tamanho da lista} \).
+Considere que temos um sinal contínuo $ x(t) $ que foi **digitalizado** e salvo em uma variável como uma lista de valores $ X[k] $, onde $ k = 0, 1, 2, 3, \ldots, \text{tamanho da lista} $.
 
 Nosso objetivo é **aplicar um filtro** a esse sinal para **eliminar** ou **amplificar** determinadas faixas de frequências que o compõem.
 
----
+Para isso, criamos uma nova lista, denominada **lista de saída** $ Y[k] $, que representará o **sinal original filtrado**.
 
-### Estrutura Geral
-
-Para isso, criamos uma nova lista, denominada **lista de saída** \( Y[k] \), que representará o **sinal original filtrado**.
-
-- O sinal original \( X[k] \) é considerado a **entrada**.
-- O sinal filtrado \( Y[k] \) é considerado a **saída** do filtro.
+- O sinal original $ X[k] $ é considerado a **entrada**.
+- O sinal filtrado $ Y[k] $ é considerado a **saída** do filtro.
 
 Cada valor da lista de saída é obtido a partir de uma **fórmula** que modifica os valores da lista original.  
-Em outras palavras, **cada posição de \( Y[k] \)** é uma **combinação ponderada** de valores da lista \( X[k] \) (entrada) e, em alguns casos, também de valores anteriores de \( Y[k] \) (saída).
+Em outras palavras, **cada posição de $ Y[k] $** é uma **combinação ponderada** de valores da lista $ X[k] $ (entrada) e, em alguns casos, também de valores anteriores de $ Y[k] $ (saída).
 
 
 ### Exemplo de Filtro Digital
 
-Um exemplo de filtro que atua sobre o sinal original \( X[k] \) e produz o sinal filtrado \( Y[k] \) é:
+Um exemplo de filtro que atua sobre o sinal original $ X[k] $ e produz o sinal filtrado $ Y[k] $ é:
 
 $$
 Y[k] = 1.8 \, Y[k - 1] - 0.7 \, Y[k - 2] + 0.2 \, X[k] + 0.3 \, X[k - 1] + 0.2 \, X[k - 2]
 $$
 
-Observe que o sinal filtrado \( Y[k] \):
+Observe que o sinal filtrado $ Y[k] $:
 
-- Depende de **valores anteriores de si próprio** (\( Y[k-1], Y[k-2] \));
-- E também de **valores anteriores do sinal original** (\( X[k], X[k-1], X[k-2] \)).
-
----
-
-### Interpretação
+- Depende de **valores anteriores de si próprio** ($ Y[k-1], Y[k-2] $);
+- E também de **valores anteriores do sinal original** ($ X[k], X[k-1], X[k-2] $).
 
 A maneira como o filtro atua — se ele **atenua**, **amplifica** ou **elimina** certas frequências — depende diretamente dos **coeficientes** usados na fórmula.
 
@@ -98,21 +90,22 @@ for k in range(2, len(X)):
     Y[k] = 1.8 * Y[k-1] - 0.7 * Y[k-2] + 0.2 * X[k] + 0.3 * X[k-1] + 0.2 * X[k-2]
 ```
 
+---
 
-## Representação do Filtro no Domínio Z
+## Representação de Filtro no Domínio Z
 
 Ainda considerando o exemplo anterior, podemos **avançar duas posições** em todos os termos da equação.  
-Se a equação vale para \( k \), também valerá para \( k + 2 \):
+Se a equação vale para $ k $, também valerá para $ k + 2 $:
 
 $$
 Y[k + 2] = 1.8 \, Y[k + 1] - 0.7 \, Y[k] + 0.2 \, X[k + 2] + 0.3 \, X[k + 1] + 0.2 \, X[k]
 $$
 
----
 
 ### Operador Z
 
-Em sistemas digitais, utilizamos o **operador Z**, um conceito amplamente presente em **análise de sinais discretos**.  
+Em sistemas digitais, utilizamos o **operador Z**, um conceito amplamente presente em **análise de sinais discretos**. 
+
 Esse operador representa o **avanço** na posição de uma lista (ou sequência de amostras).
 
 Por exemplo:
@@ -126,7 +119,7 @@ $$
 
 ### Reescrevendo a Equação com o Operador Z
 
-Aplicando o operador \( Z \) à equação anterior, temos:
+Aplicando o operador $ Z $ à equação anterior, temos:
 
 $$
 Z^2 Y[k] = 1.8 \, Z \, Y[k] - 0.7 \, Y[k] + 0.2 \, Z^2 X[k] + 0.3 \, Z \, X[k] + 0.2 \, X[k]
@@ -141,7 +134,7 @@ $$
 
 ### Função de Transferência no Domínio Z
 
-Dividindo ambos os lados por \( X[k] \), temos a **relação entre a saída e a entrada** do filtro:
+Dividindo ambos os lados por $ X[k] $, temos a **relação entre a saída e a entrada** do filtro:
 
 $$
 \frac{Y[k]}{X[k]} = \frac{0.2Z^2 + 0.3Z + 0.2}{Z^2 - 1.8Z + 0.7}
@@ -156,9 +149,9 @@ $$
 Essa expressão é **análoga às funções de transferência contínuas** que você estuda em **Controle de Sistemas**, porém definida no **domínio discreto (Z)**.
 
 
-### Relação entre os Domínios de Laplace e Z
+#### Relação entre os Domínios de Laplace e Z
 
-Existe uma correspondência entre o **domínio de Laplace (s)** e o **domínio Z**, pois o operador \( s \) representa uma **derivada temporal**, enquanto no domínio discreto usamos diferenças finitas.
+Existe uma correspondência entre o **domínio de Laplace (s)** e o **domínio Z**, pois o operador $ s $ representa uma **derivada temporal**, enquanto no domínio discreto usamos diferenças finitas.
 
 A aproximação é dada por:
 
@@ -166,34 +159,33 @@ $$
 s \approx \frac{X[k + 1] - X[k]}{T} \quad \Rightarrow \quad s \approx \frac{Z X[k] - X[k]}{T}
 $$
 
-Assim, o operador \( Z \) pode ser interpretado como o **equivalente discreto do operador de Laplace**, permitindo analisar sistemas digitais de forma semelhante aos sistemas analógicos.
+Assim, o operador $ Z $ pode ser interpretado como o **equivalente discreto do operador de Laplace**, permitindo analisar sistemas digitais de forma semelhante aos sistemas analógicos.
 
 
 !!! info
-    As **teorias utilizadas para calcular os coeficientes** corretos (os valores multiplicadores de \( X[k] \) e \( Y[k] \)) são extensas e envolvem métodos avançados de projeto de filtros digitais.  
+    As **teorias utilizadas para calcular os coeficientes** corretos (os valores multiplicadores de $ X[k] $ e $ Y[k] $) são extensas e envolvem métodos avançados de projeto de filtros digitais.  
 
     Esses métodos estão **além do escopo deste curso**, mas **ferramentas como Python, MATLAB** — ou mesmo llms como **Gemini ou ChatGPT** — podem auxiliar na **obtenção automática das funções de transferência** para filtros desejados (passa-baixa, passa-alta, etc.).
 
 ---
+
+## Implementação discreta
 
 Veja como o Python pode nos fornecer, por exemplo, os coeficientes de um filtro que elimina as frequências
 superiores a 500 Hz presentes num sinal de entrada, ou seja, um filtro passa baixas:
 
 ![alt text](image-2.png)
 
-
-## Implementação discreta
-
 O filtro fornecido pelo Python é do tipo **Butterworth** (em homenagem a *Stephen Butterworth*).  
-Sua **função de transferência discreta** (no domínio **Z**, usando o **operador de avanço** \(Z\)) é:
+Sua **função de transferência discreta** (no domínio **Z**, usando o **operador de avanço** $Z$) é:
 
 $$
 G(Z) \;=\; \frac{Y[K]}{X[K]} \;=\;
 \frac{0.00120741\,Z^2 + 0.00241481\,Z + 0.00120741}{Z^2 - 1.8993342\,Z + 0.90416304}
 $$
 
-Lembrando: \(Z\) representa **avanço** na sequência (ex.: \(Z \cdot Y[k] = Y[k+1]\)).  
-A partir de \(G(Z)\), obtemos a **equação a diferenças** (forma causal, em termos de amostras passadas):
+Lembrando: $Z$ representa **avanço** na sequência (ex.: $Z \cdot Y[k] = Y[k+1]$).  
+A partir de $G(Z)$, obtemos a **equação a diferenças** (forma causal, em termos de amostras passadas):
 
 $$
 \boxed{
@@ -202,9 +194,12 @@ $$
 $$
 
 
-Os filtros passa-baixa são muito utilizados para eliminar ruídos de alta frequência contaminando um sinal de frequências mais baixas. Já os filtros passa-alta, teriam o efeito oposto, eliminando as baixas frequências de um sinal. Repare na figura a seguir o sinal original, filtrado por passa-baixa e filtrado por passa-alta:
+Os filtros passa-baixa são muito utilizados para eliminar ruídos de alta frequência contaminando um sinal de frequências mais baixas. 
+Já os filtros passa-alta, teriam o efeito oposto, eliminando as baixas frequências de um sinal. Repare na figura a seguir o sinal original, filtrado por passa-baixa e filtrado por passa-alta:
 
 ![alt text](image-3.png)
+
+---
 
 ## Exercício 1
 
@@ -242,22 +237,22 @@ $$
 
 Por outro lado, quando a **intensidade atinge 1 W/m²**, começamos a **sentir dor** e até **risco de lesão auditiva**.  
 
-Observe como o intervalo entre esses dois extremos é **enorme** — varia de \(10^{-12}\) até \(1\)!  
+Observe como o intervalo entre esses dois extremos é **enorme** — varia de $10^{-12}$ até $1$!  
 Em vez de usar essa escala linear inconveniente, utiliza-se uma **escala logarítmica**, o **decibel**, para representar a intensidade sonora.
 
 
 ### Definição Matemática
 
-A intensidade acústica em decibéis (\(I_{dB}\)) é definida como:
+A intensidade acústica em decibéis ($I_{dB}$) é definida como:
 
 $$
 I_{dB} = 10 \cdot \log \left( \frac{I}{10^{-12}} \right)
 $$
 
 onde:  
-- \(I_{dB}\) → intensidade expressa em decibéis (dB)  
-- \(I\) → intensidade sonora medida (em W/m²)  
-- \(10^{-12}\) → intensidade de referência correspondente ao **limiar de audição humana**
+- $I_{dB}$ → intensidade expressa em decibéis (dB)  
+- $I$ → intensidade sonora medida (em W/m²)  
+- $10^{-12}$ → intensidade de referência correspondente ao **limiar de audição humana**
 
 
 Usamos o **logaritmo da razão** entre a **intensidade medida** e o **limiar de audição**, multiplicado por 10.  
@@ -287,7 +282,9 @@ I_{dB} = 10 \cdot \log (10^{8}) = 10 \cdot 8 = 80 \, \text{dB}
 $$
 
 
-Portanto, uma intensidade de \(10^{-4} \, \text{W/m}^2\) corresponde a **80 dB**, um valor típico de sons altos, como o ruído intenso de trânsito ou uma música alta.
+Portanto, uma intensidade de $10^{-4} \, \text{W/m}^2$ corresponde a **80 dB**, um valor típico de sons altos, como o ruído intenso de trânsito ou uma música alta.
+
+--- 
 
 ## Exercício 2
 
@@ -304,7 +301,7 @@ Expresse em **decibéis (dB)**:
    $$
 
 
-## Decibel para Sinais Elétricos
+### Decibel para Sinais Elétricos
 
 Quando tratamos de **sinais elétricos** provenientes de **transdução** (isto é, sinais que podem ser **digitalizados**), a **intensidade do sinal** é **proporcional ao quadrado da amplitude da tensão**.
 
@@ -325,7 +322,7 @@ $$
 Ganho = 10 \cdot \log \left( \frac{I_{saída}}{I_{entrada}} \right)
 $$
 
-Sabendo que \( I \propto V^2 \), podemos substituir:
+Sabendo que $I \propto V^2$, podemos substituir:
 
 $$
 Ganho = 10 \cdot \log \left( \frac{V_{saída}^2}{V_{entrada}^2} \right)
@@ -346,7 +343,7 @@ $$
 G_{dB} = 20 \cdot \log \left( \frac{V_{saída}}{V_{entrada}} \right)
 $$
 
-
+---
 
 ## O Diagrama de Bode – resposta em frequência
 
@@ -371,6 +368,8 @@ O ganho em dB desse filtro varia com a frequência do sinal e entrada 𝑈[𝐾]
 Bode abaixo:
 
 ![alt text](image-5.png)
+
+---
 
 ## Exercício 4a
 
@@ -398,6 +397,8 @@ Em filtros passa-baixa, define-se **frequência de corte** $f_c$ como a frequên
 
 > Obs.: $-6\ \text{dB}$ corresponde a uma razão de amplitudes de aproximadamente $0{,}5$.
 
+---
+
 ## Exercício 5
 
 O notebook `filtro_passa_faixa.ipynb` (disponível no Blackboard) e no link contém:
@@ -424,6 +425,7 @@ O notebook `filtro_passa_faixa.ipynb` (disponível no Blackboard) e no link cont
 &gt; Conclua com uma frase curta:  
 &gt; “O parâmetro Q controla ____________ do filtro passa-faixa.”
 
+---
 
 ## Exercício 6
 
