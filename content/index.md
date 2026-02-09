@@ -1,6 +1,6 @@
 # Camada Física da Computação
 
-Essa página contém todos os materiais para o curso de Camada Física da Computação de 2025-b. 
+Essa página contém todos os materiais para o curso de Camada Física da Computação de 2026. 
 
 ## Estrutura do Curso
 
