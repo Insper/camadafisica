@@ -1,7 +1,7 @@
 # Projeto 1 – Loop Back
 
 
-<a href="HandOut.rar" download>Baixar o arquivo do projeto</a>
+<a href="HandOut.rar" download>Baixar os arquivos do projeto 1</a>
 
 
 Neste projeto, você deverá construir um código em **Python** para **transmissão e recepção serial simultâneas**.  

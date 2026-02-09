@@ -59,8 +59,9 @@ Esta disciplina explora os fundamentos teóricos e práticos da camada física e
 
 **Laboratório de Informática** - Sala 404
 
+- **Segunda-feira** 12:00
 - **Quinta-feira** 14:15 
-- **Sexta-feira** 16:30
+
 
 Horário de atendimento: 
 
