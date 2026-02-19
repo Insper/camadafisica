@@ -38,9 +38,9 @@ nav:
   - Projeto 1 - Loopback:
     - Introdução: classes/projeto1/intro.md
     - Enunciado: classes/projeto1/enunciado.md
-  # - Projeto 2 - Ponto Flutuante:
-  #   # - Introdução: classes/projeto2/intro.md
-  #   - Enunciado: classes/projeto2/enunciado.md
+  - Projeto 2 - Ponto Flutuante:
+    # - Introdução: classes/projeto2/intro.md
+    - Enunciado: classes/projeto2/enunciado.md
   # - Projeto 3 - Datagrama:
   #   - Introdução: classes/projeto3/intro.md
   #   - Enunciado: classes/projeto3/enunciado.md

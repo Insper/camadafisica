@@ -44,11 +44,11 @@ Após receber e desprezar esse byte de sacrifício, o server deve voltar ao esta
 
 ## 3) O que deve ser enviado
 
-Uma aplicação (client) deverá enviar via transmissão serial UART uma sequência de números. Cada número deverá estar entre os intervalos `[−1 × 10³⁸ ; +1 × 10³⁸]` e possuir no mínimo 6 casas de precisão. Exemplo:
+Uma aplicação (client) deverá enviar via transmissão serial UART uma sequência de números. Cada número deverá estar entre os intervalos `[−1 × 10³ ; +1 × 10³]` e possuir no mínimo 6 casas de precisão. Exemplo:
 
 - 45,450000
 - −1,435670
-- 1,23 × 10²³
+- 154,76783
 
 Os números serão recebidos pelo server, que deverá "printá-los" no prompt **separadamente (1 número por linha).**
 
