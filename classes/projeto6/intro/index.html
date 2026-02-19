@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="digitalizacao">Digitalização</h1>
+<h2 id="o-mundo-analogico-e-a-digitalizacao">O Mundo Analógico e a Digitalização</h2>
+<p>Embora dependentes dos equipamentos digitais, vivemos num mundo de grandezas analógicas. As grandezas físicas no nosso mundo são analógicas, como temperatura, pressão, velocidade, massa etc. Isso quer dizer que essas grandezas apresentam valores contínuos no tempo, podendo apresentar qualquer valor dentro de qualquer intervalo. Pense, por exemplo, na temperatura do ambiente em que você está. Existe algum valor impossível para a temperatura no intervalo, por exemplo, entre 10 e 30 graus? A resposta é não. A temperatura de um ponto pode variar continuamente ocupando qualquer valor pertencente a esse intervalo. Porém, se quisermos digitalizar o valor da temperatura, guardando o histórico de temperatura de um ponto em um computador, não teremos mais infinitos possíveis valores. Teríamos que fazer algumas amostras da temperatura (como e fossem fotos) e guardá-las em uma variável de n-bits. Assim, ao se digitalizar uma grandeza física que varie no tempo, temos duas perdas:  </p>
+<ol>
+<li>Não podemos ter o valor registrado em todos os instantes, pois seriam infinitas amostras.  </li>
+<li>Ao fazer uma amostra, temos que aproximar o valor ao valor mais próximo que podemos escrever com os n bits que utilizamos para registrar a amostra. Essa aproximação é chamada de <strong>quantização</strong>.  </li>
+</ol>
+<p>A variável física, contínua por natureza, torna-se uma série de amostras. Dizemos que a variável deixou de ser contínua e passou a ser discreta. A digitalização de uma variável é um processo de discretização da variável. O mundo digital é discreto, ou seja, as variáveis possuem valores quantizados (aproximados a níveis possíveis) e com quantidade finita de amostras (representam um número limitado de instantes).  </p>
+<p><img alt="alt text" src="../image.png" /></p>
+<p>No gráfico acima, o gráfico senoidal representa uma variável contínua. Os pontos redondos representam os valores amostrados no processo de digitalização. Os pontos quadrados são os valores de fato armazenados em variáveis de n bits, com as quais não é possível escrever qualquer valor.  </p>
+<p>Durante o processo de digitalização, dá-se o nome de <strong>taxa (ou frequência) de amostragem</strong> à quantidade de amostras que é feita por segundo. <strong>Período de amostragem</strong> é o nome dado ao tempo decorrido entre duas amostras consecutivas.  </p>
+<p>Quanto menor forem os erros de quantização numa conversão analógico-digital, dizemos que melhor é a <strong>resolução</strong> da digitalização. Assim, para uma digitalização ser feita com boa resolução, as amostras devem ser feitas e guardadas em variáveis com um bom número de bits. Por outro lado, a resolução pode também ser melhorada, se o intervalo do sinal analógico for reduzido, assim os possíveis valores que podem ser guardados com o n bits das variáveis serão distribuídos em um intervalo pequeno, diminuindo a diferença entre dois valores possíveis consecutivos. Iremos voltar a falar disso.  </p>
+<p>De maneira resumida, o processo de digitalização então envolve as 3 seguintes etapas:  </p>
+<ol>
+<li><strong>Amostragem (Sampling):</strong>  </li>
+<li>O sinal analógico é medido em intervalos regulares de tempo (frequência de amostragem).  </li>
+<li>
+<p>Isso gera uma série de amostras pontuais do sinal contínuo.  </p>
+</li>
+<li>
+<p><strong>Quantização (Quantization):</strong>  </p>
+</li>
+<li>Cada amostra é arredondada para o valor mais próximo dentro de um conjunto finito de níveis discretos.  </li>
+<li>
+<p>Isso introduz um pequeno erro chamado <strong>erro de quantização</strong>.  </p>
+</li>
+<li>
+<p><strong>Codificação (Encoding):</strong>  </p>
+</li>
+<li>Os valores quantizados são convertidos em códigos binários (0s e 1s).  </li>
+<li>O número de bits usados determina a resolução do conversor. Por exemplo:  <ul>
+<li>Um ADC de 8 bits pode representar 2⁸ = 256 níveis diferentes.  </li>
+<li>Um ADC de 12 bits pode representar 4096 níveis, e assim por diante.  </li>
+</ul>
+</li>
+</ol>
+<h2 id="exemplo-digitalizacao-de-audio">Exemplo: Digitalização de Áudio</h2>
+<p>Vamos construir um exemplo baseado na digitalização do som. O que chamamos de som é uma perturbação no ar devido à vibração mecânica de um corpo. Essa vibração causa uma variação da pressão dos pontos do ar, que, devido à sua característica elástica, propaga essa perturbação. Assim tem-se no meio elástico (ar) uma variação na pressão, correspondente à vibração do corpo que produziu a perturbação. É exatamente o que faz um alto-falante ou nosso corpo quando falamos. Quando a variação de pressão atinge nosso ouvido, uma complexa estrutura produz impulsos elétricos para nosso cérebro nos dando a sensação auditiva. Nosso ouvido converte uma grandeza analógica mecânica para uma grandeza analógica elétrica. Estruturas que fazem isso são chamadas de <strong>transdutores</strong>.  </p>
+<p>Porém, o som pode ser digitalizado e guardado em nossos computadores, celulares etc.? Assim como nosso ouvido, precisamos antes transformar a grandeza mecânica (pressão) em grandeza elétrica (força eletromotriz e, consequentemente, corrente) através de um transdutor, chamado <strong>microfone</strong>. O microfone transforma a variação de pressão ao seu redor em um campo elétrico que varia no tempo de forma correspondente à variação da pressão. Há vários tipos de microfones, sendo talvez o mais comum o de <strong>bobina móvel</strong>. Esse tipo de microfone possui uma leve bobina acoplada a um diafragma que vibra quando exposto ao som. A vibração faz com que a bobina, que está num campo magnético, também vibre e tenha então o fluxo magnético variando no tempo. Bem, esse fluxo variando no tempo dá origem a uma força eletromotriz correspondente à vibração mecânica.  </p>
+<p>Agora temos o som “representado” por uma força eletromotriz. O próximo passo é, através de um hardware
+próprio (falaremos mais tarde) amostrar essa força e guardar os valores em variáveis de n bits. Se fizermos isso, digitalizaremos o som.  </p>
+<p>Vamos fazer algumas considerações:  </p>
+<ul>
+<li>A amostragem será feita a uma frequência de <strong>44,1 kHz</strong>. Essa taxa é a que normalmente é utilizada por placas de áudio, algumas utilizam <strong>48 kHz</strong>.  </li>
+<li>Normalmente a amostra é feita em dois canais, sendo <strong>estéreo</strong>. Isso significa que os equipamentos utilizam dois microfones. Assim, duas listas de valores são arquivadas. Tudo é feito duplamente. Isso permite muitas vezes gerar uma sensação de <strong>espacialidade</strong> para o som gravado.  </li>
+<li>Cada amostra realizada no processo de digitalização é guardada em uma variável de <strong>16 bits</strong>.  </li>
+</ul>
+<p>Com essas considerações vamos tentar responder as seguintes perguntas:  </p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_1" id="exercise_1_0">
+<p class="admonition-title">Exercício 1</p>
+<form class="exercise-form">
+<p>Quanto de memória computacional é necessário para gravarmos em um computador 1 hora de áudio</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<p>estéreo?  </p>
+<h2 id="hardware-ad">Hardware A/D</h2>
+<p>Existem vários tipos de hardwares para converter um sinal analógico em digital. Um tipo muito rápido, e comumente utilizado, é construído com um <strong>banco de comparadores</strong>, que são na verdade amplificadores operacionais. 
+Repare o circuito abaixo. À medida que o sinal analógico cresce, sequencialmente os amplificadores operacionais mudam sua saída, pois em cada um há um sinal de referência diferente. Esse sinal de referência que vai crescendo em cada amp op é construído com um divisor resistivo. Um encoder reproduz em base 2 o número de amplificadores em estado alterado, ou seja, o nível do sinal analógico.  </p>
+<p><img alt="alt text" src="../image-1.png" /></p>
+<h2 id="exercicios">Exercícios</h2>
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_2" id="exercise_2_0">
+<p class="admonition-title">Exercício 2</p>
+<form class="exercise-form">
+<ol>
+<li>Um sinal de <strong>eletrocardiograma (ECG)</strong> de 5 minutos necessita ser enviado por um enlace de comunicação que consegue transmitir dados a um <strong>baudrate de 1000 bps</strong> porém possui um <strong>overhead de 10%</strong>. O ECG é amostrado a uma taxa de <strong>1 kHz</strong> e possui resolução de <strong>14 bits</strong>.
+<strong>Em quantos minutos o ECG será transmitido aproximadamente?</strong></li>
+</ol>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<hr />
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_3" id="exercise_3_0">
+<p class="admonition-title">Exercício 3</p>
+<form class="exercise-form">
+<ol>
+<li>Um sinal proveniente de um <strong>captador de guitarra elétrica</strong> deve ser digitalizado.
+O "range" do sinal é de <strong>–50 a +50 mV</strong>. Deseja-se uma resolução de, no mínimo, <strong>10 microvolts</strong>. <strong>Quantos bits, no mínimo, serão necessários por amostra?</strong></li>
+</ol>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<hr />
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_4" id="exercise_4_0">
+<p class="admonition-title">Exercício 4</p>
+<form class="exercise-form">
+<ol>
+<li>Um sinal de áudio <strong>senoidal de 4400 Hz</strong> foi digitalizado e armazenado com um <strong>Ts (período de amostragem)</strong> de <strong>25 microssegundos</strong> (entenda o período de amostragem como o tempo entre duas amostras, ou seja, o inverso da taxa de amostragem). Posteriormente foi reproduzido (convertido de digital para analógico) com uma <strong>frequência de amostragem (sample rate)</strong> de <strong>80000 Hz</strong>. <strong>Nesse caso, qual a frequência da senoide analógica ouvida?</strong></li>
+</ol>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

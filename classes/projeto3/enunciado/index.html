@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Enunciado - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="enunciado-do-projeto-03">Enunciado do Projeto 03</h1>
+<p>Nesse projeto, sua aplicação que exerce o papel de <strong>client</strong> deverá realizar <strong>download de arquivos</strong> vindos da
+aplicação <strong>server</strong>. Esses arquivos deverão ser fragmentados e enviados através de "pacotes" (<em>datagramas</em>). Deverá
+existir <strong>handshake</strong> e <strong>confirmação de recebimento</strong> de cada pacote, como explicado a seguir!</p>
+<h2 id="datagrama">Datagrama</h2>
+<p>Você pode definir como será seu datagrama, mas aconselhamos a reservar uma boa quantidade de bytes (10 ou 12 bytes) para o head, a fim de ter espaço suficiente para uma boa comunicação entre as partes. O tamanho do head deve ser fixo. O payload pode ter tamanho variável durante a transmissão, mas <strong>nunca poderá ser maior que 100 Bytes</strong>. Além disso sugerimos um EOP de sua libre escolha com 3 ou 4 bytes.</p>
+<blockquote>
+<p>Não importa o tipo de mensagem, sempre será enviada através de um datagrama como definido acima, tanto de <em>client</em> para <em>server</em> como no sentido oposto.</p>
+</blockquote>
+<h2 id="handshake">Handshake</h2>
+<p>Antes do envio da mensagem, o <strong>client</strong> deve enviar uma mensagem para verificar se o <strong>server</strong> está "vivo" e indagar quais arquivos estão disponíveis.</p>
+<p>O <strong>server</strong> deve responder com os nomes dos arquivos disponíveis, e esses nomes deverão aparecer no terminal do cliente caso contrario um Timeout de 3 segundos se não houver resposta.</p>
+<h2 id="escolha-de-2-ou-mais-arquivos">Escolha de 2 ou mais arquivos.</h2>
+<p>O client então solicita um dos arquivos. O server deve responder algo como: “arquivo x escolhido, deseja adicionar outro arquivo?”
+O cliente deverá então escolher um segundo arquivo.
+O server deve responder com “arquivo x e y escolhidos, deseja adicionar outro arquivo?”
+Se o client responder que sim, o server fornece a lista disponível, o cliente escolhe outro arquivo, e o server vai
+registrando as escolhas. Se o cliente responder que não, o server deve responder algo como: “entendido. Vou iniciar
+a transmissão simultânea dos arquivos escolhidos”</p>
+<h2 id="transmissao">Transmissão</h2>
+<p>A transmissão deve ser necessariamente feita da seguinte maneira:</p>
+<p>Toda vez que o server enviar um pacote de um dos arquivos, o cliente deve responder confirmando o recebimento, e só então o server envia o próximo. Todas essas confirmações devem estar sendo printadas no terminal. Descreva tudo que esteja ocorrendo através de prints.</p>
+<p>Os pacotes devem ser alternados, ou seja, um pacote de cada arquivo, sendo que os dois ou mais arquivos sejam transmitidos simultaneamente enquanto a transmissão não termina. À medida que arquivos sejam enviados completamente, apenas os pacotes dos arquivos ainda em transmissão são enviados, obviamente.</p>
+<h2 id="fim">Fim</h2>
+<p>Os arquivos devem ser salvos no computador do cliente e não podem estar "corrompidos".
+Um print com o resumo da transmissão deve aparecer, mostrando tamanho dos arquivos recebidos, número de pacotes de cada arquivo.</p>
+<h2 id="criterios-de-entrega">Critérios de Entrega</h2>
+<p>Fique atento à data de entrega.</p>
+<h3 id="conceito-c-nota-5">Conceito C (nota 5)</h3>
+<ul>
+<li>Uma transmissão de sucesso de 2 arquivos simultâneos escolhidos pelo usuário.</li>
+</ul>
+<h3 id="conceito-b-nota-75">Conceito B (nota 7,5)</h3>
+<ul>
+<li>Transmissão de sucesso mais a funcionalidade em que o usuário client poderá apartar uma tecla para pausar
+o processo, uma outra tecla para reiniciar o processo e outra para abortar a transmissão.</li>
+</ul>
+<h3 id="conceito-a-nota-9">Conceito A (nota 9)</h3>
+<ul>
+<li>Uma simulação em que se os fios entre os Arduinos (qualquer um deles ou ambos) forem desconectados e conectados novamente, a transmissão retorna e termina com sucesso!</li>
+</ul>
+<h3 id="conceito-a-nota-10">Conceito A+ (nota 10)</h3>
+<ul>
+<li>Todas as funcionalidades com prints caprichados de todo o processo no lado cliente e também server!</li>
+</ul>
+<blockquote>
+<p>Dica! Lembre-se sempre que server e client podem conversar autonomamente através de mensagens no head. Cada byte em cada posição do head pode significar algo! Além disso, o time out pode ser usado para tomada de decisões caso algo esperado não ocorra... Criem seu próprio protocolo de download baseado em datagramas!</p>
+</blockquote>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

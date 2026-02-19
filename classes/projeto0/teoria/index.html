@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Introdução - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item opened">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+
+    <li class="active ah-togglable-item opened">
+      <span class="ah-togglable-handle">Introdução</span>
+      <ul>
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#camada-fisica-da-computacao-aula-1">Camada Física da Computação - Aula 1</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#sistemas-de-numeracao-fundamentais">Sistemas de Numeração Fundamentais</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#bits-bytes-e-representacao-digital">Bits, Bytes e Representação Digital</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#ordem-de-bytes-e-organizacao-de-dados">Ordem de Bytes e Organização de Dados</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#codificacao-ascii-e-representacao-de-caracteres">Codificação ASCII e Representação de Caracteres</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#ferramentas-python-para-manipulacao-de-dados">Ferramentas Python para Manipulação de Dados</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#aplicacoes-praticas-na-computacao">Aplicações Práticas na Computação</a>
+              </li>
+            
+        
+      </ul>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                  
+                    <li>Projeto 0 - Base Python</li>
+                  
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="base-teorica-representacao-de-dados-e-sistemas-numericos">Base Teórica - Representação de Dados e Sistemas Numéricos</h1>
+<h2 id="camada-fisica-da-computacao-aula-1">Camada Física da Computação - Aula 1</h2>
+<p>Esta documentação apresenta os conceitos fundamentais necessários para compreender e realizar os exercícios práticos sobre representação de dados na computação. Durante o estudo, você encontrará exercícios interativos que o ajudarão a fixar os conceitos aprendidos.</p>
+<p><a href="../atividade-aula1/">notebook</a></p>
+<h2 id="sistemas-de-numeracao-fundamentais">Sistemas de Numeração Fundamentais</h2>
+<p>Na computação, trabalhamos constantemente com diferentes sistemas de numeração. Embora estejamos acostumados com o sistema decimal no dia a dia, os computadores operam internamente com o sistema binário, e frequentemente utilizamos o hexadecimal como uma forma mais compacta de representar dados binários.</p>
+<p>O <strong>sistema decimal</strong> utiliza 10 símbolos (0-9) e é baseado em potências de 10. Por exemplo, o número 347 representa: 3×10² + 4×10¹ + 7×10⁰ = 300 + 40 + 7 = 347.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto0/teoria/choice_1" id="choice_1_0">
+<p class="admonition-title">Question 1</p>
+<form class="exercise-form">
+<p>Qual é o valor posicional do dígito 5 no número decimal 2537?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    50
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    5
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    5000
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    500
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Answer!</p>
+<p>O dígito 5 está na posição das centenas (10²), portanto seu valor posicional é 5 × 100 = 500.</p>
+</div>
+</div>
+<p>O <strong>sistema binário</strong> é fundamental porque os computadores trabalham com estados ligado/desligado (1/0). Para converter um número decimal para binário, dividimos sucessivamente por 2 e coletamos os restos. Por exemplo, convertendo 12 para binário:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>12 ÷ 2 = 6, resto 0
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>6 ÷ 2 = 3, resto 0  
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>3 ÷ 2 = 1, resto 1
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>1 ÷ 2 = 0, resto 1
+</code></pre></div>
+<p>Lendo os restos de baixo para cima: 12₁₀ = 1100₂</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto0/teoria/exercise_1" id="exercise_1_0">
+<p class="admonition-title">Exercício 2</p>
+<form class="exercise-form">
+<p>Converta os números 8 e 16 para o sistema binário usando o método de divisões sucessivas. Anote o processo completo!</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<p>Para converter de binário para decimal, multiplicamos cada dígito pela potência correspondente de 2. O número 1100₂ equivale a: 1×2³ + 1×2² + 0×2¹ + 0×2⁰ = 8 + 4 + 0 + 0 = 12₁₀.</p>
+<p>O <strong>sistema hexadecimal</strong> utiliza 16 símbolos (0-9 e A-F, onde A=10, B=11, C=12, D=13, E=14, F=15) e é muito útil para representar dados binários de forma compacta. Para converter 255 para hexadecimal:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>255 ÷ 16 = 15, resto 15 (F)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>15 ÷ 16 = 0, resto 15 (F)
+</code></pre></div>
+<p>Resultado: 255₁₀ = FF₁₆ = 0xFF</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="3" data-slug="classes/projeto0/teoria/choice_2" id="choice_2_0">
+<p class="admonition-title">Question 3</p>
+<form class="exercise-form">
+<p>Quantos símbolos diferentes são utilizados no sistema hexadecimal?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    8
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    16
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    15
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    10
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Answer!</p>
+<p>O sistema hexadecimal utiliza 16 símbolos: os dígitos 0-9 (10 símbolos) e as letras A-F (6 símbolos), totalizando 16 símbolos diferentes.</p>
+</div>
+</div>
+<h2 id="bits-bytes-e-representacao-digital">Bits, Bytes e Representação Digital</h2>
+<p>A menor unidade de informação em computação é o <strong>bit</strong> (binary digit), que pode assumir apenas dois valores: 0 ou 1. Um <strong>byte</strong> é um conjunto de 8 bits e pode representar 2⁸ = 256 valores diferentes (0 a 255). Esta é a unidade padrão para medida de dados.</p>
+<p>A relação entre os sistemas é direta: 1 byte = 8 bits = 2 dígitos hexadecimais. Por exemplo, 0xFF = 11111111₂ = 255₁₀. Esta equivalência torna o hexadecimal muito prático para representar dados binários de forma compacta.</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto0/teoria/exercise_2" id="exercise_2_0">
+<p class="admonition-title">Exercício 4</p>
+<form class="exercise-form">
+<p>Complete a tabela de equivalências:</p>
+<table>
+<thead>
+<tr>
+<th>Decimal</th>
+<th>Binário (8 bits)</th>
+<th>Hexadecimal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>?</td>
+<td>01000001</td>
+<td>?</td>
+</tr>
+<tr>
+<td>?</td>
+<td>?</td>
+<td>0x2A</td>
+</tr>
+</tbody>
+</table>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<p>Quando trabalhamos com números que podem ser negativos, utilizamos diferentes representações. Em números <strong>sem sinal (unsigned)</strong>, todos os bits representam magnitude, permitindo valores de 0 a 2ⁿ-1 para n bits. Em números <strong>com sinal (signed)</strong>, o bit mais significativo indica o sinal, e o método mais comum é o complemento de dois, que permite valores de -2ⁿ⁻¹ a 2ⁿ⁻¹-1.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto0/teoria/choice_3" id="choice_3_0">
+<p class="admonition-title">Question 5</p>
+<form class="exercise-form">
+<p>Em um sistema de 8 bits com representação signed, qual é o intervalo de valores possíveis?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    0 a 255
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    -255 a +255
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    -128 a +127
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    -127 a +128
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Answer!</p>
+<p>Com 8 bits em representação signed (complemento de dois), temos valores de -2⁷ a 2⁷-1, ou seja, -128 a +127.</p>
+</div>
+</div>
+<h2 id="ordem-de-bytes-e-organizacao-de-dados">Ordem de Bytes e Organização de Dados</h2>
+<p>A <strong>ordem de bytes (byte order)</strong> é crucial quando trabalhamos com dados que ocupam mais de um byte. No formato <strong>big endian</strong>, o byte mais significativo vem primeiro (ordem "natural" para humanos), enquanto no <strong>little endian</strong>, o byte menos significativo vem primeiro (comum em processadores x86).</p>
+<p>Por exemplo, o número 0x1234:
+- Big endian: [0x12] [0x34]
+- Little endian: [0x34] [0x12]</p>
+<p>Esta diferença é fundamental em comunicação entre sistemas diferentes e manipulação de arquivos binários.</p>
+<h2 id="codificacao-ascii-e-representacao-de-caracteres">Codificação ASCII e Representação de Caracteres</h2>
+<p>A tabela <strong>ASCII</strong> (American Standard Code for Information Interchange) associa caracteres a números de 0 a 127, permitindo que computadores armazenem e transmitam texto. As faixas mais importantes são:</p>
+<ul>
+<li><strong>0x00 a 0x1F</strong>: Caracteres de controle (não imprimíveis)</li>
+<li><strong>0x20 a 0x7F</strong>: Caracteres imprimíveis, incluindo:</li>
+<li>0x20: Espaço</li>
+<li>0x30-0x39: Dígitos '0'-'9'</li>
+<li>0x41-0x5A: Letras maiúsculas 'A'-'Z'</li>
+<li>0x61-0x7A: Letras minúsculas 'a'-'z'</li>
+</ul>
+<p>Por exemplo: 'A' = 0x41 = 65₁₀, 'a' = 0x61 = 97₁₀, '0' = 0x30 = 48₁₀.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto0/teoria/choice_4" id="choice_4_0">
+<p class="admonition-title">Question 6</p>
+<form class="exercise-form">
+<p>Qual é a diferença entre os códigos ASCII de uma letra maiúscula e sua correspondente minúscula?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    64
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    26
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    16
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    32
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Answer!</p>
+<p>A diferença é sempre 32. Por exemplo, 'A' = 65 e 'a' = 97, diferença de 32. Isso acontece porque 32 = 2⁵, então basta alterar o 6º bit para converter entre maiúscula e minúscula.</p>
+</div>
+</div>
+<h2 id="ferramentas-python-para-manipulacao-de-dados">Ferramentas Python para Manipulação de Dados</h2>
+<p>O Python oferece funções nativas poderosas para trabalhar com diferentes sistemas de numeração e manipulação de bytes. As <strong>conversões básicas</strong> incluem:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Decimal para binário</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">bin</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>  <span class="c1"># Retorna &#39;0b1100&#39;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Decimal para hexadecimal</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">hex</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>  <span class="c1"># Retorna &#39;0xff&#39;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Binário/Hex para decimal</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">int</span><span class="p">(</span><span class="s1">&#39;1100&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Retorna 12</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">int</span><span class="p">(</span><span class="s1">&#39;FF&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>   <span class="c1"># Retorna 255</span>
+</code></pre></div>
+<div class="admonition exercise self-progress" data-slug="classes/projeto0/teoria/exercise_3" id="exercise_3_0">
+<p class="admonition-title">Exercício 7</p>
+<form class="exercise-form">
+<p>Teste as funções acima no Python e verifique suas conversões manuais dos exercícios anteriores. Use também as funções para descobrir os valores em decimal de 0b10101010 e 0xAB.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<p>Para <strong>manipulação de bytes</strong>, Python oferece várias ferramentas úteis:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Criar bytes a partir de lista de inteiros</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">bytes</span><span class="p">([</span><span class="mi">65</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">67</span><span class="p">])</span>  <span class="c1"># Retorna b&#39;ABC&#39;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Converter inteiro para bytes</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>    <span class="c1"># b&#39;\x00\xff&#39;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;little&#39;</span><span class="p">)</span> <span class="c1"># b&#39;\xff\x00&#39;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># Converter bytes para inteiro</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\xff</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>    <span class="c1"># 255</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\xff</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;little&#39;</span><span class="p">)</span> <span class="c1"># 65280</span>
+</code></pre></div>
+<p>Note como a ordem dos bytes (<code>byteorder</code>) afeta significativamente o resultado da conversão. Isso demonstra na prática a importância dos conceitos de big endian e little endian.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto0/teoria/choice_5" id="choice_5_0">
+<p class="admonition-title">Question 8</p>
+<form class="exercise-form">
+<p>Qual será o resultado de <code>int.from_bytes(b'\x12\x34', byteorder='little')</code>?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    3412
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    1234
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    13330
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    4660
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Answer!</p>
+<p>Em little endian, os bytes são interpretados na ordem inversa: 0x34 (52) + 0x12×256 (18×256) = 52 + 4608 = 13330.</p>
+</div>
+</div>
+<p>Para trabalhar com <strong>arrays de bytes</strong>, utilizamos:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Criar bytearray</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">data</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Concatenar bytearrays</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">combined</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</code></pre></div>
+<p>Os bytearrays são úteis quando precisamos modificar sequências de bytes, pois são mutáveis, diferentemente dos objetos bytes que são imutáveis.</p>
+<h2 id="aplicacoes-praticas-na-computacao">Aplicações Práticas na Computação</h2>
+<p>Estes conceitos não são apenas teóricos - eles têm aplicações diretas em várias áreas da computação. No <strong>armazenamento de dados</strong>, números são sempre armazenados em binário na memória, caracteres são codificados usando ASCII ou Unicode, e arquivos multimídia como imagens, áudio e vídeo são essencialmente sequências organizadas de bytes.</p>
+<p>Na <strong>comunicação de dados</strong>, informações são transmitidas como sequências de bits através de redes, protocolos definem exatamente como interpretar esses bits, e a ordem de bytes torna-se crítica quando sistemas diferentes se comunicam.</p>
+<p>Para <strong>depuração e análise</strong>, a representação hexadecimal facilita enormemente a visualização de dados binários, sendo essencial para análise de arquivos corrompidos, protocolos de rede e programação de baixo nível.</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto0/teoria/exercise_4" id="exercise_4_0">
+<p class="admonition-title">Exercício 9</p>
+<form class="exercise-form">
+<p>Pense em uma situação onde você precisa transmitir o texto "Hi!" através de uma rede. Descreva como essa informação seria representada em bytes usando ASCII, e depois em binário.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto0/teoria/choice_6" id="choice_6_0">
+<p class="admonition-title">Question 10</p>
+<form class="exercise-form">
+<p>Quantos bits são necessários para representar o número 1024 em binário?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    16 bits
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    12 bits
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    10 bits
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    11 bits
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Answer!</p>
+<p>1024 = 2¹⁰, que em binário é 10000000000 (um 1 seguido de 10 zeros), necessitando de 11 bits para representação.</p>
+</div>
+</div>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto0/teoria/choice_7" id="choice_7_0">
+<p class="admonition-title">Final Challenge 11</p>
+<form class="exercise-form">
+<p>Qual seria o valor hexadecimal do texto "AB" quando codificado em ASCII?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    0x4142
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    0x4241
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    0x4142
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    0x6162
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Answer!</p>
+<p>'A' = 0x41 e 'B' = 0x42, então "AB" = 0x4142. Note que em little endian seria 0x4241, mas a representação padrão de texto segue a ordem natural (big endian).</p>
+</div>
+</div>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+            <a href="../../../infra/"
+               class="ah-prev"
+               title="Instalação">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Instalação</span>
+            </a>
+          
+          
+            <a href="../atividade-aula1/"
+               class="ah-next"
+               title="Atividade Python">
+              <span class="nav-label">Próximo</span>
+              <span class="nav-title">Atividade Python</span>
+            </a>
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

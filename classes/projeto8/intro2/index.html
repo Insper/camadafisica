@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro2 - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="introducao-a-modulacao">Introdução à Modulação</h1>
+<blockquote>
+<p><strong>Arquivo PDF do projeto</strong>: <a href="../slides.pdf">Modulação AM</a></p>
+</blockquote>
+<p>A modulação é um processo fundamental em telecomunicações e engenharia elétrica, permitindo a transmissão eficaz de sinais de informação através de diversos meios físicos. Este documento aborda a modulação em amplitude (AM), fornecendo uma análise técnica detalhada adequada para estudantes de engenharia de computação.</p>
+<h2 id="1-conceitos-fundamentais">1. Conceitos Fundamentais</h2>
+<h3 id="11-sinais-e-sistemas">1.1 Sinais e Sistemas</h3>
+<ul>
+<li><strong>Sinal</strong>: Função que representa a variação de uma quantidade física ao longo do tempo ou espaço, como tensão, corrente ou potência.</li>
+<li><strong>Sistema</strong>: Entidade que processa sinais, podendo ser caracterizado por suas respostas no tempo e na frequência.</li>
+</ul>
+<h3 id="12-onda-portadora-e-sinal-modulante">1.2 Onda Portadora e Sinal Modulante</h3>
+<ul>
+<li><strong>Onda Portadora (( c(t) ))</strong>: Sinal de alta frequência que serve como meio para transportar o sinal de informação. Geralmente uma senoide pura:</li>
+</ul>
+<p>$$
+  c(t) = A_c \cos(2\pi f_c t + \phi_c)
+  $$</p>
+<p>Onde:
+  - ( A_c ): Amplitude da portadora.
+  - ( f_c ): Frequência da portadora.
+  - ( \phi_c ): Fase inicial da portadora.</p>
+<ul>
+<li><strong>Sinal Modulante (( m(t) ))</strong>: Sinal de informação que se deseja transmitir, geralmente de baixa frequência (como áudio ou dados):</li>
+</ul>
+<p>$$
+  m(t): |m(t)| \leq 1
+  $$</p>
+<h3 id="13-parametros-da-onda">1.3 Parâmetros da Onda</h3>
+<ul>
+<li><strong>Amplitude (( A ))</strong>: Valor máximo da variação do sinal.</li>
+<li><strong>Frequência (( f ))</strong>: Número de ciclos por segundo (Hz).</li>
+<li><strong>Fase (( \phi ))</strong>: Deslocamento do início do ciclo em relação ao tempo zero.</li>
+</ul>
+<h2 id="2-modulacao-em-amplitude-am">2. Modulação em Amplitude (AM)</h2>
+<h3 id="21-definicao">2.1 Definição</h3>
+<p>A modulação em amplitude é um método em que a amplitude da onda portadora é variada proporcionalmente ao sinal modulante, enquanto a frequência e a fase permanecem constantes.</p>
+<h3 id="22-equacao-geral-do-sinal-am">2.2 Equação Geral do Sinal AM</h3>
+<p>O sinal modulado em AM é dado por:</p>
+<p>$$
+s(t) = [A_c + A_m m(t)] \cos(2\pi f_c t)
+$$</p>
+<p>Onde:
+- ( A_m ): Amplitude máxima do sinal modulante.</p>
+<p>Se ( m(t) ) for normalizado tal que ( |m(t)| \leq 1 ), podemos escrever:</p>
+<p>$$
+s(t) = A_c [1 + m(t)] \cos(2\pi f_c t)
+$$</p>
+<p>O termo ( [1 + m(t)] ) representa a variação da amplitude da portadora de acordo com o sinal de informação.</p>
+<h2 id="3-analise-matematica-detalhada">3. Análise Matemática Detalhada</h2>
+<h3 id="31-indice-de-modulacao-m">3.1 Índice de Modulação (( m ))</h3>
+<p>O índice de modulação quantifica a profundidade da modulação:</p>
+<p>$$
+m = \frac{A_m}{A_c}
+$$</p>
+<ul>
+<li><strong>Submodulação</strong>: ( 0 \leq m &lt; 1 )</li>
+<li><strong>Modulação Total</strong>: ( m = 1 )</li>
+<li><strong>Sobremodulação</strong>: ( m &gt; 1 ) (leva a distorções)</li>
+</ul>
+<h3 id="32-expansao-do-sinal-am">3.2 Expansão do Sinal AM</h3>
+<p>Usando ( m(t) = m \cos(2\pi f_m t) ):</p>
+<p>$$
+s(t) = A_c [1 + m \cos(2\pi f_m t)] \cos(2\pi f_c t)
+$$</p>
+<p>Expandindo:</p>
+<p>$$
+s(t) = A_c \cos(2\pi f_c t) + A_c m \cos(2\pi f_m t) \cos(2\pi f_c t)
+$$</p>
+<p>Aplicando a identidade trigonométrica:</p>
+<p>$$
+\cos A \cos B = \frac{1}{2} [\cos(A + B) + \cos(A - B)]
+$$</p>
+<p>Temos:</p>
+<p>$$
+s(t) = A_c \cos(2\pi f_c t) + \frac{A_c m}{2} \left[ \cos 2\pi(f_c + f_m)t + \cos 2\pi(f_c - f_m)t \right]
+$$</p>
+<h3 id="33-componentes-espectrais">3.3 Componentes Espectrais</h3>
+<p>O sinal AM possui três componentes:</p>
+<ol>
+<li><strong>Portadora</strong>: ( A_c \cos(2\pi f_c t) )</li>
+<li><strong>Banda Lateral Superior (BLS)</strong>: ( \frac{A_c m}{2} \cos 2\pi(f_c + f_m)t )</li>
+<li><strong>Banda Lateral Inferior (BLI)</strong>: ( \frac{A_c m}{2} \cos 2\pi(f_c - f_m)t )</li>
+</ol>
+<h2 id="4-espectro-de-frequencia-e-largura-de-banda">4. Espectro de Frequência e Largura de Banda</h2>
+<h3 id="41-espectro-de-frequencia">4.1 Espectro de Frequência</h3>
+<p><img alt="Espectro de Frequência AM" src="am-spectrum.png" /></p>
+<p>No domínio da frequência, o espectro do sinal AM consiste em:</p>
+<ul>
+<li><strong>Frequência Portadora</strong>: Pico em ( f_c )</li>
+<li><strong>Bandas Laterais</strong>: Simétricas em torno de ( f_c ), em ( f_c \pm f_m )</li>
+</ul>
+<h3 id="42-largura-de-banda-necessaria">4.2 Largura de Banda Necessária</h3>
+<p>A largura de banda total (( BW )) requerida é:</p>
+<p>$$
+BW = 2 f_m^{\text{máx}}
+$$</p>
+<p>Onde ( f_m^{\text{máx}} ) é a frequência máxima do sinal modulante.</p>
+<h3 id="43-consideracoes-espectrais">4.3 Considerações Espectrais</h3>
+<ul>
+<li><strong>Eficiência Espectral</strong>: AM convencional não é eficiente, pois a portadora e as bandas laterais ocupam espaço espectral significativo.</li>
+<li><strong>Ocupação de Espectro</strong>: A portadora não carrega informação, mas consome potência e largura de banda.</li>
+</ul>
+<h2 id="5-eficiencia-de-potencia">5. Eficiência de Potência</h2>
+<h3 id="51-potencia-da-portadora-e-bandas-laterais">5.1 Potência da Portadora e Bandas Laterais</h3>
+<ul>
+<li><strong>Potência da Portadora (( P_c ))</strong>:</li>
+</ul>
+<p>$$
+  P_c = \frac{A_c^2}{2R}
+  $$</p>
+<ul>
+<li><strong>Potência Total (( P_t ))</strong>:</li>
+</ul>
+<p>$$
+  P_t = P_c \left( 1 + \frac{m^2}{2} \right)
+  $$</p>
+<p>Onde ( R ) é a resistência de carga.</p>
+<h3 id="52-eficiencia-da-modulacao-am">5.2 Eficiência da Modulação AM</h3>
+<p>A eficiência (( \eta )) é dada por:</p>
+<p>$$
+\eta = \frac{\text{Potência nas Bandas Laterais}}{\text{Potência Total}} = \frac{m^2}{2 + m^2}
+$$</p>
+<ul>
+<li><strong>Máxima Eficiência</strong>: Ocorre quando ( m = 1 ), resultando em ( \eta_{\text{máx}} = 33.33\% )</li>
+<li><strong>Ineficiente</strong>: Grande parte da potência é desperdiçada na portadora.</li>
+</ul>
+<h2 id="6-implementacao-pratica-e-circuitos">6. Implementação Prática e Circuitos</h2>
+<h3 id="61-moduladores-am">6.1 Moduladores AM</h3>
+<h4 id="611-modulador-de-produto">6.1.1 Modulador de Produto</h4>
+<p>Multiplica o sinal modulante pela portadora:</p>
+<p>$$
+s(t) = m(t) \cdot c(t)
+$$</p>
+<h4 id="612-modulador-balanceado">6.1.2 Modulador Balanceado</h4>
+<p>Elimina a portadora, gerando um sinal DSB-SC (Double Sideband Suppressed Carrier).</p>
+<h4 id="613-modulador-em-anel-ring-modulator">6.1.3 Modulador em Anel (Ring Modulator)</h4>
+<p>Utiliza diodos em configuração de ponte para modular o sinal, suprimindo a portadora.</p>
+<h3 id="62-demoduladores-am">6.2 Demoduladores AM</h3>
+<h4 id="621-detector-de-envoltoria">6.2.1 Detector de Envoltória</h4>
+<p>Extrai a envoltória do sinal AM, recuperando o sinal modulante.</p>
+<ul>
+<li><strong>Circuito Básico</strong>: Diodo retificador seguido de filtro RC.</li>
+</ul>
+<h4 id="622-detector-sincrono">6.2.2 Detector Síncrono</h4>
+<p>Multiplica o sinal recebido por uma portadora local sincronizada.</p>
+<ul>
+<li><strong>Vantagem</strong>: Melhor rejeição ao ruído.</li>
+<li><strong>Desvantagem</strong>: Maior complexidade.</li>
+</ul>
+<h2 id="7-impacto-do-ruido-e-interferencia">7. Impacto do Ruído e Interferência</h2>
+<h3 id="71-sensibilidade-ao-ruido">7.1 Sensibilidade ao Ruído</h3>
+<ul>
+<li><strong>Amplitude</strong>: Componentes de ruído somam-se ao sinal, afetando a qualidade.</li>
+<li><strong>Ruído Adicional</strong>: Interferências eletromagnéticas impactam diretamente a amplitude.</li>
+</ul>
+<h3 id="72-relacao-sinal-ruido-snr">7.2 Relação Sinal-Ruído (SNR)</h3>
+<p>A SNR em AM é menor comparada a outras modulações, como FM, devido à sensibilidade à variação de amplitude.</p>
+<h3 id="73-tecnicas-de-mitigacao">7.3 Técnicas de Mitigação</h3>
+<ul>
+<li><strong>Filtragem</strong>: Uso de filtros para remover ruídos fora da banda de interesse.</li>
+<li><strong>Limitadores</strong>: Não são eficazes em AM, pois cortariam a amplitude útil do sinal.</li>
+</ul>
+<h2 id="8-comparacao-com-outras-tecnicas-de-modulacao">8. Comparação com Outras Técnicas de Modulação</h2>
+<h3 id="81-modulacao-em-frequencia-fm">8.1 Modulação em Frequência (FM)</h3>
+<ul>
+<li><strong>Vantagem</strong>: Maior imunidade ao ruído.</li>
+<li><strong>Desvantagem</strong>: Maior complexidade e largura de banda necessária.</li>
+</ul>
+<h3 id="82-modulacao-em-fase-pm">8.2 Modulação em Fase (PM)</h3>
+<ul>
+<li><strong>Similar ao FM</strong>, mas modula a fase da portadora.</li>
+</ul>
+<h3 id="83-modulacao-por-deslocamento-de-amplitude-ask">8.3 Modulação por Deslocamento de Amplitude (ASK)</h3>
+<ul>
+<li><strong>Digital</strong>: Níveis discretos de amplitude representam dados binários.</li>
+</ul>
+<h3 id="84-modulacao-em-quadratura-de-amplitude-qam">8.4 Modulação em Quadratura de Amplitude (QAM)</h3>
+<ul>
+<li><strong>Combina AM e PM</strong>: Modula amplitude e fase simultaneamente para aumentar a eficiência espectral.</li>
+</ul>
+<h2 id="9-aplicacoes-avancadas">9. Aplicações Avançadas</h2>
+<h3 id="91-dsb-sc-double-sideband-suppressed-carrier">9.1 DSB-SC (Double Sideband Suppressed Carrier)</h3>
+<ul>
+<li><strong>Características</strong>: Portadora suprimida, apenas bandas laterais transmitidas.</li>
+<li><strong>Vantagem</strong>: Maior eficiência de potência.</li>
+</ul>
+<h3 id="92-ssb-single-sideband">9.2 SSB (Single Sideband)</h3>
+<ul>
+<li><strong>Características</strong>: Transmite apenas uma banda lateral.</li>
+<li><strong>Vantagem</strong>: Redução de largura de banda e potência necessária.</li>
+</ul>
+<h3 id="93-vsb-vestigial-sideband">9.3 VSB (Vestigial Sideband)</h3>
+<ul>
+<li><strong>Características</strong>: Transmite uma banda lateral completa e parte da outra.</li>
+<li><strong>Aplicação</strong>: Transmissão de sinais de TV analógica.</li>
+</ul>
+<h2 id="10-exemplos-praticos-e-problemas-resolvidos">10. Exemplos Práticos e Problemas Resolvidos</h2>
+<h3 id="101-exemplo-1-calculo-do-indice-de-modulacao">10.1 Exemplo 1: Cálculo do Índice de Modulação</h3>
+<p><strong>Dados</strong>:</p>
+<ul>
+<li>( A_c = 10 \, V )</li>
+<li>( A_m = 5 \, V )</li>
+</ul>
+<p><strong>Cálculo</strong>:</p>
+<p>$$
+m = \frac{A_m}{A_c} = \frac{5}{10} = 0.5
+$$</p>
+<h3 id="102-exemplo-2-potencia-em-am">10.2 Exemplo 2: Potência em AM</h3>
+<p><strong>Dados</strong>:</p>
+<ul>
+<li>( A_c = 10 \, V )</li>
+<li>( m = 1 )</li>
+<li>( R = 50 \, \Omega )</li>
+</ul>
+<p><strong>Potência da Portadora</strong>:</p>
+<p>$$
+P_c = \frac{A_c^2}{2R} = \frac{10^2}{2 \times 50} = 1 \, W
+$$</p>
+<p><strong>Potência Total</strong>:</p>
+<p>$$
+P_t = P_c \left( 1 + \frac{m^2}{2} \right) = 1 \left( 1 + \frac{1}{2} \right) = 1.5 \, W
+$$</p>
+<h3 id="103-problema-resolvido-largura-de-banda">10.3 Problema Resolvido: Largura de Banda</h3>
+<p><strong>Questão</strong>: Qual a largura de banda necessária para transmitir um sinal de áudio com frequências até ( 5 \, kHz ) usando AM?</p>
+<p><strong>Resposta</strong>:</p>
+<p>$$
+BW = 2 f_m^{\text{máx}} = 2 \times 5 \, kHz = 10 \, kHz
+$$</p>
+<h2 id="11-diagramas-e-ilustracoes-detalhadas">11. Diagramas e Ilustrações Detalhadas</h2>
+<h3 id="111-forma-de-onda-no-dominio-do-tempo">11.1 Forma de Onda no Domínio do Tempo</h3>
+<p><img alt="Forma de Onda AM no Tempo" src="am-time-domain.png" /></p>
+<h3 id="112-esquema-de-circuito-de-modulador-am">11.2 Esquema de Circuito de Modulador AM</h3>
+<p><img alt="Circuito de Modulador AM" src="am-modulator-circuit.png" /></p>
+<h3 id="113-esquema-de-circuito-de-demodulador-am">11.3 Esquema de Circuito de Demodulador AM</h3>
+<p><img alt="Circuito de Demodulador AM" src="am-demodulator-circuit.png" /></p>
+<h2 id="12-normas-e-regulamentacoes">12. Normas e Regulamentações</h2>
+<h3 id="121-alocacao-de-frequencias">12.1 Alocação de Frequências</h3>
+<ul>
+<li><strong>Órgãos Reguladores</strong>: ANATEL (Brasil), FCC (EUA), ITU (Internacional).</li>
+<li><strong>Bandas Designadas</strong>: Ondas médias (530 kHz a 1710 kHz), ondas curtas, etc.</li>
+</ul>
+<h3 id="122-limitacoes-legais">12.2 Limitações Legais</h3>
+<ul>
+<li><strong>Potência Máxima</strong>: Regulamentada para evitar interferência.</li>
+<li><strong>Espectro</strong>: Uso eficiente e compartilhado requer conformidade com normas.</li>
+</ul>
+<h2 id="referencias">Referências</h2>
+<ol>
+<li><strong>Haykin, S.</strong> "Communication Systems", 5<sup>th</sup> Edition, Wiley, 2009.</li>
+<li><strong>Proakis, J.G., Salehi, M.</strong> "Fundamentals of Communication Systems", Prentice Hall, 2005.</li>
+<li><strong>Lathi, B.P.</strong> "Modern Digital and Analog Communication Systems", Oxford University Press, 2010.</li>
+</ol>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

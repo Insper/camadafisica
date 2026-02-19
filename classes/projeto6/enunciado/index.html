@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Enunciado - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="projeto-6-identificador-de-acordes-pratica-fourier">PROJETO 6 – Identificador de acordes (prática Fourier)</h1>
+<blockquote>
+<p>Antes de apresentar o projeto, a dupla deverá mostrar a <strong>resolução dos exercícios propostos</strong>.</p>
+<p><a href="../Fourier.pdf">Exercício de Fourier</a>
+<a href="../FFT.py">Código python de referência</a></p>
+</blockquote>
+<p>Nesse projeto, você deverá implementar dois softwares em dois diferentes computadores. Um computador deverá reproduzir, por alguns segundos, um áudio composto por 3 frequências específicas (3 notas musicais) que compõemuma tríade (acorde com 3 notas). Na cultura ocidental, a música é composta por 12 frequências e múltiplos inteiros dessas frequências. Claro que instrumentos produzem uma gama enorme de frequências, mas a maior parte da energia está concentrada na produção de algumas dessas 12 frequências. Para produzir o som com as 3 frequências desejadas você deverá usar funções da biblioteca sounddevice. Para isso, você deverá gerar 3 senoides de frequências desejadas, soma-las e executá-las através da função sd.play. A variável tone deve conter o sinal, ou seja, as senoides a serem executadas. A variável fs contém a frequência de amostragem (mesma que a de execução).</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sounddevice</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sd</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">sd</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">tone</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># aguarda até o fim do audio</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">sd</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</code></pre></div>
+<p>O lado emissor deverá produzir então um dos acordes listados abaixo, com suas 3 respectivas frequências:</p>
+<table>
+<thead>
+<tr>
+<th>Tom (Escala)</th>
+<th>Notas (Frequências em Hz)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dó maior</td>
+<td>523.25 Hz · 659.25 Hz · 783.99 Hz</td>
+</tr>
+<tr>
+<td>Ré menor</td>
+<td>587.33 Hz · 698.46 Hz · 880.00 Hz</td>
+</tr>
+<tr>
+<td>Mi menor</td>
+<td>659.25 Hz · 783.99 Hz · 987.77 Hz</td>
+</tr>
+<tr>
+<td>Fá maior</td>
+<td>698.46 Hz · 880.00 Hz · 1046.50 Hz</td>
+</tr>
+<tr>
+<td>Sol maior</td>
+<td>783.99 Hz · 987.77 Hz · 1174.66 Hz</td>
+</tr>
+<tr>
+<td>Lá menor</td>
+<td>880.00 Hz · 1046.50 Hz · 1318.51 Hz</td>
+</tr>
+<tr>
+<td>Si menor (5b)</td>
+<td>493.88 Hz · 587.33 Hz · 698.46 Hz</td>
+</tr>
+</tbody>
+</table>
+<p>Esse sinal de áudio deve ser executado pela sua placa de som e captado por outro computador. O computador que receberá o áudio deverá identificar o acorde reproduzido através da transformada de Fourirer. Para detectar o acorde, a segunda aplicação deve capturar o sinal de áudio gerado por outro computador, identificar os picos através da transformada de Fourier. A transformada de Fourier terá vários picos, os 3 relativos às frequências do acorde escolhido pelo emissor e outras frequências introduzidas pelos ruídos do ambiente. Procure funções para identificar picos em Python! Há várias disponíveis. Você deverá identificar os picos na resposta da transformada de Fourier. Na mesma lista utilizada para fazer o gráfico.</p>
+<p>Para captar o áudio, você poderá usar a função rec</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># agora para graver, utilize</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">audio</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">rec</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">numamostras</span><span class="p">),</span> <span class="n">freqDeAmostragem</span><span class="p">,</span> <span class="n">chanels</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">sd</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;... FIM&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Muitas vezes a gravação retorna uma lista de listas. Você poderá ter que tratar o sinal gravado para ter apenas uma lista!</strong></p>
+<h2 id="requisitos-do-codigo">Requisitos do Código</h2>
+<h3 id="lado-emissor">Lado Emissor</h3>
+<ul>
+<li>Perguntar ao usuário qual <strong>acorde</strong> será executado.  </li>
+<li>Emitir, por alguns segundos, as <strong>3 frequências</strong> relativas ao acorde escolhido.  </li>
+<li>Plotar o <strong>gráfico no domínio do tempo</strong> com a soma das duas frequências: <code>x(t)</code>.  </li>
+<li>Plotar o <strong>gráfico no domínio da frequência</strong> do sinal emitido (Transformada de Fourier <code>X(f)</code>).  </li>
+</ul>
+<h3 id="lado-receptor">Lado Receptor</h3>
+<ul>
+<li>
+<p>Captar o <strong>sinal de áudio</strong> emitido pela aplicação do emissor através do microfone.  </p>
+<blockquote>
+<p>Tente não gravar silêncio — inicie a gravação logo após o início da execução.  </p>
+</blockquote>
+</li>
+<li>
+<p>Verificar se a gravação ficou com <strong>bom volume</strong>.  </p>
+<blockquote>
+<p>Você pode ajustar o volume multiplicando ou dividindo todos os pontos do sinal por um valor.  </p>
+</blockquote>
+</li>
+<li>
+<p>Calcular a <strong>Transformada de Fourier</strong> do sinal captado.  </p>
+</li>
+<li>
+<p><strong>Identificar os picos</strong> no espectro:  </p>
+<blockquote>
+<p>Se houver mais de 4 picos, ajuste a sensibilidade da função usada para detecção até ter <strong>no mínimo 5 picos</strong>.  </p>
+</blockquote>
+</li>
+<li>
+<p><strong>Identificar as frequências</strong> correspondentes aos acordes e, assim, <strong>reconhecer o acorde</strong>.  </p>
+</li>
+<li>Plotar o <strong>gráfico no tempo</strong> do sinal recebido.  </li>
+<li>Plotar o <strong>gráfico da transformada de Fourier</strong> do sinal recebido.  </li>
+</ul>
+<h2 id="rubrica-de-avaliacao">Rubrica de Avaliação</h2>
+<table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>Critério de Desempenho</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D</strong></td>
+<td>Produz o sinal corretamente, mas <strong>não reconhece</strong> o acorde.</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>Reconhece o acorde no lado do receptor <strong>de maneira intermitente</strong> (não funciona todas as vezes).</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>Reconhece o acorde no lado do receptor <strong>em todas as tentativas</strong>.</td>
+</tr>
+<tr>
+<td><strong>A / A+</strong></td>
+<td>Reconhece o acorde <strong>e plota todos os gráficos corretamente</strong> (avaliação final depende da apresentação e organização).</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Antes de apresentar o projeto, a dupla deverá mostrar a <strong>resolução dos exercícios propostos</strong>.</p>
+</blockquote>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

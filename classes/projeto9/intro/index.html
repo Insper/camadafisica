@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="transmissao-e-recepcao-serial-uart">Transmissão e Recepção Serial UART</h1>
+<h2 id="introducao-a-comunicacao-serial">Introdução à Comunicação Serial</h2>
+<p>A comunicação serial é uma forma de transmitir dados entre dispositivos eletrônicos de forma sequencial, enviando um bit por vez, ao longo de uma única linha de comunicação. Ao contrário da comunicação paralela, onde vários bits são enviados simultaneamente em várias linhas, a comunicação serial utiliza menos cabos, é mais simples e é frequentemente utilizada em dispositivos que precisam enviar informações a longas distâncias ou com recursos limitados.</p>
+<h2 id="o-que-e-uart">O Que é UART?</h2>
+<p>UART, ou <strong>Universal Asynchronous Receiver-Transmitter</strong>, é um protocolo de comunicação serial assíncrona amplamente utilizado para permitir a troca de dados entre um dispositivo (como um microcontrolador) e um periférico (como um computador). Esse protocolo é assíncrono porque não requer um sinal de clock comum para sincronizar os dispositivos comunicantes.</p>
+<h3 id="estrutura-de-dados-na-comunicacao-uart">Estrutura de Dados na Comunicação UART</h3>
+<p>A comunicação UART transmite os dados em "frames". Um frame é uma sequência de bits que inclui os dados a serem transmitidos e informações de controle, como bits de início, parada e, opcionalmente, paridade. A estrutura básica de um frame UART é a seguinte:</p>
+<ol>
+<li><strong>Start Bit</strong>: Um único bit que indica o início da transmissão de um frame. O start bit é sempre um '0' (nível baixo).</li>
+<li><strong>Data Bits</strong>: Entre 5 e 9 bits que representam os dados a serem transmitidos.</li>
+<li><strong>Parity Bit (Opcional)</strong>: Um bit adicional utilizado para verificar erros durante a transmissão.</li>
+<li><strong>Stop Bit</strong>: Um ou dois bits que indicam o final de um frame. O stop bit é sempre '1' (nível alto).</li>
+</ol>
+<h3 id="diagrama-de-um-frame-uart">Diagrama de um Frame UART:</h3>
+<p>| Start | Data Bits (5-9) | Paridade (Opcional) | Stop (1-2) |</p>
+<h2 id="termos-importantes">Termos Importantes</h2>
+<p>Aqui estão alguns termos que você precisa entender para compreender a comunicação UART:</p>
+<ol>
+<li>
+<p><strong>Transmissão Assíncrona</strong>: É um tipo de comunicação onde o receptor e o transmissor não compartilham um sinal de clock comum. Em vez disso, o receptor sincroniza com o transmissor através dos bits de start e stop do frame de dados.</p>
+</li>
+<li>
+<p><strong>Start Bit</strong>: Sinaliza o início da transmissão. Normalmente, é um nível lógico baixo (0).</p>
+</li>
+<li>
+<p><strong>Stop Bit</strong>: Indica o fim de uma transmissão. É um nível lógico alto (1) e pode haver um ou dois bits de stop.</p>
+</li>
+<li>
+<p><strong>TX, RX, GND</strong>: TX é o pino de transmissão, RX é o pino de recepção, e GND é o aterramento comum entre os dispositivos.</p>
+</li>
+<li>
+<p><strong>Baud Rate</strong>: A taxa de bits por segundo (bps) transmitidos na comunicação UART. Exemplo: 9600 bps significa que 9600 bits são transmitidos a cada segundo.</p>
+</li>
+<li>
+<p><strong>Bit Rate</strong>: Refere-se à quantidade de dados (bits) transmitidos ou recebidos por unidade de tempo.</p>
+</li>
+<li>
+<p><strong>Buffer</strong>: Área de memória usada temporariamente para armazenar os dados durante a comunicação.</p>
+</li>
+<li>
+<p><strong>Frame</strong>: A estrutura completa de dados transmitidos, composta por bits de início, dados, paridade e parada.</p>
+</li>
+<li>
+<p><strong>Bit de Paridade</strong>: Bit opcional usado para detecção de erros. Pode ser par ou ímpar.</p>
+</li>
+<li>
+<p><strong>CRC (Cyclic Redundancy Check)</strong>: Um método de verificação de erros mais robusto do que a paridade simples, utilizado para garantir a integridade dos dados.</p>
+</li>
+</ol>
+<h2 id="o-que-e-loopback">O Que é Loopback?</h2>
+<p>O conceito de <strong>loopback</strong> envolve conectar o pino de transmissão (TX) ao pino de recepção (RX) para criar um ciclo fechado de comunicação. Nesse projeto, o loopback é feito para que tudo o que o seu computador enviar ao Arduino seja imediatamente devolvido, espelhando a transmissão de dados. Isso é útil para testar a comunicação sem um segundo dispositivo.</p>
+<h2 id="leituras-recomendadas">Leituras Recomendadas</h2>
+<p>Para se aprofundar na transmissão serial UART, consulte os seguintes links:</p>
+<ul>
+<li><a href="https://docs.freebsd.org/pt-br/articles/serial-uart/">UART em FreeBSD</a></li>
+<li><a href="http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf">Transmissão Serial UART</a></li>
+<li><a href="https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf">Transmissão e Recepção Assíncrona</a></li>
+<li><a href="https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/">UART Basics</a></li>
+</ul>
+<h1 id="introducao-a-modulacao-fm">Introdução à Modulação FM</h1>
+<h2 id="visao-geral">Visão Geral</h2>
+<p>Neste projeto, você irá trabalhar com modulação FM (Frequency Modulation), uma técnica de comunicação analógica que oferece melhor qualidade de áudio e maior imunidade a ruídos quando comparada à modulação AM.</p>
+<h2 id="o-que-e-modulacao-fm">O que é Modulação FM?</h2>
+<p>Modulação FM é um processo onde a frequência da onda portadora é variada proporcionalmente ao sinal de mensagem. O sinal modulado mantém amplitude constante, mas sua frequência varia de acordo com a informação.</p>
+<h2 id="caracteristicas-da-modulacao-fm">Características da Modulação FM</h2>
+<h3 id="1-espectro-de-frequencia">1. Espectro de Frequência</h3>
+<ul>
+<li>Desvio de frequência</li>
+<li>Banda de Carson</li>
+<li>Componentes laterais</li>
+<li>Largura de banda</li>
+</ul>
+<h3 id="2-indice-de-modulacao">2. Índice de Modulação</h3>
+<ul>
+<li>Relação entre desvio e frequência</li>
+<li>Profundidade da modulação</li>
+<li>Qualidade do sinal</li>
+<li>Eficiência espectral</li>
+</ul>
+<h2 id="tipos-de-modulacao-fm">Tipos de Modulação FM</h2>
+<h3 id="1-fm-de-banda-estreita">1. FM de Banda Estreita</h3>
+<ul>
+<li>Pequeno desvio</li>
+<li>Menor largura de banda</li>
+<li>Menor qualidade</li>
+</ul>
+<h3 id="2-fm-de-banda-larga">2. FM de Banda Larga</h3>
+<ul>
+<li>Grande desvio</li>
+<li>Maior largura de banda</li>
+<li>Melhor qualidade</li>
+</ul>
+<h2 id="demodulacao-fm">Demodulação FM</h2>
+<h3 id="1-deteccao-de-frequencia">1. Detecção de Frequência</h3>
+<ul>
+<li>Discriminador</li>
+<li>PLL</li>
+<li>Detecção de zero</li>
+</ul>
+<h3 id="2-deteccao-de-fase">2. Detecção de Fase</h3>
+<ul>
+<li>Detector de fase</li>
+<li>Demodulador de quadratura</li>
+<li>Sincronização</li>
+</ul>
+<h2 id="aplicacoes-praticas">Aplicações Práticas</h2>
+<h3 id="1-radio-fm">1. Rádio FM</h3>
+<ul>
+<li>Radiodifusão</li>
+<li>Comunicação de alta fidelidade</li>
+<li>Rádio amador</li>
+</ul>
+<h3 id="2-comunicacoes">2. Comunicações</h3>
+<ul>
+<li>Telefonia móvel</li>
+<li>Televisão</li>
+<li>Telemetria</li>
+</ul>
+<h3 id="3-sistemas-especiais">3. Sistemas Especiais</h3>
+<ul>
+<li>Radar</li>
+<li>Sonar</li>
+<li>Telemetria</li>
+</ul>
+<h2 id="implementacao-no-projeto">Implementação no Projeto</h2>
+<p>No seu projeto, você irá:</p>
+<ol>
+<li>Implementar a modulação FM</li>
+<li>Desenvolver a demodulação</li>
+<li>Analisar o espectro</li>
+<li>Testar o sistema</li>
+</ol>
+<h2 id="ferramentas-e-recursos">Ferramentas e Recursos</h2>
+<ul>
+<li>Python para implementação</li>
+<li>Bibliotecas de processamento de sinais</li>
+<li>Ferramentas de análise espectral</li>
+<li>Visualização de sinais</li>
+</ul>
+<h2 id="proximos-passos">Próximos Passos</h2>
+<ol>
+<li>Familiarize-se com a modulação FM</li>
+<li>Implemente a modulação</li>
+<li>Desenvolva a demodulação</li>
+<li>Teste e documente</li>
+</ol>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Instalação - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../css/termynal.css"><link rel="stylesheet" href="../css/equipe.css"><link rel="stylesheet" href="../css/ansi-colours.css"><link rel="stylesheet" href="../css/jupyter-cells.css"><link rel="stylesheet" href="../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href=".."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+
+    <li class="active ah-togglable-item opened">
+      <span class="ah-togglable-handle">Instalação</span>
+      <ul>
+        
+          
+            
+            
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#instalacao-do-python-3x">Instalação do Python 3.x</a>
+              </li>
+            
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#windows_1">Windows</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#linuxmacos">Linux/macOS</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#verificacao-da-instalacao">Verificação da Instalação</a>
+              </li>
+            
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#instalacao">Instalação</a>
+              </li>
+            
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#instalacao_1">Instalação</a>
+              </li>
+            
+        
+      </ul>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../classes/projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../classes/projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../classes/projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../classes/projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../classes/projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../classes/projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h2 id="instrucoes-para-instalacao-da-infraestrutura">Instruções para Instalação da Infraestrutura</h2>
+<h2 id="python">Python</h2>
+<h3 id="instalacao-do-python-3x">Instalação do Python 3.x</h3>
+<h4 id="windows">Windows</h4>
+<ol>
+<li>
+<p>Faça o download do Python no site oficial: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+</li>
+<li>
+<p>Durante a instalação:</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Importante</p>
+<p>Marque a opção <strong>"Add Python to PATH"</strong> para instalar corretamente e permitir o uso do Python no terminal.</p>
+</div>
+<h4 id="linux">Linux</h4>
+<p>A maioria das distribuições Linux já vem com Python 3 instalado. Para verificar:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python3<span class="w"> </span>--version
+</code></pre></div>
+<p>Se não estiver instalado, use o gerenciador de pacotes da sua distribuição:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Ubuntu/Debian</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Fedora</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Arch Linux</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>python<span class="w"> </span>python-pip
+</code></pre></div>
+<h4 id="macos">macOS</h4>
+<p>O macOS já vem com Python instalado, mas recomenda-se instalar a versão mais recente:</p>
+<ol>
+<li>
+<p>Via Homebrew (recomendado):
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>brew<span class="w"> </span>install<span class="w"> </span>python
+</code></pre></div></p>
+</li>
+<li>
+<p>Ou baixe do site oficial: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+</li>
+</ol>
+<h2 id="instalacao-dos-pacotes-python">Instalação dos Pacotes Python</h2>
+<p>Com o Python instalado, abra o terminal/CMD e execute os comandos abaixo:</p>
+<h3 id="windows_1">Windows</h3>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip install matplotlib numpy notebook pyserial
+</code></pre></div>
+<h3 id="linuxmacos">Linux/macOS</h3>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip3<span class="w"> </span>install<span class="w"> </span>matplotlib<span class="w"> </span>numpy<span class="w"> </span>notebook<span class="w"> </span>pyserial
+</code></pre></div>
+<h3 id="verificacao-da-instalacao">Verificação da Instalação</h3>
+<p>Para verificar se os pacotes foram instalados corretamente:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import matplotlib, numpy, notebook, serial; print(&#39;Todos os pacotes instalados com sucesso!&#39;)&quot;</span>
+</code></pre></div>
+<h2 id="arduino-ide">Arduino IDE</h2>
+<h3 id="instalacao">Instalação</h3>
+<ol>
+<li>Acesse o site oficial: <a href="https://www.arduino.cc/en/software">https://www.arduino.cc/en/software</a></li>
+<li>Baixe a versão adequada para seu sistema operacional</li>
+<li>Siga as instruções de instalação padrão</li>
+</ol>
+<h2 id="waveforms">WaveForms</h2>
+<h3 id="instalacao_1">Instalação</h3>
+<ol>
+<li>Acesse: <a href="https://digilent.com/reference/software/waveforms/waveforms-3/start">https://digilent.com/reference/software/waveforms/waveforms-3/start</a></li>
+<li>Baixe a versão adequada para seu sistema operacional</li>
+<li>Execute o instalador seguindo as instruções padrão</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>O WaveForms é usado para controlar dispositivos Digilent como o Analog Discovery 2.</p>
+</div>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+            <a href="../deadlines/"
+               class="ah-prev"
+               title="Deadlines">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Deadlines</span>
+            </a>
+          
+          
+            <a href="../classes/projeto0/teoria/"
+               class="ah-next"
+               title="Introdução">
+              <span class="nav-label">Próximo</span>
+              <span class="nav-title">Introdução</span>
+            </a>
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../js/tabs.js"></script><script src="../js/termynal.js"></script><script src="../js/custom.js"></script>
+    
+  </body>
+</html>

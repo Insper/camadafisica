@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Enunciado - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="projeto-8-modulacao-am-amplitude-modulation">Projeto 8: Modulação AM (Amplitude Modulation)</h1>
+<h2 id="objetivo">Objetivo</h2>
+<p>Implementar um sistema de modulação e demodulação AM, demonstrando os conceitos fundamentais de modulação de amplitude e comunicação analógica.</p>
+<h2 id="descricao">Descrição</h2>
+<p>Neste projeto, você irá desenvolver um programa que:</p>
+<ol>
+<li>Implementa a modulação AM</li>
+<li>Realiza a demodulação AM</li>
+<li>Implementa um sistema de comunicação AM</li>
+<li>Demonstra o funcionamento de um sistema AM</li>
+</ol>
+<h2 id="requisitos">Requisitos</h2>
+<ul>
+<li>Python 3.x</li>
+<li>Biblioteca numpy</li>
+<li>Biblioteca scipy</li>
+<li>Conhecimentos sobre modulação</li>
+<li>Familiaridade com processamento de sinais</li>
+</ul>
+<h2 id="entregaveis">Entregáveis</h2>
+<ol>
+<li>Código fonte do programa implementado</li>
+<li>Relatório técnico contendo:</li>
+<li>Descrição da implementação AM</li>
+<li>Análise do espectro de frequência</li>
+<li>Resultados dos testes realizados</li>
+<li>Discussão sobre possíveis melhorias</li>
+</ol>
+<h2 id="avaliacao">Avaliação</h2>
+<p>O projeto será avaliado considerando:</p>
+<ul>
+<li>Funcionalidade do sistema implementado</li>
+<li>Qualidade do código e documentação</li>
+<li>Relatório técnico</li>
+<li>Apresentação oral</li>
+</ul>
+<h2 id="datas">Datas</h2>
+<ul>
+<li>Entrega: [Data a ser definida]</li>
+<li>Apresentação: [Data a ser definida]</li>
+</ul>
+<h2 id="recursos-adicionais">Recursos Adicionais</h2>
+<ul>
+<li>[Link para documentação sobre modulação AM]</li>
+<li>[Link para tutoriais sobre comunicação analógica]</li>
+<li>[Link para exemplos de código]</li>
+</ul>
+<h1 id="modulacao-am">Modulação AM</h1>
+<h2 id="descritivo">Descritivo</h2>
+<p>Neste projeto, vamos implementar a transmissão e recepção em Modulação em Amplitude (AM), que permite transmitir sinais de áudio através de diferentes frequências portadoras. Essa prática permitirá compreender os conceitos de modulação e demodulação, além de técnicas de filtragem e análise de sinais.</p>
+<h2 id="objetivos">Objetivos</h2>
+<ul>
+<li>Transmitir um áudio que ocupa bandas de baixas frequências (até 4 kHz) através de um canal de transmissão acústico, utilizando apenas as bandas entre 10 kHz e 18 kHz da placa de áudio do PC.</li>
+<li>Após a transmissão via sinal acústico (alto-falante do PC), o receptor deverá gravar o sinal transmitido, demodular e reproduzi-lo de maneira audível novamente.</li>
+</ul>
+<h2 id="implementacao">Implementação</h2>
+<p>Para isso, você deverá construir uma aplicação que executa as seguintes tarefas, sequencialmente:</p>
+<div class="admonition tip">
+<p class="admonition-title">Dica 1</p>
+<p>Em cada etapa da implementação, verifique por meio da Transformada de Fourie se a mesma está corretamente implementada.</p>
+</div>
+<h3 id="modulacao">Modulação</h3>
+<ol>
+<li>Faça a leitura de um arquivo de áudio <code>.wav</code> de poucos segundos (entre 2 e 5) previamente gravado com uma <code>taxa de amostragem de 44100 Hz</code>. Se o áudio for estéreo, utilize apenas um dos canais (esquerdo ou direito) para simplificar a implementação.</li>
+<li>Aplique um filtro passa baixas com fc em <code>4kHz</code>.</li>
+<li>Reproduza o sinal filtrado e verifique que ele continua audível, embora com menos componentes de alta frequência.</li>
+<li>Module esse sinal de áudio em AM com uma <code>portadora de 14.000 Hz</code>. A portadora deve ser uma senoide começando em zero, gerada com a mesma taxa de amostragem do sinal de áudio.</li>
+<li>Calcule e normalize o vetor de áudio modulado de modo que todos os pontos do sinal permaneçam <code>dentro do intervalo [-1, 1]</code>. Isso pode ser feito dividindo todos os valores do sinal pelo valor máximo absoluto encontrado.</li>
+<li>Reproduza o sinal modulado e observe que pode não ser audível, devido às altas frequências utilizadas (na faixa superior de audição humana). Isso é esperado e indica que a modulação foi realizada corretamente.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Dica 2</p>
+<p>A modulação do sinal poderá ser feita com a multiplicação entre a portadora de amplitude 1 e o sinal importado e normalizado.</p>
+</div>
+<h3 id="demodulacao">Demodulação</h3>
+<ol>
+<li>No outro computador, grave o áudio transmitido através do microfone, utilizando uma <code>taxa de amostragem de 44.100 Hz</code>.</li>
+<li>Utilize a Transformada de Fourier para verificar que o sinal recebido tem componentes significativas dentro da banda de <code>10 kHz a 18 kHz</code>.</li>
+<li>Demodule em AM o sinal usando a <code>frequência da portadora</code>.</li>
+<li>Aplique um filtro passa-baixas com frequência de corte em <code>4 kHz</code> para eliminar as componentes de alta frequência e recuperar o sinal de áudio original.</li>
+<li><code>Reproduza o sinal demodulado</code> e verifique que ele é audível novamente. Compare a qualidade do áudio com o sinal original filtrado.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Dica 3</p>
+<p>A demodulação deverá ser feita com um filtro passa-baixa na frequência de corte do sinal importado. O módulo do sinal poderá ser obtido com a multiplicação do sinal de áudio e a portadora.</p>
+</div>
+<h4 id="filtro-passa-baixas">Filtro passa baixas</h4>
+<p>A função a seguir aplica um filtro passa baixas de frequência de corte : <em>cutoff_hz</em> e frequência de amostragem <em>fs</em> no sinal <em>signal</em> passado. O filtro utiliza a janela de Kaiser para projetar um filtro FIR com uma determinada atenuação de ripples na banda de parada (60 dB) e largura de transição.</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>from scipy import signal as sg
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>def LPF(signal, cutoff_hz, fs):
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        #####################
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        # Filtro
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        #####################
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        # https://scipy.github.io/old-wiki/pages/Cookbook/FIRFilter.html
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        nyq_rate = fs/2
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        width = 5.0/nyq_rate
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        ripple_db = 60.0 #dB
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        N , beta = sg.kaiserord(ripple_db, width)
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        taps = sg.firwin(N, cutoff_hz/nyq_rate, window=(&#39;kaiser&#39;, beta))
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        return( sg.lfilter(taps, 1.0, signal))
+</code></pre></div>
+<p>Exemplo de uso :</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    yDemodFiltrado  = LPF(yDemod, 4000, fs)    
+</code></pre></div>
+<p>Importando um áudio
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    import soundfile as sf
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    audio, samplerate = sf.read(&#39;dois.wav&#39;)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    yAudio = audio[:,1] # Se o áudio for estério
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    samplesAudio = len(yAudio)
+</code></pre></div></p>
+<h2 id="entrega-e-avaliacao">Entrega e Avaliação</h2>
+<ol>
+<li>
+<p>Fazer uma apresentação ao seu professor gravando um áudio, filtrando, modulando e executando esse áudio (antes e depois da modulação). Um segundo computador deve receber esse áudio modulado, demodular e executar o áudio demodulado. Seu professor poderá pedir explicações.</p>
+</li>
+<li>
+<p>Obrigatório: Apresentar os seguintes gráficos, no domínio do tempo e da frequência (Fourier):</p>
+<ul>
+<li>Gráfico 1: Sinal de áudio original normalizado – domínio do tempo.</li>
+<li>Gráfico 2: Sinal de áudio filtrado – domínio do tempo.</li>
+<li>Gráfico 3: Sinal de áudio filtrado – domínio da frequência.</li>
+<li>Gráfico 4: Sinal de áudio modulado – domínio do tempo.</li>
+<li>Gráfico 5: Sinal de áudio modulado – domínio da frequência (verifique se as bandas não permitidas não estão sendo ocupadas).</li>
+<li>Gráfico 6: Sinal de áudio recebido (após transmissão) – domínio da frequência.</li>
+<li>Gráfico 7: Sinal de áudio demodulado – domínio do tempo.</li>
+<li>Gráfico 8: Sinal de áudio demodulado – domínio da frequência.</li>
+<li>Gráfico 9: Sinal de áudio demodulado e filtrado – domínio da frequência.</li>
+</ul>
+</li>
+</ol>
+<h2 id="data-limite">Data Limite</h2>
+<ul>
+<li><strong>xx/11</strong> - Após essa data, a nota terá uma redução de 25% a cada semana de atraso.</li>
+</ul>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Introdução - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item opened">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+
+    <li class="active ah-togglable-item opened">
+      <span class="ah-togglable-handle">Introdução</span>
+      <ul>
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#contexto-global-da-transmissao-de-dados">Contexto Global da Transmissão de Dados</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#transmissao-serial-vs-paralela">Transmissão Serial vs. Paralela</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#classificacao-da-transmissao-serial">Classificação da Transmissão Serial</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#arquitetura-em-camadas">Arquitetura em Camadas</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#protocolos-de-comunicacao-serial">Protocolos de Comunicação Serial</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#outros-protocolos-de-comunicacao-serial">Outros Protocolos de Comunicação Serial</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#leituras-complementares">Leituras Complementares</a>
+              </li>
+            
+        
+      </ul>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                  
+                    <li>Projeto 1 - Loopback</li>
+                  
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="transmissao-serial-de-dados">Transmissão Serial de Dados</h1>
+<p>Faça o download do PDF de introdução:</p>
+<blockquote>
+<ul>
+<li><a href="../slides.pdf">Arquivo PDF: Introdução</a></li>
+</ul>
+</blockquote>
+<h2 id="contexto-global-da-transmissao-de-dados">Contexto Global da Transmissão de Dados</h2>
+<p>A quantidade de bytes transmitidos por minuto no planeta é gigantesca e cresce constantemente. Podemos estimar esse valor com base no tráfego global de internet. De acordo com relatórios da Cisco e outras fontes sobre o tráfego global de dados, em 2023 o tráfego de internet mundial foi aproximadamente de <strong>500 exabytes (EB) por mês</strong>, o que nos dá <strong>11,6 petabytes por minuto</strong>.</p>
+<p>Esta quantidade não inclui ainda:
+- Dados trocados entre microcontroladores e sensores
+- Comunicação entre atuadores
+- Transmissões internas dentro de arquiteturas de microcontroladores</p>
+<p>Grande parte de todos esses dados são transmitidos <strong>serialmente</strong>. Uma alternativa seria a transmissão paralela, mais rápida mas menos robusta.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto1/intro/choice_1" id="choice_1_0">
+<p class="admonition-title">Cálculo de Tráfego de Dados 1</p>
+<form class="exercise-form">
+<p>Se o tráfego global de internet é de 500 exabytes por mês, quantos gigabytes são transmitidos por segundo aproximadamente?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    193 GB/s
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    190 GB/s
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    150 GB/s
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    200 GB/s
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>500 EB/mês = 500 × 10^18 bytes/mês</p>
+<p>Em um mês (30 dias): 30 × 24 × 3600 = 2.592.000 segundos</p>
+<p>500 × 10^18 ÷ 2.592.000 ≈ 193 × 10^9 bytes/s = 193 GB/s</p>
+</div>
+</div>
+<h2 id="transmissao-serial-vs-paralela">Transmissão Serial vs. Paralela</h2>
+<h3 id="transmissao-serial">Transmissão Serial</h3>
+<ul>
+<li><strong>Definição</strong>: Os bits são enviados um de cada vez, sequencialmente, por um único canal de comunicação</li>
+<li><strong>Vantagens</strong>:</li>
+<li>Mais confiável para comunicações a longa distância</li>
+<li>Requer menos fios ou pistas condutoras</li>
+<li>Menor interferência eletromagnética</li>
+<li>Comunicação eficiente em distâncias maiores</li>
+<li><strong>Exemplos</strong>: USB, RS-232, Ethernet, comunicação de redes</li>
+</ul>
+<h3 id="transmissao-paralela">Transmissão Paralela</h3>
+<ul>
+<li><strong>Definição</strong>: Vários bits são transmitidos simultaneamente através de múltiplos canais (8, 16 ou 32 bits)</li>
+<li><strong>Características</strong>:</li>
+<li>Mais rápida que a serial</li>
+<li>Problemas de distorção de sinal em distâncias longas</li>
+<li>Maior interferência entre canais</li>
+</ul>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto1/intro/choice_2" id="choice_2_0">
+<p class="admonition-title">Comparação Serial vs Paralela 2</p>
+<form class="exercise-form">
+<p>Qual das afirmações abaixo é a principal razão pela qual a transmissão serial é preferida para longas distâncias?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    É mais rápida que a transmissão paralela
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Não precisa de sincronização
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Usa mais fios para redundância
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Tem menor interferência eletromagnética
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>A transmissão serial usa menos fios, o que resulta em menor interferência eletromagnética entre os canais. Em longas distâncias, essa interferência se torna um problema crítico na transmissão paralela.</p>
+</div>
+</div>
+<h2 id="classificacao-da-transmissao-serial">Classificação da Transmissão Serial</h2>
+<h3 id="1-meio-de-transmissao">1. Meio de Transmissão</h3>
+<h4 id="transmissao-guiada-com-fio">Transmissão Guiada (com fio)</h4>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Características</th>
+<th>Aplicações</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Par trançado</strong></td>
+<td>Baixo custo, fácil instalação</td>
+<td>Redes Ethernet (RJ-45)</td>
+</tr>
+<tr>
+<td><strong>Cabo coaxial</strong></td>
+<td>Boa blindagem, média distância</td>
+<td>Redes antigas, TV a cabo</td>
+</tr>
+<tr>
+<td><strong>Fibra óptica</strong></td>
+<td>Alta velocidade, baixa perda</td>
+<td>Redes de longa distância</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transmissao-nao-guiada-sem-fio">Transmissão Não Guiada (sem fio)</h4>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Alcance</th>
+<th>Aplicações</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wi-Fi</strong></td>
+<td>Local (até 100m)</td>
+<td>Redes domésticas e empresariais</td>
+</tr>
+<tr>
+<td><strong>Bluetooth</strong></td>
+<td>Curto (até 10m)</td>
+<td>Dispositivos pessoais</td>
+</tr>
+<tr>
+<td><strong>Rádio/Satélite</strong></td>
+<td>Longo (global)</td>
+<td>Telecomunicações, TV</td>
+</tr>
+<tr>
+<td><strong>Infravermelho</strong></td>
+<td>Muito curto (linha de visão)</td>
+<td>Controles remotos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-direcionalidade">2. Direcionalidade</h3>
+<ul>
+<li><strong>Simplex</strong>: Transmissão unidirecional (ex.: rádio, TV)</li>
+<li><strong>Half-duplex</strong>: Bidirecional, mas não simultânea (ex.: walkie-talkie)</li>
+<li><strong>Full-duplex</strong>: Bidirecional simultânea (ex.: telefone)</li>
+</ul>
+<h3 id="3-sincronizacao">3. Sincronização</h3>
+<ul>
+<li><strong>Síncrona</strong>: Dados transmitidos continuamente em blocos com clock comum</li>
+<li><strong>Assíncrona</strong>: Cada caractere transmitido separadamente com bits de controle</li>
+</ul>
+<h3 id="4-modulacao">4. Modulação</h3>
+<ul>
+<li><strong>Analógica</strong>: Sinal contínuo (AM, FM, PM)</li>
+<li><strong>Digital</strong>: Sinal binário (ASK, FSK, PSK)</li>
+</ul>
+<div class="admonition exercise self-progress" data-slug="classes/projeto1/intro/exercise_1" id="exercise_1_0">
+<p class="admonition-title">Exercício 3</p>
+<form class="exercise-form">
+<p>Pesquise e identifique qual tipo de direcionalidade é usado nos seguintes sistemas:</p>
+<ol>
+<li>Sistema de som ambiente de uma loja</li>
+<li>Interfone de prédio</li>
+<li>Chamada de vídeo no WhatsApp</li>
+<li>Sistema de GPS no carro</li>
+</ol>
+<p>Justifique suas respostas considerando o fluxo de informação em cada caso.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h2 id="arquitetura-em-camadas">Arquitetura em Camadas</h2>
+<p>O conceito de arquitetura em camadas organiza a comunicação de forma modular e estruturada. Cada camada tem função específica e interage apenas com camadas adjacentes.</p>
+<h3 id="modelo-de-referencia-osi">Modelo de Referência OSI</h3>
+<table>
+<thead>
+<tr>
+<th>Camada</th>
+<th>Nome</th>
+<th>Função Principal</th>
+<th>Exemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>7</strong></td>
+<td>Aplicação</td>
+<td>Interface com usuário</td>
+<td>HTTP, FTP, SMTP</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>Apresentação</td>
+<td>Formatação, criptografia</td>
+<td>SSL/TLS, JPEG</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>Sessão</td>
+<td>Controle de conexões</td>
+<td>NetBIOS, RPC</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Transporte</td>
+<td>Controle de fluxo</td>
+<td>TCP, UDP</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Rede</td>
+<td>Roteamento</td>
+<td>IPv4, IPv6</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Enlace</td>
+<td>Controle de acesso ao meio</td>
+<td>Ethernet, Wi-Fi</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>Física</td>
+<td>Transmissão de bits</td>
+<td>Cabos, ondas de rádio</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto1/intro/choice_3" id="choice_3_0">
+<p class="admonition-title">Modelo OSI 4</p>
+<form class="exercise-form">
+<p>Quando você acessa um site HTTPS, qual camada do modelo OSI é responsável pela criptografia dos dados?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Camada 7 - Aplicação
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Camada 4 - Transporte
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Camada 6 - Apresentação
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Camada 5 - Sessão
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>A camada de Apresentação (camada 6) é responsável pela formatação, criptografia e compressão de dados. O protocolo SSL/TLS, usado no HTTPS, opera nesta camada.</p>
+</div>
+</div>
+<h2 id="protocolos-de-comunicacao-serial">Protocolos de Comunicação Serial</h2>
+<h3 id="spi-serial-peripheral-interface">SPI (Serial Peripheral Interface)</h3>
+<p><strong>SPI</strong> é um protocolo de comunicação serial síncrono desenvolvido pela Motorola nos anos 1980, usado para troca de dados entre microcontroladores e periféricos.</p>
+<h4 id="caracteristicas-principais">Características Principais</h4>
+<ul>
+<li><strong>Comunicação Mestre-Escravo</strong>: Um mestre controla múltiplos escravos</li>
+<li><strong>Transmissão Síncrona</strong>: Clock dedicado para sincronização</li>
+<li><strong>Alta Velocidade</strong>: Frequências de vários MHz</li>
+<li><strong>Full-Duplex</strong>: Transmissão e recepção simultâneas</li>
+</ul>
+<h4 id="pinagem-spi">Pinagem SPI</h4>
+<table>
+<thead>
+<tr>
+<th>Pino</th>
+<th>Nome Completo</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SCLK</strong></td>
+<td>Serial Clock</td>
+<td>Clock gerado pelo mestre</td>
+</tr>
+<tr>
+<td><strong>MOSI</strong></td>
+<td>Master Out, Slave In</td>
+<td>Dados: mestre → escravo</td>
+</tr>
+<tr>
+<td><strong>MISO</strong></td>
+<td>Master In, Slave Out</td>
+<td>Dados: escravo → mestre</td>
+</tr>
+<tr>
+<td><strong>SS/CS</strong></td>
+<td>Slave Select/Chip Select</td>
+<td>Seleção do escravo ativo</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Diagrama SPI" src="../image.png" /></p>
+<h4 id="aplicacoes-do-spi">Aplicações do SPI</h4>
+<ul>
+<li>Displays (OLED, TFT, e-paper)</li>
+<li>Memórias Flash e EEPROMs</li>
+<li>Sensores de alta velocidade</li>
+<li>Conversores AD/DA</li>
+<li>Módulos de comunicação (RFID, Wi-Fi, LoRa)</li>
+</ul>
+<h4 id="timing-spi">Timing SPI</h4>
+<p>O gráfico mostra a transmissão entre mestre e escravo:
+- <strong>Subida do clock</strong>: Mestre lê MISO
+- <strong>Descida do clock</strong>: Escravo lê MOSI</p>
+<p><img alt="Timing SPI" src="../image-1.png" /></p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto1/intro/exercise_2" id="exercise_2_0">
+<p class="admonition-title">Exercício 5</p>
+<form class="exercise-form">
+<p>Analisando o diagrama de timing SPI acima, determine:</p>
+<ol>
+<li>Qual é o valor binário lido pelo mestre na linha MISO?</li>
+<li>Qual é o valor binário enviado pelo mestre na linha MOSI?</li>
+<li>Como você interpretaria esses valores se fossem parte de um comando para um sensor de temperatura?</li>
+</ol>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h4 id="hardware-spi">Hardware SPI</h4>
+<p>O chip SPI recebe dados de camadas superiores, sequencializa e transmite bit a bit. Funciona como um "veículo transportador" que respeita as regras da comunicação.</p>
+<p><img alt="Chip SPI" src="../image-2.png" /></p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto1/intro/choice_4" id="choice_4_0">
+<p class="admonition-title">Protocolo SPI 6</p>
+<form class="exercise-form">
+<p>Em um sistema com um microcontrolador conectado a 3 sensores via SPI, quantos pinos CS (Chip Select) são necessários?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    4 pinos CS
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    2 pinos CS
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    1 pino CS
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    3 pinos CS
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Cada escravo (sensor) precisa de seu próprio pino CS para ser selecionado individualmente pelo mestre. Portanto, 3 sensores = 3 pinos CS.</p>
+</div>
+</div>
+<hr />
+<h3 id="uart-universal-asynchronous-receiver-transmitter">UART (Universal Asynchronous Receiver-Transmitter)</h3>
+<p><strong>UART</strong> é um protocolo de comunicação serial assíncrono amplamente utilizado em sistemas embarcados.</p>
+<h4 id="caracteristicas-principais_1">Características Principais</h4>
+<ul>
+<li><strong>Comunicação ponto-a-ponto</strong>: Dois dispositivos</li>
+<li><strong>Assíncrono</strong>: Sem clock compartilhado</li>
+<li><strong>Dois fios</strong>: TX (transmissor) e RX (receptor)</li>
+<li><strong>Conexão cruzada</strong>: TX₁ → RX₂ e RX₁ → TX₂</li>
+</ul>
+<p><img alt="Conexão UART" src="../image-3.png" /></p>
+<h4 id="estrutura-do-frame-uart">Estrutura do Frame UART</h4>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Bits</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Start Bit</strong></td>
+<td>1</td>
+<td>Indica início da transmissão (sempre 0)</td>
+</tr>
+<tr>
+<td><strong>Data Bits</strong></td>
+<td>5-9</td>
+<td>Dados úteis (normalmente 8 bits)</td>
+</tr>
+<tr>
+<td><strong>Parity Bit</strong></td>
+<td>0-1</td>
+<td>Verificação de erro (opcional)</td>
+</tr>
+<tr>
+<td><strong>Stop Bits</strong></td>
+<td>1-2</td>
+<td>Indica fim da transmissão (sempre 1)</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Frame UART" src="../image-4.png" /></p>
+<h4 id="baud-rate-taxa-de-transmissao">Baud Rate (Taxa de Transmissão)</h4>
+<p>Velocidades padrão em bits por segundo (bps):</p>
+<table>
+<thead>
+<tr>
+<th>Baud Rate</th>
+<th>Aplicação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>9600</code></td>
+<td>Padrão geral</td>
+</tr>
+<tr>
+<td><code>19200</code></td>
+<td>Aplicações médias</td>
+</tr>
+<tr>
+<td><code>38400</code></td>
+<td>Comunicação moderada</td>
+</tr>
+<tr>
+<td><code>57600</code></td>
+<td>Aplicações rápidas</td>
+</tr>
+<tr>
+<td><code>115200</code></td>
+<td>Depuração e desenvolvimento</td>
+</tr>
+<tr>
+<td><code>1 Mbps+</code></td>
+<td>Implementações avançadas</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Importante</p>
+<p>Ambos os dispositivos devem usar o <strong>mesmo baud rate</strong>, caso contrário os dados serão corrompidos!</p>
+</div>
+<div class="admonition exercise self-progress" data-slug="classes/projeto1/intro/exercise_3" id="exercise_3_0">
+<p class="admonition-title">Exercício 7</p>
+<form class="exercise-form">
+<p>Calcule o tempo necessário para transmitir a palavra "HELLO" (5 caracteres) via UART com as seguintes configurações:</p>
+<ul>
+<li>Baud rate: 9600 bps</li>
+<li>8 bits de dados, 1 start bit, 1 stop bit, sem paridade</li>
+</ul>
+<p>Mostre todos os cálculos e explique o raciocínio.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h4 id="verificacao-de-paridade">Verificação de Paridade</h4>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Par (Even)</strong></td>
+<td>Número total de bits "1" deve ser par</td>
+</tr>
+<tr>
+<td><strong>Ímpar (Odd)</strong></td>
+<td>Número total de bits "1" deve ser ímpar</td>
+</tr>
+<tr>
+<td><strong>Nenhuma (None)</strong></td>
+<td>Sem verificação de paridade</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Paridade UART" src="../image-5.png" /></p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="0" data-slug="classes/projeto1/intro/choice_5" id="choice_5_0">
+<p class="admonition-title">Verificação de Paridade 8</p>
+<form class="exercise-form">
+<p>Considere o byte de dados <code>11010110</code>. Qual seria o bit de paridade para uma configuração de paridade PAR?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    1
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    0
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>O byte <code>11010110</code> tem 5 bits "1". Para paridade PAR, o número total de bits "1" (incluindo o bit de paridade) deve ser par. Como 5 é ímpar, o bit de paridade deve ser 0 para tornar o total par (5 + 0 = 5, ainda ímpar... erro na questão! Deveria ser 1 para tornar 6, que é par).</p>
+</div>
+</div>
+<h4 id="deteccao-de-erros">Detecção de Erros</h4>
+<ul>
+<li><strong>Parity Error</strong>: Bit de paridade incorreto</li>
+<li><strong>Framing Error</strong>: Bit de stop não encontrado</li>
+<li><strong>Overrun Error</strong>: Receptor sobrecarregado</li>
+</ul>
+<h4 id="hardware-uart">Hardware UART</h4>
+<p>Microcontroladores modernos incluem chips UART como periféricos. A comunicação com o chip é feita por camadas superiores de software.</p>
+<h3 id="i2c-inter-integrated-circuit">I²C (Inter-Integrated Circuit)</h3>
+<p><strong>I²C</strong> é um protocolo de comunicação serial desenvolvido pela Philips (NXP) que utiliza apenas dois fios para comunicação entre múltiplos dispositivos.</p>
+<h4 id="caracteristicas-principais_2">Características Principais</h4>
+<ul>
+<li><strong>Barramento compartilhado</strong>: Múltiplos dispositivos em 2 fios</li>
+<li><strong>Endereçamento</strong>: Cada dispositivo tem endereço único (7 ou 10 bits)</li>
+<li><strong>Mestre-Escravo</strong>: Mestre controla a comunicação</li>
+<li><strong>Half-duplex</strong>: Transmissão ou recepção, não simultânea</li>
+</ul>
+<h4 id="pinagem-i2c">Pinagem I²C</h4>
+<table>
+<thead>
+<tr>
+<th>Pino</th>
+<th>Nome Completo</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SCL</strong></td>
+<td>Serial Clock Line</td>
+<td>Clock compartilhado</td>
+</tr>
+<tr>
+<td><strong>SDA</strong></td>
+<td>Serial Data Line</td>
+<td>Dados bidirecionais</td>
+</tr>
+</tbody>
+</table>
+<h4 id="especificacoes-tecnicas">Especificações Técnicas</h4>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tensão</strong></td>
+<td>3,3V ou 5V</td>
+</tr>
+<tr>
+<td><strong>Velocidade Padrão</strong></td>
+<td>100 kbit/s</td>
+</tr>
+<tr>
+<td><strong>Velocidade Rápida</strong></td>
+<td>400 kbit/s</td>
+</tr>
+<tr>
+<td><strong>Velocidade Rápida Plus</strong></td>
+<td>1 Mbit/s</td>
+</tr>
+<tr>
+<td><strong>Dispositivos máximos</strong></td>
+<td>128 (endereço 7 bits)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="protocolo-de-comunicacao">Protocolo de Comunicação</h4>
+<ol>
+<li><strong>Endereçamento</strong>: Mestre envia endereço do escravo</li>
+<li><strong>Confirmação</strong>: Escravo responde com ACK</li>
+<li><strong>Transmissão</strong>: Dados são transmitidos</li>
+<li><strong>Verificação</strong>: ACK/NACK confirma recepção</li>
+</ol>
+<p><img alt="Diagrama I²C" src="../image-6.png" /></p>
+<h4 id="estrutura-do-frame-i2c">Estrutura do Frame I²C</h4>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Bits</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Start Bit</strong></td>
+<td>1</td>
+<td>Início da transmissão</td>
+</tr>
+<tr>
+<td><strong>Address</strong></td>
+<td>7-10</td>
+<td>Endereço do dispositivo</td>
+</tr>
+<tr>
+<td><strong>R/W Bit</strong></td>
+<td>1</td>
+<td>Read (1) ou Write (0)</td>
+</tr>
+<tr>
+<td><strong>ACK/NACK</strong></td>
+<td>1</td>
+<td>Confirmação do escravo</td>
+</tr>
+<tr>
+<td><strong>Data</strong></td>
+<td>8</td>
+<td>Dados úteis</td>
+</tr>
+<tr>
+<td><strong>ACK/NACK</strong></td>
+<td>1</td>
+<td>Confirmação dos dados</td>
+</tr>
+<tr>
+<td><strong>Stop Bit</strong></td>
+<td>1</td>
+<td>Fim da transmissão</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Frame I²C" src="../image-7.png" /></p>
+<h4 id="exemplo-pratico">Exemplo Prático</h4>
+<p>Transmissão do byte <code>01100100</code> (decimal 100) para o escravo <code>1001101</code>:</p>
+<p><img alt="Exemplo I²C" src="../image-8.png" /></p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto1/intro/exercise_4" id="exercise_4_0">
+<p class="admonition-title">Exercício 9</p>
+<form class="exercise-form">
+<p>Analisando a comunicação I²C mostrada no exemplo acima:</p>
+<ol>
+<li>O que aconteceria se o escravo enviasse NACK em vez de ACK?</li>
+</ol>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h4 id="vantagens-e-desvantagens">Vantagens e Desvantagens</h4>
+<p><strong>Vantagens:</strong>
+- Apenas 2 fios para múltiplos dispositivos
+- Protocolo padronizado e amplamente suportado
+- Endereçamento automático
+- Baixo custo de implementação</p>
+<p><strong>Desvantagens:</strong>
+- Velocidade inferior ao SPI
+- Não ideal para longas distâncias
+- Barramento compartilhado pode criar gargalos</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="0" data-slug="classes/projeto1/intro/choice_6" id="choice_6_0">
+<p class="admonition-title">Comparação de Protocolos 10</p>
+<form class="exercise-form">
+<p>Qual protocolo seria mais adequado para conectar um display OLED de alta resolução que precisa de atualização rápida?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    SPI
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    I²C
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    UART
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    RS-232
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>O SPI é mais adequado pois oferece maior velocidade de transmissão (vários MHz) e comunicação full-duplex, essenciais para atualizações rápidas de displays de alta resolução.</p>
+</div>
+</div>
+<h2 id="outros-protocolos-de-comunicacao-serial">Outros Protocolos de Comunicação Serial</h2>
+<p>Existem diversos outros protocolos especializados:</p>
+<table>
+<thead>
+<tr>
+<th>Protocolo</th>
+<th>Características</th>
+<th>Aplicações</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RS-232</strong></td>
+<td>Comunicação serial padrão antiga</td>
+<td>Equipamentos industriais legados</td>
+</tr>
+<tr>
+<td><strong>RS-485</strong></td>
+<td>Comunicação diferencial, longas distâncias</td>
+<td>Redes industriais, automação</td>
+</tr>
+<tr>
+<td><strong>CAN</strong></td>
+<td>Robusto, tolerante a falhas</td>
+<td>Automotivo, sistemas críticos</td>
+</tr>
+<tr>
+<td><strong>1-Wire</strong></td>
+<td>Um único fio + GND</td>
+<td>Sensores de temperatura</td>
+</tr>
+<tr>
+<td><strong>USB</strong></td>
+<td>Universal, alta velocidade</td>
+<td>Periféricos de computador</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition exercise self-progress" data-slug="classes/projeto1/intro/exercise_5" id="exercise_5_0">
+<p class="admonition-title">Exercício 11</p>
+<form class="exercise-form">
+<p>Projete um sistema de monitoramento para uma estufa automatizada que precisa:</p>
+<ul>
+<li>Ler 10 sensores de temperatura distribuídos</li>
+<li>Controlar 5 atuadores (bombas, ventiladores)</li>
+<li>Comunicar com um computador central</li>
+<li>Operar em ambiente com interferência eletromagnética</li>
+</ul>
+<p>Escolha os protocolos mais adequados para cada parte do sistema e justifique suas escolhas.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h2 id="leituras-complementares">Leituras Complementares</h2>
+<p>Para aprofundamento em transmissão serial UART:</p>
+<ol>
+<li><a href="https://docs.freebsd.org/pt-br/articles/serial-uart/">FreeBSD Serial UART Guide</a></li>
+<li><a href="http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf">UNESP - Comunicação Serial</a></li>
+<li><a href="https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf">USP - Transmissão e Recepção Assíncrona</a></li>
+<li><a href="https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/">University of Wisconsin - UART Basics</a></li>
+</ol>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+            <a href="../../projeto0/atividade-aula1/"
+               class="ah-prev"
+               title="Atividade Python">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Atividade Python</span>
+            </a>
+          
+          
+            <a href="../enunciado/"
+               class="ah-next"
+               title="Enunciado">
+              <span class="nav-label">Próximo</span>
+              <span class="nav-title">Enunciado</span>
+            </a>
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

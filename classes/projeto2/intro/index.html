@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Introdução - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item opened">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+
+    <li class="active ah-togglable-item opened">
+      <span class="ah-togglable-handle">Introdução</span>
+      <ul>
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#modelo-conceitual-clientserver-e-a-ideia-de-protocolo">Modelo conceitual: Client/Server e a ideia de protocolo</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#handshake-o-que-e-para-que-serve-e-como-desenhar">Handshake: o que é, para que serve e como desenhar</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#representacao-de-numeros-texto-vs-binario">Representação de números: texto vs binário</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#ieee-754-float32-como-funciona-de-verdade">IEEE-754 (float32): como funciona de verdade</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#dicas-de-ieee-754-com-structpack-e-structunpack">Dicas de IEEE-754 com struct.pack() e struct.unpack()</a>
+              </li>
+            
+        
+      </ul>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                  
+                    <li>Projeto 2 - Ponto Flutuante</li>
+                  
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="projeto-2-clientserver">Projeto 2: Client/Server</h1>
+<p>A UART é um meio de transmitir <strong>bytes</strong> entre dois dispositivos. Ela <strong>não</strong> define, por si só:</p>
+<ul>
+<li>onde uma mensagem começa e termina</li>
+<li>se o receptor está pronto</li>
+<li>como o emissor sabe que foi entendido</li>
+<li>como representar números de forma padronizada (texto vs binário)</li>
+</ul>
+<p>Em outras palavras: a UART é o “caminho”.<br />
+O <strong>protocolo</strong> é o “acordo” que dá significado aos bytes.</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto2/intro/exercise_1" id="exercise_1_0">
+<p class="admonition-title">Exercício 1</p>
+<form class="exercise-form">
+<p>Reflita e dê <strong>3 exemplos</strong> de problemas que podem ocorrer quando dois sistemas apenas “enviam bytes” sem um protocolo de aplicação (sem acordo).</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h2 id="modelo-conceitual-clientserver-e-a-ideia-de-protocolo">Modelo conceitual: Client/Server e a ideia de protocolo</h2>
+<p>No Projeto 2, você trabalha com uma comunicação <strong>Client/Server</strong>:</p>
+<ul>
+<li><strong>Client</strong> (cliente): inicia a comunicação e envia uma solicitação/dados</li>
+<li><strong>Server</strong> (servidor): espera solicitações e responde com um resultado</li>
+</ul>
+<p>Isso implica que a aplicação precisa de um <strong>fluxo previsível</strong> (uma sequência de eventos) para evitar ambiguidade.</p>
+<h3 id="uma-maquina-de-estados-minima-modelo-mental">Uma máquina de estados mínima (modelo mental)</h3>
+<p>Um jeito profissional de pensar nisso é como <strong>estados</strong>:</p>
+<ul>
+<li><code>IDLE</code>: nada acontecendo</li>
+<li><code>SYNC</code>: sincronização entre as pontas (handshake)</li>
+<li><code>TX_DATA</code>: transmissão de dados do client para o server</li>
+<li><code>WAIT_RESPONSE</code>: client aguardando resposta do server</li>
+<li><code>DONE</code> / <code>ERROR</code>: encerramento normal ou tratamento de falha</li>
+</ul>
+<blockquote>
+<p>O foco é entender <strong>por que</strong> esses estados existem.<br />
+A implementação detalhada do protocolo é parte da prática do Projeto 2.</p>
+</blockquote>
+<h2 id="handshake-o-que-e-para-que-serve-e-como-desenhar">Handshake: o que é, para que serve e como desenhar</h2>
+<h3 id="definicao">Definição</h3>
+<p><strong>Handshake</strong> é um mecanismo de <strong>sincronização</strong> entre duas pontas de comunicação para:</p>
+<ul>
+<li>confirmar que as duas aplicações estão “vivas”</li>
+<li>garantir que existe um “momento de início” acordado</li>
+<li>reduzir ambiguidades (ex.: ambos falando ao mesmo tempo)</li>
+<li>estabelecer uma base para timeouts e tratamento de erro</li>
+</ul>
+<h3 id="tipos-comuns-conceitualmente">Tipos comuns (conceitualmente)</h3>
+<p>1) <strong>1-way</strong>: o server anuncia “READY” e o client começa<br />
+2) <strong>2-way</strong>: client diz “HELLO”, server responde “OK”<br />
+3) <strong>3-way (analogia)</strong>: inspirado no TCP: <code>SYN → SYN-ACK → ACK</code></p>
+<blockquote>
+<p>Você não precisa implementar TCP, mas a analogia é útil:<br />
+<em>uma confirmação extra pode reduzir ambiguidades e falhas de sincronização.</em></p>
+</blockquote>
+<h3 id="boas-praticas-de-handshake-na-camada-de-aplicacao">Boas práticas de handshake (na camada de aplicação)</h3>
+<ul>
+<li>mensagens curtas e inequívocas (poucos bytes)</li>
+<li>estados bem definidos (“o que faço se não recebo resposta?”)</li>
+<li>logs claros (para depuração em dupla)</li>
+<li>um critério de falha (timeout/re-tentativa)</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Dica de engenharia 1</p>
+<p>Pense no handshake como “o combinado antes do jogo começar”.<br />
+Sem isso, cada ponta pode interpretar o começo da conversa de um jeito diferente.</p>
+</div>
+<div class="admonition exercise self-progress" data-slug="classes/projeto2/intro/exercise_2" id="exercise_2_0">
+<p class="admonition-title">Exercício 2</p>
+<form class="exercise-form">
+<p>Proponha um handshake <strong>2-way</strong> para o Projeto 2.<br />
+Escreva:
+1) a mensagem do client<br />
+2) a resposta do server<br />
+3) o que acontece se o client não receber a resposta</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto2/intro/choice_1" id="choice_1_0">
+<p class="admonition-title">2-way vs 3-way 3</p>
+<form class="exercise-form">
+<p>Por que um handshake 3-way pode ser mais robusto que um 2-way?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Porque confirma de forma mais forte que <em>ambas</em> as pontas concordaram com o início.
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Porque aumenta o baud rate automaticamente.
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Porque impede erro de paridade.
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Porque elimina a necessidade de logs.
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>O 3-way reduz ambiguidades: uma ponta pode confirmar que a outra recebeu a confirmação.
+Isso é útil quando há atrasos, buffers e inicializações em tempos diferentes.</p>
+</div>
+</div>
+<h2 id="representacao-de-numeros-texto-vs-binario">Representação de números: texto vs binário</h2>
+<p>Antes de falar de <code>IEEE-754</code>, precisamos alinhar uma ideia simples:</p>
+<h3 id="texto-ascii">Texto (ASCII)</h3>
+<p>Você envia algo como:
+- <code>"45.450000"</code><br />
+- <code>"-1.435670"</code></p>
+<p>Vantagens:
+- fácil depurar (você <em>vê</em> o número no terminal/serial monitor)
+- fácil registrar em log</p>
+<p>Desvantagens:
+- ocupa mais bytes
+- exige parsing (conversão string → número)
+- pode ter ambiguidades (separador decimal, sinal, etc.)</p>
+<h3 id="binario">Binário</h3>
+<p>Você envia o número em bytes diretamente (ex.: float32).</p>
+<p>Vantagens:
+- mais compacto
+- mais rápido de processar
+- formato padronizado (se combinado)</p>
+<p>Desvantagens:
+- mais difícil de depurar “a olho”
+- exige acordo de ordenação de bytes
+- exige conhecer o padrão (IEEE-754)</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="0" data-slug="classes/projeto2/intro/choice_2" id="choice_2_0">
+<p class="admonition-title">Debug 4</p>
+<form class="exercise-form">
+<p>Qual forma facilita mais depuração rápida via logs/terminal?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Texto (ASCII)
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Depende apenas do cabo
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Tanto faz
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Binário
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Em texto, você lê diretamente o valor. Em binário, você vê bytes que precisam ser interpretados.</p>
+</div>
+</div>
+<hr />
+<h2 id="ieee-754-float32-como-funciona-de-verdade">IEEE-754 (float32): como funciona de verdade</h2>
+<p>O padrão <strong>IEEE-754</strong> define como representar números de ponto flutuante em binário.<br />
+No Projeto 2, o desafio A+ envolve usar <strong>float32</strong> (32 bits).</p>
+<h3 id="estrutura-do-float32">Estrutura do float32</h3>
+<p>Um float32 tem 32 bits divididos em:</p>
+<ul>
+<li><strong>S</strong>: 1 bit de sinal</li>
+<li><strong>E</strong>: 8 bits de expoente (com <em>bias</em> = 127)</li>
+<li><strong>F</strong>: 23 bits de fração (mantissa)</li>
+</ul>
+<p>Representação:</p>
+<ul>
+<li><code>S | EEEEEEEE | FFFFFFFFFFFFFFFFFFFFFFF</code></li>
+</ul>
+<h3 id="interpretacao-caso-normalizado">Interpretação (caso “normalizado”)</h3>
+<p>Para números normalizados:</p>
+<ul>
+<li>Valor = ((-1)^S) × (1.F) × (2^{(E - 127)})</li>
+</ul>
+<p>Onde <code>1.F</code> significa “1 ponto (fração)”, com <strong>1 implícito</strong> (não armazenado).</p>
+<h3 id="exemplo-guiado-conceitual-105">Exemplo guiado (conceitual): 10,5</h3>
+<p>1) Em binário:<br />
+   - 10 = <code>1010</code><br />
+   - 0,5 = <code>0.1</code><br />
+   - 10,5 = <code>1010.1</code></p>
+<p>2) Normalizando:<br />
+<code>1010.1 = 1.0101 × 2^3</code></p>
+<p>3) Campos:
+- S = 0 (positivo)
+- Expoente real = 3 → Expoente armazenado = 3 + 127 = 130
+- Fração F = bits após o “1.” → <code>0101...</code> (completar até 23 bits)</p>
+<blockquote>
+<p>Você não precisa “decorar” o cálculo — precisa entender a <strong>estrutura</strong> e o <strong>porquê</strong>.</p>
+</blockquote>
+<h3 id="precisao-por-que-01-e-problematico">Precisão: por que 0,1 é “problemático”</h3>
+<p>Nem todo decimal tem representação binária finita.
+Ex.: <code>0.1</code> em base 10 vira uma dízima em base 2.</p>
+<p>Consequência:
+- operações podem gerar pequenos erros de arredondamento
+- somas sucessivas podem acumular erro</p>
+<p>Isso explica o famoso comportamento:
+- <code>0.1 + 0.2</code> pode não ser exatamente <code>0.3</code> em float32/float64</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto2/intro/exercise_3" id="exercise_3_0">
+<p class="admonition-title">Exercício 5</p>
+<form class="exercise-form">
+<p>Explique, em 4–6 linhas, por que <code>0.1 + 0.2</code> pode ser diferente de <code>0.3</code> ao usar ponto flutuante.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h3 id="casos-especiais-visao-geral">Casos especiais (visão geral)</h3>
+<ul>
+<li><strong>Zero</strong>: existe <code>+0</code> e <code>-0</code> (sinal pode existir mesmo com valor zero)</li>
+<li><strong>Infinito</strong>: <code>+Inf</code> e <code>-Inf</code> (overflow)</li>
+<li><strong>NaN</strong>: “Not a Number” (resultado indefinido, ex.: 0/0)</li>
+</ul>
+<blockquote>
+<p>Na prática, esses casos importam para robustez e validação do protocolo.</p>
+</blockquote>
+<h3 id="oordem-dos-bytes">Oordem dos bytes</h3>
+<p>Mesmo com IEEE-754, você precisa combinar:
+- a <strong>ordem</strong> dos bytes na transmissão (little-endian vs big-endian)</p>
+<p>Se cada lado interpretar com endianness diferente:
+- os 4 bytes recebidos formam <strong>outro número</strong> (e a soma dá errado).</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto2/intro/choice_3" id="choice_3_0">
+<p class="admonition-title">Dobrar um número 6</p>
+<form class="exercise-form">
+<p>Quando você dobra um número (ex.: 1,0 → 2,0), qual campo tende a mudar de maneira mais direta em float32?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    O bit de sinal
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Nenhum campo muda
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    O expoente (principalmente)
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    A mantissa sempre muda e o expoente nunca muda
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Dobrar equivale a multiplicar por 2, o que, em números normalizados, é representado principalmente por um incremento no expoente.</p>
+</div>
+</div>
+<div class="admonition exercise self-progress" data-slug="classes/projeto2/intro/exercise_4" id="exercise_4_0">
+<p class="admonition-title">Exercício 7</p>
+<form class="exercise-form">
+<p>Você recebeu 4 bytes e o valor decodificado está completamente fora do esperado (ex.: enorme ou NaN).<br />
+Liste <strong>2 hipóteses</strong> plausíveis relacionadas a IEEE-754 e transmissão (sem culpar “bug genérico”).</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<h2 id="dicas-de-ieee-754-com-structpack-e-structunpack">Dicas de IEEE-754 com <code>struct.pack()</code> e <code>struct.unpack()</code></h2>
+<p>Até aqui você viu <strong>como o float32 é representado</strong> (sinal, expoente e mantissa). Na prática, em Python, bibliotecas e projetos geralmente usam o módulo padrão <code>struct</code> para <strong>converter</strong> valores numéricos para <strong>bytes</strong> (e vice-versa) de forma consistente.</p>
+<h3 id="conceito-empacotar-e-desempacotar">Conceito: "empacotar" e "desempacotar"</h3>
+<ul>
+<li><code>pack(...)</code>: pega um valor Python e produz uma sequência de bytes seguindo um <strong>formato</strong>.</li>
+<li><code>unpack(...)</code>: pega bytes e reconstrói o valor conforme o <strong>mesmo formato</strong>.</li>
+</ul>
+<p>A ideia é que o protocolo do seu projeto defina explicitamente:
+- qual é o <strong>tipo</strong> (ex.: float32)
+- qual é a <strong>ordem de bytes</strong> (endianness)
+- como esses bytes aparecem “na linha” (stream serial)</p>
+<h3 id="formatos-mais-usados-o-minimo-que-voce-precisa-saber">Formatos mais usados (o mínimo que você precisa saber)</h3>
+<p>O formato é uma string. O primeiro caractere (opcional) define a <strong>endianness</strong>:</p>
+<ul>
+<li><code>&lt;</code> little-endian</li>
+<li><code>&gt;</code> big-endian</li>
+<li><code>!</code> network (big-endian)</li>
+</ul>
+<p>Alguns códigos de tipo comuns:
+- <code>f</code> : float32 (4 bytes, IEEE-754)
+- <code>d</code> : float64/double (8 bytes, IEEE-754)
+- <code>I</code> : uint32 (4 bytes)
+- <code>h</code> : int16 (2 bytes)
+- <code>B</code> : uint8  (1 byte)</p>
+<div class="admonition tip">
+<p class="admonition-title">Regra de ouro 2</p>
+<p>Se o enunciado pede <strong>IEEE-754 32 bits</strong>, pense em <strong><code>f</code></strong> (4 bytes), não em <code>d</code>.</p>
+</div>
+<h3 id="um-exemplo-sem-depender-de-ide">Um exemplo sem depender de IDE</h3>
+<p>Se você tem <code>x = 10.5</code> e faz:
+- <code>struct.pack('&lt;f', x)</code> → <strong>4 bytes</strong> em little-endian
+- <code>struct.pack('&gt;f', x)</code> → <strong>os mesmos 4 bytes</strong>, mas <strong>em ordem invertida</strong></p>
+<p>Ou seja: o número é o mesmo, mas a <strong>ordem dos bytes no fio</strong> muda.</p>
+<div class="admonition tip">
+<p class="admonition-title">Dica 3</p>
+<p>Quando dois lados discordam sobre a endianness:</p>
+<ul>
+<li>o client envia 4 bytes em <code>&lt;f</code></li>
+<li>o server interpreta como <code>&gt;f</code></li>
+</ul>
+<p>Resultado: o valor reconstruído vira algo “sem sentido” (muito grande, muito pequeno, NaN etc.).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Se der 8 bytes, você NÃO está trafegando float32.</p>
+<ul>
+<li><code>struct.calcsize('f') == 4</code></li>
+<li><code>struct.calcsize('d') == 8</code>
+Confira o tamanho.</li>
+</ul>
+</div>
+<h3 id="exercicios-struct-e-float32">Exercícios — <code>struct</code> e float32</h3>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto2/intro/choice_4" id="choice_4_0">
+<p class="admonition-title">Exercício 8 — O que  8<code>'&lt;f'</code> significa?</p>
+<form class="exercise-form">
+<p>Selecione a alternativa correta.</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Network-endian + uint32 (4 bytes)
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Little-endian + float64 (8 bytes)
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Big-endian + float64 (8 bytes)
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Little-endian + float32 (4 bytes)
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+</div>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+            <a href="../../projeto1/enunciado/"
+               class="ah-prev"
+               title="Enunciado">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Enunciado</span>
+            </a>
+          
+          
+            <a href="../enunciado/"
+               class="ah-next"
+               title="Enunciado">
+              <span class="nav-label">Próximo</span>
+              <span class="nav-title">Enunciado</span>
+            </a>
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

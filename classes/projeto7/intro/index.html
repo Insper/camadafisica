@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="projeto-7-filtros-digitais-equalizador-digital-de-audio">Projeto 7 – Filtros Digitais (Equalizador Digital de Áudio)</h1>
+<p>Um <strong>filtro digital</strong> é um sistema que processa <strong>sinais digitais</strong> com o objetivo de <strong>modificar ou extrair certas características</strong> do sinal, como remover ruído, destacar uma faixa de frequências ou limitar a largura de banda.  </p>
+<p>Ele atua sobre uma sequência de amostras (valores discretos no tempo do sinal digitalizado) e produz uma nova sequência como resultado.</p>
+<p>Sabemos que um sinal pode ser decomposto em muitas senoides, de diversas frequências, certo?<br />
+Um filtro digital pode então ser visto como uma <strong>“peneira”</strong> que deixa passar apenas certas frequências que compõem o sinal (por exemplo, <strong>graves ou agudos</strong>) e bloqueia o resto.</p>
+<h2 id="tipos-de-filtros-digitais">Tipos de Filtros Digitais</h2>
+<p>Adotando como critério as frequências que um filtro <strong>bloqueia</strong> e as que <strong>mantém</strong> ou <strong>amplifica</strong>, categorizamos os filtros digitais em quatro tipos principais:</p>
+<p><strong>Filtro Passa-Baixa (<em>Low Pass Filter</em>)</strong></p>
+<ul>
+<li>Elimina as frequências que compõem o sinal e que estejam <strong>acima</strong> de um dado limite denominado <strong>frequência de corte</strong> (𝑓₍corte₎).</li>
+</ul>
+<p><strong>Filtro Passa-Alta (<em>High Pass Filter</em>)</strong></p>
+<ul>
+<li>Elimina as frequências que compõem o sinal e que estejam <strong>abaixo</strong> de um dado limite denominado <strong>frequência de corte</strong> (𝑓₍corte₎).</li>
+</ul>
+<p><strong>Filtro Passa-Faixa (<em>Band Pass Filter</em>)</strong></p>
+<ul>
+<li>Elimina todas as frequências que estejam <strong>fora de uma faixa (intervalo)</strong> de frequências.</li>
+</ul>
+<p><strong>Filtro Rejeita-Faixa (<em>Notch Filter</em>)</strong></p>
+<ul>
+<li>Elimina todas as frequências que estejam <strong>dentro de uma faixa (intervalo)</strong> de frequências.</li>
+</ul>
+<p><strong>Filtro de Picos (<em>Peak Filter</em>)</strong></p>
+<ul>
+<li>Amplifica ou atenua uma <strong>certa faixa de frequências</strong> em uma quantidade desejada.</li>
+</ul>
+<h2 id="comportamento-de-um-filtro-passa-baixa">Comportamento de um Filtro Passa-Baixa</h2>
+<p>Um filtro passa-baixa <strong>atenua sinais de altas frequências</strong>, tendo o comportamento típico de <strong>sistemas dinâmicos</strong> cujas saídas são reduzidas para entradas acima de um certo valor — a <strong>frequência de corte</strong>.</p>
+<p>A figura abaixo ilustra o comportamento de um filtro passa-baixa:</p>
+<p><img alt="alt text" src="../image.png" /></p>
+<h2 id="aplicacao-de-um-filtro-digital-a-um-sinal">Aplicação de um Filtro Digital a um Sinal</h2>
+<p>Considere que temos um sinal contínuo $ x(t) $ que foi <strong>digitalizado</strong> e salvo em uma variável como uma lista de valores $ X[k] $, onde $ k = 0, 1, 2, 3, \ldots, \text{tamanho da lista} $.</p>
+<p>Nosso objetivo é <strong>aplicar um filtro</strong> a esse sinal para <strong>eliminar</strong> ou <strong>amplificar</strong> determinadas faixas de frequências que o compõem.</p>
+<p>Para isso, criamos uma nova lista, denominada <strong>lista de saída</strong> $ Y[k] $, que representará o <strong>sinal original filtrado</strong>.</p>
+<ul>
+<li>O sinal original $ X[k] $ é considerado a <strong>entrada</strong>.</li>
+<li>O sinal filtrado $ Y[k] $ é considerado a <strong>saída</strong> do filtro.</li>
+</ul>
+<p>Cada valor da lista de saída é obtido a partir de uma <strong>fórmula</strong> que modifica os valores da lista original.<br />
+Em outras palavras, <strong>cada posição de $ Y[k] $</strong> é uma <strong>combinação ponderada</strong> de valores da lista $ X[k] $ (entrada) e, em alguns casos, também de valores anteriores de $ Y[k] $ (saída).</p>
+<h3 id="exemplo-de-filtro-digital">Exemplo de Filtro Digital</h3>
+<p>Um exemplo de filtro que atua sobre o sinal original $ X[k] $ e produz o sinal filtrado $ Y[k] $ é:</p>
+<p>$$
+Y[k] = 1.8 \, Y[k - 1] - 0.7 \, Y[k - 2] + 0.2 \, X[k] + 0.3 \, X[k - 1] + 0.2 \, X[k - 2]
+$$</p>
+<p>Observe que o sinal filtrado $ Y[k] $:</p>
+<ul>
+<li>Depende de <strong>valores anteriores de si próprio</strong> ($ Y[k-1], Y[k-2] $);</li>
+<li>E também de <strong>valores anteriores do sinal original</strong> ($ X[k], X[k-1], X[k-2] $).</li>
+</ul>
+<p>A maneira como o filtro atua — se ele <strong>atenua</strong>, <strong>amplifica</strong> ou <strong>elimina</strong> certas frequências — depende diretamente dos <strong>coeficientes</strong> usados na fórmula.</p>
+<p>Alterando esses coeficientes, é possível construir diferentes tipos de filtros:
+- <strong>Passa-baixa</strong>, que reduz altas frequências;
+- <strong>Passa-alta</strong>, que elimina baixas frequências;
+- <strong>Passa-faixa</strong> ou <strong>rejeita-faixa</strong>, que isolam determinadas bandas.</p>
+<h3 id="implementacao-em-codigo">Implementação em Código</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Sinal original X[k]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>  <span class="c1"># exemplo</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Inicializa a lista de saída Y[k]</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Aplica o filtro</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">Y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.8</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div>
+<hr />
+<h2 id="representacao-de-filtro-no-dominio-z">Representação de Filtro no Domínio Z</h2>
+<p>Ainda considerando o exemplo anterior, podemos <strong>avançar duas posições</strong> em todos os termos da equação.<br />
+Se a equação vale para $ k $, também valerá para $ k + 2 $:</p>
+<p>$$
+Y[k + 2] = 1.8 \, Y[k + 1] - 0.7 \, Y[k] + 0.2 \, X[k + 2] + 0.3 \, X[k + 1] + 0.2 \, X[k]
+$$</p>
+<h3 id="operador-z">Operador Z</h3>
+<p>Em sistemas digitais, utilizamos o <strong>operador Z</strong>, um conceito amplamente presente em <strong>análise de sinais discretos</strong>. </p>
+<p>Esse operador representa o <strong>avanço</strong> na posição de uma lista (ou sequência de amostras).</p>
+<p>Por exemplo:</p>
+<p>$$
+Z \cdot Y[k] = Y[k + 1]
+$$
+$$
+Z \cdot Z \cdot Y[k] = Z^2 Y[k] = Y[k + 2]
+$$</p>
+<h3 id="reescrevendo-a-equacao-com-o-operador-z">Reescrevendo a Equação com o Operador Z</h3>
+<p>Aplicando o operador $ Z $ à equação anterior, temos:</p>
+<p>$$
+Z^2 Y[k] = 1.8 \, Z \, Y[k] - 0.7 \, Y[k] + 0.2 \, Z^2 X[k] + 0.3 \, Z \, X[k] + 0.2 \, X[k]
+$$</p>
+<p>Agrupando os termos, obtemos:</p>
+<p>$$
+Y[k] \, (Z^2 - 1.8Z + 0.7) = X[k] \, (0.2Z^2 + 0.3Z + 0.2)
+$$</p>
+<h3 id="funcao-de-transferencia-no-dominio-z">Função de Transferência no Domínio Z</h3>
+<p>Dividindo ambos os lados por $ X[k] $, temos a <strong>relação entre a saída e a entrada</strong> do filtro:</p>
+<p>$$
+\frac{Y[k]}{X[k]} = \frac{0.2Z^2 + 0.3Z + 0.2}{Z^2 - 1.8Z + 0.7}
+$$</p>
+<p>Chamando essa relação de <strong>função de transferência discreta</strong>:</p>
+<p>$$
+G(Z) = \frac{Y[k]}{X[k]} = \frac{0.2Z^2 + 0.3Z + 0.2}{Z^2 - 1.8Z + 0.7}
+$$</p>
+<p>Essa expressão é <strong>análoga às funções de transferência contínuas</strong> que você estuda em <strong>Controle de Sistemas</strong>, porém definida no <strong>domínio discreto (Z)</strong>.</p>
+<h4 id="relacao-entre-os-dominios-de-laplace-e-z">Relação entre os Domínios de Laplace e Z</h4>
+<p>Existe uma correspondência entre o <strong>domínio de Laplace (s)</strong> e o <strong>domínio Z</strong>, pois o operador $ s $ representa uma <strong>derivada temporal</strong>, enquanto no domínio discreto usamos diferenças finitas.</p>
+<p>A aproximação é dada por:</p>
+<p>$$
+s \approx \frac{X[k + 1] - X[k]}{T} \quad \Rightarrow \quad s \approx \frac{Z X[k] - X[k]}{T}
+$$</p>
+<p>Assim, o operador $ Z $ pode ser interpretado como o <strong>equivalente discreto do operador de Laplace</strong>, permitindo analisar sistemas digitais de forma semelhante aos sistemas analógicos.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>As <strong>teorias utilizadas para calcular os coeficientes</strong> corretos (os valores multiplicadores de $ X[k] $ e $ Y[k] $) são extensas e envolvem métodos avançados de projeto de filtros digitais.  </p>
+<p>Esses métodos estão <strong>além do escopo deste curso</strong>, mas <strong>ferramentas como Python, MATLAB</strong> — ou mesmo llms como <strong>Gemini ou ChatGPT</strong> — podem auxiliar na <strong>obtenção automática das funções de transferência</strong> para filtros desejados (passa-baixa, passa-alta, etc.).</p>
+</div>
+<hr />
+<h2 id="implementacao-discreta">Implementação discreta</h2>
+<p>Veja como o Python pode nos fornecer, por exemplo, os coeficientes de um filtro que elimina as frequências
+superiores a 500 Hz presentes num sinal de entrada, ou seja, um filtro passa baixas:</p>
+<p><img alt="alt text" src="../image-2.png" /></p>
+<p>O filtro fornecido pelo Python é do tipo <strong>Butterworth</strong> (em homenagem a <em>Stephen Butterworth</em>).<br />
+Sua <strong>função de transferência discreta</strong> (no domínio <strong>Z</strong>, usando o <strong>operador de avanço</strong> $Z$) é:</p>
+<p>$$
+G(Z) \;=\; \frac{Y[K]}{X[K]} \;=\;
+\frac{0.00120741\,Z^2 + 0.00241481\,Z + 0.00120741}{Z^2 - 1.8993342\,Z + 0.90416304}
+$$</p>
+<p>Lembrando: $Z$ representa <strong>avanço</strong> na sequência (ex.: $Z \cdot Y[k] = Y[k+1]$).<br />
+A partir de $G(Z)$, obtemos a <strong>equação a diferenças</strong> (forma causal, em termos de amostras passadas):</p>
+<p>$$
+\boxed{
+\; y[k] \;=\; 1.8993342\,y[k-1] \;-\; 0.90416304\,y[k-2]
+\;+\; 0.00120741\,x[k] \;+\; 0.00241481\,x[k-1] \;+\; 0.00120741\,x[k-2] \;}
+$$</p>
+<p>Os filtros passa-baixa são muito utilizados para eliminar ruídos de alta frequência contaminando um sinal de frequências mais baixas. 
+Já os filtros passa-alta, teriam o efeito oposto, eliminando as baixas frequências de um sinal. Repare na figura a seguir o sinal original, filtrado por passa-baixa e filtrado por passa-alta:</p>
+<p><img alt="alt text" src="../image-3.png" /></p>
+<hr />
+<h2 id="exercicio-1">Exercício 1</h2>
+<p>Grave ou gere matematicamente, com <strong>frequência de amostragem de 44.100 Hz</strong>, um sinal com alguns poucos segundos de duração que possua <strong>componentes (harmônicos) acima de 500 Hz</strong>.  </p>
+<ol>
+<li>Mostre a <strong>FFT</strong> desse sinal, evidenciando que ele possui componentes acima de 500 Hz.  </li>
+<li>Em seguida, implemente o <strong>filtro do exemplo anterior</strong> e realize a <strong>filtragem do sinal original</strong>.  </li>
+<li>Mostre novamente a <strong>FFT do sinal filtrado</strong>, verificando que as frequências acima de 500 Hz foram <strong>atenuadas</strong>.  </li>
+<li>Reproduza o <strong>áudio original</strong> e o <strong>áudio filtrado</strong>.  </li>
+</ol>
+<p><strong>Responda:</strong><br />
+Consegue perceber a diferença? O que notou de diferente entre os dois sinais?</p>
+<hr />
+<h2 id="decibel-db">Decibel (dB)</h2>
+<p>O <strong>decibel (dB)</strong> é uma <strong>unidade logarítmica</strong> utilizada para expressar <strong>razões entre grandezas</strong> — especialmente em contextos de <strong>potência</strong>, <strong>amplitude</strong>, <strong>tensão</strong>, <strong>sinal de áudio</strong> e <strong>resposta de sistemas</strong>.  </p>
+<p>Apesar do nome, o decibel <strong>não é uma unidade absoluta</strong> (como “metros” ou “segundos”).<br />
+Ele representa uma <strong>razão relativa</strong>, geralmente comparando um valor medido com um <strong>valor de referência</strong>.</p>
+<p>A principal vantagem dessa escala é justamente o fato de ser <strong>logarítmica</strong>, permitindo representar <strong>intervalos muito extensos</strong> de forma compacta e intuitiva.</p>
+<p>No dia a dia, você certamente já ouviu falar em <strong>decibéis</strong> quando o assunto é <strong>intensidade sonora</strong>.<br />
+Vamos entender o porquê essa unidade é tão usada e como ela funciona.</p>
+<h3 id="escala-auditiva-humana">Escala Auditiva Humana</h3>
+<p>Para o ouvido humano <strong>perceber um som</strong>, é necessária uma <strong>intensidade acústica mínima</strong> de:</p>
+<p>$$
+10^{-12} \; \text{W/m}^2
+$$</p>
+<p>Por outro lado, quando a <strong>intensidade atinge 1 W/m²</strong>, começamos a <strong>sentir dor</strong> e até <strong>risco de lesão auditiva</strong>.  </p>
+<p>Observe como o intervalo entre esses dois extremos é <strong>enorme</strong> — varia de $10^{-12}$ até $1$!<br />
+Em vez de usar essa escala linear inconveniente, utiliza-se uma <strong>escala logarítmica</strong>, o <strong>decibel</strong>, para representar a intensidade sonora.</p>
+<h3 id="definicao-matematica">Definição Matemática</h3>
+<p>A intensidade acústica em decibéis ($I_{dB}$) é definida como:</p>
+<p>$$
+I_{dB} = 10 \cdot \log \left( \frac{I}{10^{-12}} \right)
+$$</p>
+<p>onde:<br />
+- $I_{dB}$ → intensidade expressa em decibéis (dB)<br />
+- $I$ → intensidade sonora medida (em W/m²)<br />
+- $10^{-12}$ → intensidade de referência correspondente ao <strong>limiar de audição humana</strong></p>
+<p>Usamos o <strong>logaritmo da razão</strong> entre a <strong>intensidade medida</strong> e o <strong>limiar de audição</strong>, multiplicado por 10.<br />
+Dessa forma, a <strong>intensidade expressa em decibéis (𝐼₍dB₎)</strong> varia aproximadamente dentro do intervalo:</p>
+<p>$$
+0 \; \text{dB} \; \text{(limiar da audição)} \quad \text{até} \quad 120 \; \text{dB} \; \text{(limiar da dor)}
+$$</p>
+<h3 id="exemplo-pratico">Exemplo Prático</h3>
+<p>Suponha que temos uma onda sonora com intensidade:</p>
+<p>$$
+I = 10^{-4} \; \text{W/m}^2
+$$</p>
+<p>Aplicando a fórmula do decibel:</p>
+<p>$$
+I_{dB} = 10 \cdot \log \left( \frac{10<sup -12="-12">{-4}}{10</sup> \right)
+$$}</p>
+<p>$$
+I_{dB} = 10 \cdot \log (10^{8}) = 10 \cdot 8 = 80 \, \text{dB}
+$$</p>
+<p>Portanto, uma intensidade de $10^{-4} \, \text{W/m}^2$ corresponde a <strong>80 dB</strong>, um valor típico de sons altos, como o ruído intenso de trânsito ou uma música alta.</p>
+<hr />
+<h2 id="exercicio-2">Exercício 2</h2>
+<p>Expresse em <strong>decibéis (dB)</strong>:</p>
+<ol>
+<li>
+<p>A <strong>intensidade limiar da audição</strong>:<br />
+   $$
+   I = 10^{-12} \, \text{W/m}^2
+   $$</p>
+</li>
+<li>
+<p>A <strong>intensidade limiar da dor</strong>:<br />
+   $$
+   I = 100 \, \text{W/m}^2
+   $$</p>
+</li>
+</ol>
+<h3 id="decibel-para-sinais-eletricos">Decibel para Sinais Elétricos</h3>
+<p>Quando tratamos de <strong>sinais elétricos</strong> provenientes de <strong>transdução</strong> (isto é, sinais que podem ser <strong>digitalizados</strong>), a <strong>intensidade do sinal</strong> é <strong>proporcional ao quadrado da amplitude da tensão</strong>.</p>
+<p>Lembre-se da relação fundamental:</p>
+<p>$$
+P = U \cdot I = \frac{U^2}{R}
+$$</p>
+<h3 id="razao-de-intensidades-e-ganho">Razão de Intensidades e Ganho</h3>
+<p>Em processamento de sinais e técnicas de controle, é comum expressarmos a <strong>razão entre a intensidade do sinal de saída</strong> e a <strong>intensidade do sinal de entrada</strong>.  </p>
+<p>Essa razão é denominada <strong>ganho do processo</strong>, e expressa em <strong>decibéis (dB)</strong> pela fórmula:</p>
+<p>$$
+Ganho = 10 \cdot \log \left( \frac{I_{saída}}{I_{entrada}} \right)
+$$</p>
+<p>Sabendo que $I \propto V^2$, podemos substituir:</p>
+<p>$$
+Ganho = 10 \cdot \log \left( \frac{V_{saída}<sup>2}{V_{entrada}</sup>2} \right)
+$$</p>
+<p>Aplicando a propriedade dos logaritmos:</p>
+<p>$$
+Ganho = 20 \cdot \log \left( \frac{V_{saída}}{V_{entrada}} \right)
+$$</p>
+<h3 id="expressao-geral-do-ganho-em-decibeis">Expressão Geral do Ganho em Decibéis</h3>
+<p>Assim, quando falamos de <strong>sinais elétricos</strong> (de entrada e saída de um sistema), o <strong>ganho do sistema</strong> ou o <strong>ganho da função de transferência</strong> pode ser expresso como:</p>
+<p>$$
+G_{dB} = 20 \cdot \log \left( \frac{V_{saída}}{V_{entrada}} \right)
+$$</p>
+<hr />
+<h2 id="o-diagrama-de-bode-resposta-em-frequencia">O Diagrama de Bode – resposta em frequência</h2>
+<p>Normalmente, o <strong>ganho</strong> de filtros ou outros sistemas lineares varia de acordo com a <strong>frequência</strong> do sinal de entrada.<br />
+Ou seja, a relação entre as amplitudes do sinal de saída e de entrada varia de acordo com a frequência do sinal de entrada (a frequência do sinal de saída é sempre a mesma que o de entrada, pois estamos tratando de sistemas lineares).</p>
+<p>Assim, um gráfico muito útil é o denominado <strong>diagrama de Bode</strong>. Esse gráfico mostra o <strong>ganho em dB</strong> de um filtro (ou qualquer outra função de transferência representando um sistema linear) em função da <strong>frequência do sinal de entrada</strong>!</p>
+<p>Existe também uma <strong>defasagem</strong> entre os sinais de entrada e saída, mas por ora <strong>não será importante</strong> nesse curso.</p>
+<h3 id="exemplo">Exemplo</h3>
+<p>Repara no exemplo abaixo que mostra o diagrama de Bode do filtro utilizado no exercício 1:</p>
+<p>$$
+G(z) = \frac{Y[k]}{X[k]} = \frac{0{,}00120741\,z^2 + 0{,}00241481\,z + 0{,}00120741}{z^2 - 1{,}8993342\,z + 0{,}90416304}
+$$</p>
+<p><img alt="alt text" src="../image-4.png" /></p>
+<p>O ganho em dB desse filtro varia com a frequência do sinal e entrada 𝑈[𝐾] de acordo com o diagrama de
+Bode abaixo:</p>
+<p><img alt="alt text" src="../image-5.png" /></p>
+<hr />
+<h2 id="exercicio-4a">Exercício 4a</h2>
+<p>Considere o filtro utilizado no exercício 1 e seu diagrama de Bode mostrado acima.  </p>
+<p><strong>a1)</strong> Caso o sinal de entrada aplicado a esse filtro seja<br />
+  $$U(t)=50\,\sin(10^4\,t)$$<br />
+qual seria a <strong>amplitude do sinal de saída</strong>?</p>
+<p><strong>a2)</strong> E caso o sinal de entrada fosse<br />
+  $$U(t)=50\,\sin(10^3\,t)$$<br />
+qual seria a <strong>amplitude do sinal de saída</strong>?</p>
+<blockquote>
+<p>Dica: leia no diagrama de Bode o ganho (em dB) correspondente às frequências
+$f = \dfrac{10^4}{2\pi} \text{Hz}$ e $f = \dfrac{10^3}{2\pi} \text{Hz}$, converta para vezes (linear) e multiplique pela amplitude de entrada (50).</p>
+</blockquote>
+<hr />
+<h2 id="exercicio-4b">Exercício 4b</h2>
+<p>Em filtros passa-baixa, define-se <strong>frequência de corte</strong> $f_c$ como a frequência em que a <strong>atenuação é de $-6 \text{dB}$</strong>.</p>
+<ol>
+<li>Estime $f_c$ do filtro passa-baixo do exemplo.</li>
+<li>Qual é a <strong>relação</strong> $\dfrac{A_{\text{out}}}{A_{\text{in}}}$ para um sinal cuja frequência é exatamente $f_c$?</li>
+</ol>
+<blockquote>
+<p>Obs.: $-6 \text{dB}$ corresponde a uma razão de amplitudes de aproximadamente $0{,}5$.</p>
+</blockquote>
+<hr />
+<h2 id="exercicio-5">Exercício 5</h2>
+<p>O notebook <code>filtro_passa_faixa.ipynb</code> (disponível no Blackboard) e no link contém:</p>
+<ul>
+<li>
+<p><a href="../filtro%20passa%20faixa/">filtro_passa_faixa.ipynb</a></p>
+</li>
+<li>
+<p>A função de transferência discreta $G(z)$ de um <strong>filtro digital passa-faixa</strong> projetado para <strong>2 kHz</strong> (frequência central).  </p>
+</li>
+<li>Rotina que plota o <strong>diagrama de Bode</strong> correspondente.</li>
+</ul>
+<h3 id="tarefa">Tarefa</h3>
+<ol>
+<li>Execute o código <em>como está</em> e observe o gráfico de magnitude.  </li>
+<li>Localize a variável <code>Q</code> (fator de qualidade) no script.  </li>
+<li>Altere <code>Q</code> para valores <strong>menores</strong> (ex.: 2, 5) e <strong>maiores</strong> (ex.: 20, 50).  </li>
+<li>Regenere o diagrama de Bode para cada valor.</li>
+</ol>
+<h3 id="o-que-descrever-no-relatorio">O que descrever no relatório</h3>
+<ul>
+<li>Largura da faixa de passagem (largura de ‑3 dB) em função de <code>Q</code>.  </li>
+<li>Ganho de pico (em dB) próximo a 2 kHz.  </li>
+<li>Acuracidade da frequência central (desloca-se com <code>Q</code>?).  </li>
+<li>Comportamento nas bandas de rejeição (atenuação aumenta/diminui?).</li>
+</ul>
+<p>&gt; Conclua com uma frase curta:<br />
+&gt; “O parâmetro Q controla ____________ do filtro passa-faixa.”</p>
+<hr />
+<h2 id="exercicio-6">Exercício 6</h2>
+<p>O notebook <code>filtro_notch.ipynb</code> (disponível no Blackboard) e no link entrega:</p>
+<ul>
+<li>
+<p><a href="../filtro_notch/">filtro_notch.ipynb</a></p>
+</li>
+<li>
+<p>Função de transferência discreta $G(z)$ de um <strong>filtro rejeita-faixa</strong> (notch) centrado em <strong>2 kHz</strong>.  </p>
+</li>
+<li>Rotina que desenha o <strong>diagrama de Bode</strong> correspondente.</li>
+</ul>
+<h3 id="tarefas">Tarefas</h3>
+<ol>
+<li>Execute o código original e anote:  </li>
+<li>profundidade do “vale” (atenuação em 2 kHz);  </li>
+<li>
+<p>largura da banda rejeitada (–3 dB em relação ao ponto de menor ganho).</p>
+</li>
+<li>
+<p>Varie o parâmetro <code>Q</code> (fator de qualidade) para valores como 1, 5, 15, 30.<br />
+   Observe como <strong>largura</strong> e <strong>profundidade</strong> do notch se alteram.</p>
+</li>
+<li>
+<p>Altere a <strong>frequência central</strong> (variável <code>f0</code>) para 60 Hz, 1 kHz ou 5 kHz.<br />
+   Verifique se o notch “anda” junto com <code>f0</code>.</p>
+</li>
+<li>
+<p>Reflita: <strong>onde um filtro desse tipo seria útil?</strong><br />
+   (Dica: 60 Hz, ruído de motores, interferência de sistemas de aquisição…)</p>
+</li>
+</ol>
+<h3 id="o-que-incluir-no-relatorio">O que incluir no relatório</h3>
+<ul>
+<li>Tabela ou figuras com os gráficos de magnitude para diferentes <code>Q</code>.  </li>
+<li>Frase curta:<br />
+  “O fator Q controla ____________ do notch.”  </li>
+<li>Exemplo prático de aplicação (uma linha basta).</li>
+</ul>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>

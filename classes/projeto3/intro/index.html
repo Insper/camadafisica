@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="introducao-a-comunicacao-por-datagramas">Introdução à Comunicação por Datagramas</h1>
+<p>Normalmente, a camada responsável pela transmissão dos dados gerados em camadas superiores realiza a transmissão de duas formas: dados fragmentados em pacotes (datagramas) ou streaming. As principais diferenças entre uma transmissão em streaming e uma transmissão baseada em pacotes (datagramas) estão relacionadas à forma como os dados são enviados, recebidos e processados. Vamos analisar cada uma:</p>
+<h2 id="transmissao-em-streaming">Transmissão em Streaming</h2>
+<ul>
+<li><strong>Definição</strong>: É uma forma de transmissão contínua de dados, geralmente usada para conteúdos multimídia (áudio e vídeo).</li>
+<li><strong>Protocolo comum</strong>: Utiliza protocolos como RTP (Real-time Transport Protocol) sobre UDP ou HLS/DASH sobre HTTP.</li>
+<li><strong>Modo de entrega</strong>: Os dados são entregues e processados continuamente, permitindo a reprodução do conteúdo quase em tempo real, sem necessidade de download completo.</li>
+<li><strong>Latência</strong>: Baixa a moderada, dependendo da técnica utilizada (por exemplo, buffering para evitar interrupções).</li>
+<li><strong>Controle de erro</strong>: Pode tolerar pequenas perdas sem comprometer significativamente a experiência do usuário.</li>
+<li><strong>Exemplos de uso</strong>: Plataformas como Netflix, YouTube, Spotify e transmissões ao vivo.</li>
+</ul>
+<h2 id="transmissao-em-pacotes-datagramas">Transmissão em Pacotes (Datagramas)</h2>
+<ul>
+<li><strong>Definição</strong>: Baseia-se no envio de pacotes de dados independentes, onde cada datagrama pode seguir um caminho diferente na rede.</li>
+<li><strong>Exemplos</strong>: Protocolos como UDP (User Datagram Protocol), que não garante a entrega ou a ordem dos pacotes. E protocolos como o TCP (Transmission Control Protocol), que provê garantia de entrega.</li>
+<li><strong>Modo de entrega</strong>: Os pacotes são enviados de forma discreta, sem garantir que chegarão na mesma ordem ou mesmo que serão entregues (dependendo do protocolo).</li>
+<li><strong>Latência</strong>: Aumenta quando há necessidade de confirmação de recebimento de pacotes, como no TCP.</li>
+<li><strong>Controle de erro</strong>: Garantia de retransmissão no caso do TCP.</li>
+<li><strong>Exemplos de uso</strong>: Aplicações em tempo real como VoIP (ligações pela internet), jogos online, DNS, transmissões multicast.</li>
+</ul>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="0" data-slug="classes/projeto3/intro/choice_1" id="choice_1_0">
+<p class="admonition-title">Diferenças entre Streaming e Datagramas 1</p>
+<form class="exercise-form">
+<p>Qual das características abaixo é específica da transmissão em streaming?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Utiliza pacotes independentes que podem seguir caminhos diferentes
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Permite reprodução do conteúdo quase em tempo real sem download completo
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Requer confirmação de recebimento para cada pacote
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Garante a entrega de todos os dados transmitidos
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>A transmissão em streaming permite a reprodução do conteúdo quase em tempo real sem necessidade de download completo, diferentemente da transmissão por datagramas que envia pacotes independentes.</p>
+</div>
+</div>
+<h2 id="como-sao-os-pacotes-datagramas">Como são os pacotes (datagramas)</h2>
+<p>Um datagrama é tipicamente dividido em 3 partes:</p>
+<ul>
+<li>Um cabeçalho (header)</li>
+<li>Payload (dados)</li>
+<li>EOP (end of package)</li>
+</ul>
+<p><img alt="alt text" src="../image.png" /></p>
+<p>Nos bytes reservados ao cabeçalho são colocados os bytes de comunicação entre as partes. O metadado. Com os bytes posicionados nas posições corretas, as partes podem conversar. Confirmar envio, informar quem está enviando, qual o número do pacote, qual o tamanho do payload, confirmar recebimento... Enfim, esses bytes são utilizados para uma conversa entre as partes.</p>
+<p>No payload são colocados os bytes de dados que foram acomodados no pacote.</p>
+<p>O EOP é uma espécie de fim de pacote, é uma sequência combinada que marca o fim do pacote.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto3/intro/choice_2" id="choice_2_0">
+<p class="admonition-title">Estrutura do Datagrama 2</p>
+<form class="exercise-form">
+<p>Qual é a função principal do cabeçalho (header) em um datagrama?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Armazenar os dados úteis da transmissão
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Comprimir os dados para economizar banda
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Indicar o fim do pacote
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Contém metadados para comunicação entre as partes
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>O cabeçalho contém metadados essenciais para a comunicação entre as partes, como informações de controle, endereçamento, numeração de pacotes e confirmações.</p>
+</div>
+</div>
+<h2 id="por-que-enviar-os-dados-segmentados-em-pacotes">Por que enviar os dados segmentados em pacotes?</h2>
+<p>Os principais motivos para o uso de transmissão em pacotes são:</p>
+<h3 id="1-eficiencia-na-utilizacao-da-rede">1. Eficiência na utilização da rede</h3>
+<ul>
+<li>Dividir dados em pacotes permite que várias transmissões ocorram simultaneamente na rede.</li>
+<li>Diferentes pacotes podem seguir rotas distintas para evitar congestionamentos.</li>
+<li>Se um pacote for perdido, somente ele será retransmitido, e não toda a mensagem.</li>
+</ul>
+<h3 id="2-melhor-controle-de-erro">2. Melhor controle de erro</h3>
+<ul>
+<li>Cada pacote contém um <em>checksum</em> para verificar a integridade dos dados.</li>
+<li>Se houver erro na transmissão, apenas o pacote corrompido será reenviado, reduzindo desperdício de banda.</li>
+</ul>
+<h3 id="3-gerenciamento-de-trafego-e-controle-de-congestionamento">3. Gerenciamento de tráfego e controle de congestionamento</h3>
+<ul>
+<li>Protocolos como <strong>TCP</strong> ajustam o tamanho dos pacotes e a taxa de envio conforme a capacidade da rede.</li>
+<li>Se a rede estiver congestionada, pacotes podem ser redirecionados ou retransmitidos.</li>
+</ul>
+<h3 id="4-fragmentacao-e-reassemblagem">4. Fragmentação e reassemblagem</h3>
+<ul>
+<li>Pacotes menores são mais fáceis de transportar e evitam bloqueios em redes de diferentes capacidades.</li>
+<li>Dispositivos intermediários, como roteadores, podem fragmentar ou juntar pacotes conforme necessário.</li>
+</ul>
+<h3 id="5-comunicacao-mais-robusta-e-confiavel">5. Comunicação mais robusta e confiável</h3>
+<ul>
+<li>Se uma conexão for interrompida, pacotes já transmitidos não são perdidos.</li>
+<li>A comunicação pode ser mantida mesmo com falhas parciais na rede.</li>
+</ul>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto3/intro/choice_3" id="choice_3_0">
+<p class="admonition-title">Vantagens da Segmentação 3</p>
+<form class="exercise-form">
+<p>Qual é a principal vantagem de segmentar dados em pacotes quando ocorre um erro de transmissão?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Todos os dados precisam ser retransmitidos
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    O erro é automaticamente corrigido sem retransmissão
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    A velocidade de transmissão aumenta automaticamente
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Apenas o pacote corrompido precisa ser reenviado
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Uma das principais vantagens da segmentação é que, em caso de erro, apenas o pacote corrompido precisa ser retransmitido, não toda a mensagem, economizando banda e tempo.</p>
+</div>
+</div>
+<h2 id="exemplo-de-datagrama-cabecalho-tcp">Exemplo de datagrama: Cabeçalho TCP</h2>
+<p>Exemplo de datagrama: Cabeçalho TCP <em>(20 bytes fixos + opções variáveis)</em></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tamanho (bits)</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Porta de origem</strong></td>
+<td>16</td>
+<td>Número da porta do remetente</td>
+</tr>
+<tr>
+<td><strong>Porta de destino</strong></td>
+<td>16</td>
+<td>Número da porta do destinatário</td>
+</tr>
+<tr>
+<td><strong>Número de sequência</strong></td>
+<td>32</td>
+<td>Indica a posição do primeiro byte deste segmento dentro do fluxo de dados</td>
+</tr>
+<tr>
+<td><strong>Número de confirmação (ACK)</strong></td>
+<td>32</td>
+<td>Confirma o recebimento do último segmento válido do emissor</td>
+</tr>
+<tr>
+<td><strong>Tamanho do cabeçalho</strong></td>
+<td>4</td>
+<td>Indica o tamanho do cabeçalho TCP (mínimo 20 bytes)</td>
+</tr>
+<tr>
+<td><strong>Reservado</strong></td>
+<td>3</td>
+<td>Reservado para uso futuro</td>
+</tr>
+<tr>
+<td><strong>Flags de controle</strong></td>
+<td>9</td>
+<td>Indica o estado da conexão (SYN, ACK, FIN, etc.)</td>
+</tr>
+<tr>
+<td><strong>Tamanho da janela</strong></td>
+<td>16</td>
+<td>Quantidade de bytes que o receptor pode aceitar sem receber confirmação</td>
+</tr>
+<tr>
+<td><strong>Checksum</strong></td>
+<td>16</td>
+<td>Verifica a integridade do segmento</td>
+</tr>
+<tr>
+<td><strong>Ponteiro de urgência</strong></td>
+<td>16</td>
+<td>Indica se há dados urgentes (caso a flag URG esteja ativa)</td>
+</tr>
+<tr>
+<td><strong>Opções TCP</strong></td>
+<td>Variável</td>
+<td>Usado para configurações extras, como escala de janela, timestamps, etc.</td>
+</tr>
+</tbody>
+</table>
+<p>Além do cabeçalho, o protocolo TCP possui um <strong>payload variável</strong>, com tamanho máximo de <strong>1469 bytes</strong>.<br />
+O tamanho do payload de cada pacote é normalmente informado no próprio cabeçalho.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto3/intro/choice_4" id="choice_4_0">
+<p class="admonition-title">Cabeçalho TCP 4</p>
+<form class="exercise-form">
+<p>Qual campo do cabeçalho TCP é responsável por garantir que os dados não foram corrompidos durante a transmissão?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Tamanho da janela
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Flags de controle
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Número de sequência
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Checksum
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>O campo Checksum é responsável por verificar a integridade do segmento, garantindo que os dados não foram corrompidos durante a transmissão.</p>
+</div>
+</div>
+<h2 id="explicacao-dos-principais-campos-do-cabecalho-tcp">Explicação dos principais campos do cabeçalho TCP</h2>
+<h3 id="1-numero-de-sequencia-sequence-number">1. Número de sequência (<em>Sequence Number</em>)</h3>
+<ul>
+<li>Indica qual é o primeiro byte do segmento dentro do fluxo de dados.</li>
+<li>Importante para <strong>remontar os dados na ordem correta</strong>.</li>
+</ul>
+<h3 id="2-numero-de-confirmacao-acknowledgment-number">2. Número de confirmação (<em>Acknowledgment Number</em>)</h3>
+<ul>
+<li>Usado pelo destinatário para informar <strong>qual o próximo byte esperado</strong>.</li>
+<li>Se um segmento for perdido, ele não será confirmado, e o remetente o reenviará.</li>
+</ul>
+<h3 id="3-flags-de-controle-9-bits">3. Flags de controle (<em>9 bits</em>)</h3>
+<ul>
+<li><strong>URG (Urgent)</strong> → Indica dados urgentes.</li>
+<li><strong>ACK (Acknowledgment)</strong> → Confirma recebimento de dados.</li>
+<li><strong>PSH (Push)</strong> → Solicita entrega imediata ao aplicativo.</li>
+<li><strong>RST (Reset)</strong> → Reinicia a conexão abruptamente.</li>
+<li><strong>SYN (Synchronize)</strong> → Inicia uma conexão.</li>
+<li><strong>FIN (Finish)</strong> → Finaliza uma conexão.</li>
+</ul>
+<h3 id="4-tamanho-da-janela-window-size">4. Tamanho da Janela (<em>Window Size</em>)</h3>
+<ul>
+<li>Define <strong>quantos bytes o receptor pode armazenar</strong> antes de precisar enviar uma confirmação.</li>
+<li>Essencial para o <strong>controle de congestionamento</strong> e <strong>fluxo de dados</strong>.</li>
+</ul>
+<h3 id="5-checksum">5. Checksum</h3>
+<ul>
+<li>Validado pelo receptor para garantir que os dados <strong>não foram corrompidos</strong> durante a transmissão.</li>
+</ul>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto3/intro/choice_5" id="choice_5_0">
+<p class="admonition-title">Flags de Controle TCP 5</p>
+<form class="exercise-form">
+<p>Qual flag TCP é utilizada para iniciar uma nova conexão?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    RST (Reset)
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    FIN (Finish)
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    SYN (Synchronize)
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    ACK (Acknowledgment)
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>A flag SYN (Synchronize) é utilizada para iniciar uma nova conexão TCP, fazendo parte do processo de estabelecimento de conexão conhecido como "three-way handshake".</p>
+</div>
+</div>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto3/intro/choice_6" id="choice_6_0">
+<p class="admonition-title">Controle de Fluxo 6</p>
+<form class="exercise-form">
+<p>O campo "Tamanho da Janela" no cabeçalho TCP é utilizado principalmente para:</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Especificar a velocidade de transmissão da rede
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Controlar quantos bytes podem ser enviados antes de receber confirmação
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Indicar o tamanho total do arquivo sendo transmitido
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Definir o número máximo de conexões simultâneas
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>O campo "Tamanho da Janela" define quantos bytes o receptor pode armazenar antes de precisar enviar uma confirmação, sendo essencial para o controle de fluxo e prevenção de congestionamento.</p>
+</div>
+</div>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>
