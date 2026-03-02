@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 3 - Datagrama</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto3/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto3/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h2 id="serializacao-de-dados">Serialização de dados</h2>
+<p>Quando seu computador se comunica com seu Arduino, mensagens seriais são trocadas entre eles. Isso ocorre quando você está carregando o Arduino com algum código e também quando você quer monitorar o valor de alguma variável do código rodando no Arduino. Para fazer essa monitoração o código carregado no Arduino deve conter uma declaração de comunicação serial e comandos de envio de valores. No seu computador, na IDE, você pode então observar e até plotar o valor dessa variável. Veja o exemplo abaixo:</p>
+<p><img alt="alt text" src="../image.png" /></p>
+<p>Neste exemplo foi utilizada a função <code>Serial.available()</code>para verificar se há dado disponível no buffer da serial. Quando há um byte para leitura, o mesmo é lido pela função <code>Serial.read()</code> e armazenado na variavel byteRead. A próxima função, <code>Serial.write()</code>, imprime de volta o dado recebido para o computador. Para acessar o valor enviado, em seu IDE você deve abrir o terminal <code>monitor serial</code> e configurar o baudrate.</p>
+<p><img alt="alt text" src="../image-1.png" /></p>
+<p>Nesse projeto, você deve utilizar a comunicação serial entre Arduino e computador para monitorar variáveis, porém, faremos uma outra comunicação serial, entre dois Arduinos, utilizando <strong>pinos digitais genéricos ao invés dos pinos próprios para transmissões UART (RX e TX)!</strong> Isso significa que para cada byte enviado de um Arduino para outro voce terá que produzir o frame UART relativo ao byte e receber esse byte no outro Arduino. Você poderá
+utilizar a comunicação serial “built in” do Arduino apenas para verificar se o byte trocado entre os dois microcontroladores foi recebido corretamente. </p>
+<p>Em outras palavras, o objetivo desse projeto é te <code>desafiar</code> a produzir a serialização de um byte e enviá-lo através de um pino digital qualquer de um Arduino para outro Arduino, que receberá a mensagens no padrão UART através de outro pino digital qualquer. Obviamente você não poderá usar os pinos 𝑡𝑥 e 𝑟𝑥 dos Arduinos (esses pinos são os que também estão conectados ao computados através do cabo). </p>
+<p>A ideia é que você construa um algoritmo que produza a saída UART em um pino digital genérico. Para isso, você deverá codificar o caractere através da tabela ASCII e enviar os bits de acordo com frame UART com 1 bit de paridade, 1 start, 1 stop bit e um certo 𝑏𝑎𝑢𝑑𝑟𝑎𝑡𝑒. No arduino que receberá o byte enviado, você poderá observar se o recebimento ocorreu através do monitor serial do Arduino receptor.</p>
+<h2 id="lembre-se-de-como-funciona-o-framing-da-comunicacao-uart">Lembre-se de como funciona o 𝑓𝑟𝑎𝑚𝑖𝑛𝑔 da comunicação UART:</h2>
+<p><img alt="alt text" src="../image-2.png" /></p>
+<p>Você deve gerar um código que produza num pino do Arduino a serialização correta de um frame UART respeitando os tempos corretos entre os bits. Se fizer tudo corretamente, seu caractere será transmitido via transmissão serial UART e você não estará usando o chip UART do Arduino!</p>
+<h3 id="programando-em-arduino">Programando em Arduino</h3>
+<p>Você precisará aprender, caso não saiba, como:</p>
+<ul>
+<li>Definir pinos digitais de escrita e leitura no arduino.</li>
+<li>Habilitar a saída serial para monitoramento de uma variável.</li>
+<li>Como construir um byte representando o caractere, a partir de leitura de cada bit! Para isso, pesquise e entenda o funcionamento dos operadores “&lt;&lt;” (left shift) e também do |= (compound bitwise or)</li>
+<li>Como produzir cada bit na saída digital a partir de leitura de um byte! Para isso, pesquise e entenda o
+funcionamento dos operadores “&gt;&gt;” (right shift) e também do &amp; (compound bitwise and) .</li>
+<li>Não se esqueça que a leitura dos níveis lógicos no receptor não pode ser feitas nos instantes de transição do nível lógico (como comentado em aula).</li>
+<li>Escrever esse caractere na saída serial.</li>
+</ul>
+<p>Caso você ainda não tenha tido experiência de programação em Arduino, procure tutoriais para os primeiros passos, como por exemplo:</p>
+<ul>
+<li><a href="https://www.circuitar.com.br/tutoriais/programacao-para-arduino-primeiros-passos/">https://www.circuitar.com.br/tutoriais/programacao-para-arduino-primeiros-passos/</a></li>
+<li><a href="https://www.makerhero.com/blog/primeiros-passos-com-arduino/">https://www.makerhero.com/blog/primeiros-passos-com-arduino/</a></li>
+<li><a href="https://www.arduino.cc/reference/pt/language/functions/digital-io/digitalwrite/">https://www.arduino.cc/reference/pt/language/functions/digital-io/digitalwrite/</a></li>
+<li><a href="https://www.arduino.cc/reference/pt/language/functions/digital-io/digitalread/">https://www.arduino.cc/reference/pt/language/functions/digital-io/digitalread/</a></li>
+</ul>
+<h2 id="exemplos-de-codigos">Exemplos de códigos</h2>
+<h3 id="funcao-de-espera">Função de espera</h3>
+<p>Você poderá fazer a função espera utilizando loop com a função de <code>asm(“NOP”)</code></p>
+<p><img alt="alt text" src="../image-3.png" /></p>
+<p>Se utilizar essa estratégia de timer, você deve descobrir antes, quanto tempo o Arduino leva por loop!!! Sinta-se livre para utilizar outras funções ou estratégias de espera, lembrando para transmissões mais velozes funções como delay podem não ser precisas o suficiente.</p>
+<h3 id="calculo-de-paridade">Cálculo de paridade</h3>
+<p>Você poderá utilizar funções para calcular a paridade baseadas em bit shift e o operador and:</p>
+<p><img alt="alt text" src="../image-4.png" /></p>
+<h3 id="montando-o-byte-recebido">Montando o byte recebido:</h3>
+<p>Você deverá usar a estratégia de bit shift e o operador or para compor o byte recebido.</p>
+<p><img alt="alt text" src="../image-5.png" /></p>
+<h3 id="escrita-no-monitor-serial-para-conferencia">Escrita no monitor serial para conferência</h3>
+<p>Utilize a saída serial do Arduino conectada ao seu computador para printar a variável recebida.</p>
+<h2 id="montagem">Montagem</h2>
+<p>Você precisará de 2 Arduinos. Um deles irá funcionar como o transmissor de um caractere qualquer, em loop, utilizando para isso o padrão UART. Você deverá entao conectar um dos pinos digitais de um Arduino a outro pino digital do segundo Arduino. Não esqueça de que agora os botões resetes não deverão mais estar aterrados, pois você estará usando o processador do Arduino. Lembre-se também de que voce terá de conectar os terras dos
+dispositivo.</p>
+<h2 id="analog-discovery">Analog Discovery</h2>
+<p>Você deverá utilizar o Wave Forms para analisar a transmissão. Para isso, você irá conectar uma das entradas digitais do Analog Discovery ao pino que está produzindo o sinal UART. No menu do software Wave Forms você irá selecionar o analisador lógico e configurar um canal UART. Você poderá observar então, ao configurar uma escala de tempo adequada, os bits que compõem o frame UART e o caractere transmitido!</p>
+<p>Link de ajuda: <a href="https://digilent.com/blog/uart-explained/">https://digilent.com/blog/uart-explained/</a></p>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>
