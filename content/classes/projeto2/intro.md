@@ -1,5 +1,17 @@
 # Projeto 2: Client/Server
 
+
+## Converter IEEE‑754
+
+A seguir está uma calculadora de ponto‑flutuante em IEEE‑754; digite
+um valor decimal ou os campos S/E/F e ela mostra o resultado em tempo real.
+
+## Conversor IEEE‑754 (autónomo)
+
+<iframe src="../../../assets/ieee754/index.html" width="100%" height="600"
+        style="border:1px solid #ccc;" title="Conversor IEEE‑754"></iframe>
+
+
 A UART é um meio de transmitir **bytes** entre dois dispositivos. Ela **não** define, por si só:
 
 - onde uma mensagem começa e termina
