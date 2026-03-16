@@ -86,9 +86,3 @@ As notas **C** a **A+** serão atribuídas com base em:
 - Precisão na detecção e correção de erros
 - Funcionalidades implementadas
 - Velocidade da transmissão
-
----
-
-## Prazo de Entrega
-
-- **Data limite:** 18/09/2025
