@@ -78,14 +78,14 @@ O intervalo de tempo entre duas amostras consecutivas é chamado de **período d
 
 A relação entre essas duas grandezas é:
 
-\[
+$$
 f_s = \frac{1}{T_s}
-\]
+$$
 
 Onde:
 
-- \( f_s \) = frequência de amostragem
-- \( T_s \) = período de amostragem
+- $ f_s $ = frequência de amostragem
+- $ T_s $ = período de amostragem
 
 ### 2. Quantização (Quantization)
 
@@ -99,10 +99,10 @@ Por fim, o valor quantizado é transformado em uma sequência binária de 0s e 1
 
 O número de bits usados na codificação define quantos níveis podem ser representados:
 
-- 8 bits → \(2^8 = 256\) níveis
-- 10 bits → \(2^{10} = 1024\) níveis
-- 12 bits → \(2^{12} = 4096\) níveis
-- 16 bits → \(2^{16} = 65536\) níveis
+- 8 bits → $2^8 = 256$ níveis
+- 10 bits → $2^{10} = 1024$ níveis
+- 12 bits → $2^{12} = 4096$ níveis
+- 16 bits → $2^{16} = 65536$ níveis
 
 !!! exercise choice "Etapas da Digitalização"
     Em qual etapa da digitalização ocorre o arredondamento de um valor analógico para um nível discreto representável?
@@ -134,9 +134,9 @@ Se um sinal é amostrado a:
 - **1000 Hz**, então o sistema coleta **1000 amostras por segundo**
 - o período de amostragem será:
 
-\[
+$$
 T_s = \frac{1}{1000} = 0,001 \text{ s} = 1 \text{ ms}
-\]
+$$
 
 Quanto maior a taxa de amostragem, mais fiel tende a ser a representação temporal do sinal.
 
@@ -160,15 +160,15 @@ Logo, com mais bits, os níveis ficam mais “próximos” uns dos outros, permi
 
 De forma simplificada, o tamanho do menor incremento representável pode ser estimado por:
 
-\[
+$$
 \Delta = \frac{V_{max} - V_{min}}{2^n}
-\]
+$$
 
 Onde:
 
-- \( \Delta \) = passo de quantização
-- \( n \) = número de bits
-- \( V_{max} - V_{min} \) = faixa do sinal
+- $ \Delta $ = passo de quantização
+- $ n $ = número de bits
+- $ V_{max} - V_{min} $ = faixa do sinal
 
 Quanto menor for esse passo, melhor a resolução.
 
@@ -181,7 +181,7 @@ Quanto menor for esse passo, melhor a resolução.
     - [ ] 8192
 
     !!! answer "Resposta!"
-        Um conversor de 12 bits pode representar \(2^{12} = 4096\) níveis discretos.
+        Um conversor de 12 bits pode representar $2^{12} = 4096$ níveis discretos.
 
 
 ## Exemplo: Digitalização de Áudio
@@ -228,29 +228,29 @@ Queremos calcular quanto de memória é necessário para armazenar esse áudio.
 
 Como são dois canais:
 
-\[
+$$
 44100 \times 2 = 88200 \text{ amostras por segundo}
-\]
+$$
 
 ### Passo 2: quantidade de bits por segundo
 
 Cada amostra possui 16 bits:
 
-\[
+$$
 88200 \times 16 = 1.411.200 \text{ bits por segundo}
-\]
+$$
 
 ### Passo 3: converter para bytes por segundo
 
-\[
+$$
 \frac{1.411.200}{8} = 176.400 \text{ bytes por segundo}
-\]
+$$
 
 ### Passo 4: calcular para 1 hora
 
-\[
+$$
 176.400 \times 3600 = 635.040.000 \text{ bytes}
-\]
+$$
 
 Isso equivale aproximadamente a:
 
@@ -275,21 +275,21 @@ Isso equivale aproximadamente a:
         
         Então:
         
-        \[
+        $$
         88.200 \times 16 = 1.411.200 \text{ bits/s}
-        \]
+        $$
         
         Convertendo para bytes:
         
-        \[
+        $$
         \frac{1.411.200}{8} = 176.400 \text{ bytes/s}
-        \]
+        $$
         
         Em 1 hora:
         
-        \[
+        $$
         176.400 \times 3600 = 635.040.000 \text{ bytes}
-        \]
+        $$
         
         Aproximadamente, isso corresponde a 635 MB.
 
@@ -299,15 +299,15 @@ Isso equivale aproximadamente a:
 
 Sempre que um sinal é digitalizado, ele passa a produzir uma taxa de dados que depende de três fatores principais:
 
-\[
+$$
 \text{Taxa de bits} = f_s \times n \times C
-\]
+$$
 
 Onde:
 
-- \( f_s \) = frequência de amostragem
-- \( n \) = número de bits por amostra
-- \( C \) = número de canais
+- $ f_s $ = frequência de amostragem
+- $ n $ = número de bits por amostra
+- $ C $ = número de canais
 
 Essa fórmula é extremamente importante em sistemas digitais, pois permite estimar:
 
@@ -320,15 +320,15 @@ Essa fórmula é extremamente importante em sistemas digitais, pois permite esti
 
 Um sinal mono, digitalizado com:
 
-- \( f_s = 1000 \) Hz
-- \( n = 14 \) bits
-- \( C = 1 \)
+- $ f_s = 1000 $ Hz
+- $ n = 14 $ bits
+- $ C = 1 $
 
 gera:
 
-\[
+$$
 1000 \times 14 = 14.000 \text{ bits/s}
-\]
+$$
 
 ---
 
@@ -382,7 +382,7 @@ Considere dois conversores de 10 bits:
 - Conversor A: faixa de 0 a 10 V
 - Conversor B: faixa de 0 a 1 V
 
-Ambos têm \(2^{10} = 1024\) níveis, mas no segundo caso os níveis estão distribuídos em uma faixa menor, o que reduz o passo de quantização.
+Ambos têm $2^{10} = 1024$ níveis, mas no segundo caso os níveis estão distribuídos em uma faixa menor, o que reduz o passo de quantização.
 
 Isso significa que, para uma mesma quantidade de bits, um sinal com faixa menor pode ser digitalizado com melhor detalhamento.
 
@@ -427,39 +427,39 @@ A compreensão desse processo é fundamental em eletrônica, sistemas embarcados
         
         Duração do sinal:
         
-        \[
+        $$
         5 \text{ min} = 300 \text{ s}
-        \]
+        $$
         
         Taxa de geração de dados:
         
-        \[
+        $$
         1000 \text{ amostras/s} \times 14 \text{ bits} = 14.000 \text{ bits/s}
-        \]
+        $$
         
         Total de bits:
         
-        \[
+        $$
         14.000 \times 300 = 4.200.000 \text{ bits}
-        \]
+        $$
         
         O enlace tem 1000 bps com overhead de 10%, portanto a taxa útil é:
         
-        \[
+        $$
         1000 \times 0,9 = 900 \text{ bps}
-        \]
+        $$
         
         Tempo de transmissão:
         
-        \[
+        $$
         \frac{4.200.000}{900} \approx 4666,67 \text{ s}
-        \]
+        $$
         
         Convertendo para minutos:
         
-        \[
+        $$
         \frac{4666,67}{60} \approx 77,8 \text{ min}
-        \]
+        $$
         
         Portanto, a transmissão levará aproximadamente **78 minutos**.
 
@@ -474,48 +474,48 @@ A compreensão desse processo é fundamental em eletrônica, sistemas embarcados
     !!! answer "Resposta!"
         A faixa total do sinal é:
         
-        \[
+        $$
         50 - (-50) = 100 \text{ mV} = 100.000 \text{ microvolts}
-        \]
+        $$
         
         Se queremos resolução de 10 microvolts, então precisamos de pelo menos:
         
-        \[
+        $$
         \frac{100.000}{10} = 10.000 \text{ níveis}
-        \]
+        $$
         
         Agora buscamos o menor número de bits tal que:
         
-        \[
+        $$
         2^n \geq 10.000
-        \]
+        $$
         
         Testando:
         
-        - \(2^{13} = 8192\)
-        - \(2^{14} = 16384\)
+        - $2^{13} = 8192$
+        - $2^{14} = 16384$
         
         Logo, o menor valor que atende é:
         
-        \[
+        $$
         n = 14
-        \]
+        $$
         
         Portanto, serão necessários **14 bits por amostra**.
 
 ---
 
 !!! exercise
-    3. Um sinal de áudio **senoidal de 4400 Hz** foi digitalizado e armazenado com um **período de amostragem** \(T_s\) de **25 microssegundos**. Posteriormente, esse sinal foi reproduzido com uma **frequência de amostragem** de **80000 Hz**.
+    3. Um sinal de áudio **senoidal de 4400 Hz** foi digitalizado e armazenado com um **período de amostragem** $T_s$ de **25 microssegundos**. Posteriormente, esse sinal foi reproduzido com uma **frequência de amostragem** de **80000 Hz**.
     
     **Qual será a frequência da senoide analógica ouvida na reprodução?**
 
     !!! answer "Resposta!"
         Primeiro, calculamos a frequência de amostragem usada na digitalização:
         
-        \[
+        $$
         f_s = \frac{1}{T_s} = \frac{1}{25 \times 10^{-6}} = 40.000 \text{ Hz}
-        \]
+        $$
         
         Ou seja, o sinal foi originalmente amostrado a **40 kHz**.
         
@@ -525,8 +525,8 @@ A compreensão desse processo é fundamental em eletrônica, sistemas embarcados
         
         Assim, a frequência ouvida também será dobrada:
         
-        \[
+        $$
         4400 \times \frac{80000}{40000} = 8800 \text{ Hz}
-        \]
+        $$
         
         Portanto, a frequência ouvida será **8800 Hz**.
