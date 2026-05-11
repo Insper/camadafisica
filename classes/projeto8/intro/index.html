@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 3 - Datagrama</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto3/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto3/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 4 - Checksum</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto4/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto4/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 5 - Serialização</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto5/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto5/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 6 - Digitalização de Áudio</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto6/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto6/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 7 - Filtros Digitais</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto7/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto7/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item opened">
+    <span class="ah-togglable-handle">Projeto 8 - modulação AM</span>
+    <ul>
+      
+        
+  
+
+    <li class="active ah-togglable-item opened">
+      <span class="ah-togglable-handle">Intro</span>
+      <ul>
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#1-introducao">1. Introdução</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#por-que-precisamos-modular-sinais">Por que precisamos modular sinais?</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#portadora-e-sinal-de-informacao">Portadora e sinal de informação</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#soma-de-sinais-nao-e-modulacao">Soma de sinais não é modulação</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#modulacao-am">Modulação AM</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#demodulacao-am">Demodulação AM</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#modulacao-fm">Modulação FM</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#modulacao-digital">Modulação Digital</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#tipos-de-modulacao-digital">Tipos de modulação digital</a>
+              </li>
+            
+        
+      </ul>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                  
+                    <li>Projeto 8 - modulação AM</li>
+                  
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="modulacao">Modulação</h1>
+<blockquote>
+<p><strong>Arquivo PDF do projeto</strong>: <a href="../slides.pdf">Modulação AM</a></p>
+</blockquote>
+<h2 id="1-introducao">1. Introdução</h2>
+<p>Por volta de 1864, o físico James C. Maxwell apresentou uma formulação matemática das ondas eletromagnéticas, prevendo a possibilidade de nos comunicarmos através de ondas de rádio. Pouco mais de 20 anos depois, Heinrich Hertz confirmou experimentalmente as teorias de Maxwell e apresentou um gerador e receptor de ondas eletromagnéticas, embora ainda sem encontrar uma utilidade prática imediata para isso.</p>
+<p>A partir daí, em poucos anos, as funcionalidades tornaram-se evidentes e passamos a nos comunicar por meio de ondas eletromagnéticas, inicialmente com telégrafos sem fio e transmissão em código Morse a longas distâncias. No início do século XX, as rádios tornaram-se realidade e, por volta de 1920, as rádios comerciais se expandiram rapidamente.</p>
+<p>A evolução das telecomunicações se manteve constante, dando origem a tecnologias como TV, radares, satélites, Wi-Fi, Bluetooth e muitas outras aplicações do mundo atual. Todas elas dependem, de alguma forma, da propagação de ondas eletromagnéticas.</p>
+<p>No entanto, três questões fundamentais surgem quando a comunicação por ondas eletromagnéticas se torna uma realidade prática:</p>
+<ol>
+<li>Para que seja possível a propagação de ondas eletromagnéticas em longas distâncias pela atmosfera, ou mesmo no vácuo, frequências elevadas são necessárias.</li>
+<li>Se vários emissores funcionarem ao mesmo tempo, os receptores não terão como receber o sinal desejado, pois todos os sinais emitidos serão misturados.</li>
+<li>Independentemente de como a onda foi produzida pela antena emissora e de seu formato inicial, a propagação atenua o sinal e apenas uma forma senoidal tende a ser transmitida. Como em um sistema de segunda ordem submetido a uma perturbação qualquer, passado o transitório, a oscilação tende a ser senoidal.</li>
+</ol>
+<p>Para evitar que os sinais emitidos por múltiplas fontes se misturem, a solução é definir uma faixa de frequência para cada emissor.</p>
+<p>Por exemplo, uma rádio à qual é dado o direito de funcionar em uma região a <strong>90,5 MHz</strong> só pode emitir ondas dentro de uma faixa próxima dessa frequência, como algo entre <strong>90,3 MHz e 90,7 MHz</strong>. Caso emita sinais com frequências fora dessa banda, invadiria faixas destinadas a outras rádios.</p>
+<p>Essa separação por faixas de frequência é um dos princípios fundamentais dos sistemas de telecomunicações.</p>
+<p><img alt="alt text" src="../image.png" /></p>
+<hr />
+<h2 id="por-que-precisamos-modular-sinais">Por que precisamos modular sinais?</h2>
+<p>A separação por faixas de frequência resolve o problema da interferência entre diferentes rádios, mas ainda deixa uma pergunta importante:</p>
+<blockquote>
+<p>Como uma rádio que opera em uma faixa de frequência entre 90,3 MHz e 90,7 MHz pode transmitir uma música, cujas frequências estão normalmente entre 20 Hz e 20 kHz?</p>
+</blockquote>
+<p>As frequências de interesse do áudio são muito menores do que as frequências que podem ser emitidas pela rádio.</p>
+<p>A solução para esse problema está nas técnicas de <strong>modulação</strong>.</p>
+<p>A rádio produz uma frequência central em sua faixa permitida, chamada de <strong>onda portadora</strong> (<em>carrier</em>, em inglês). No exemplo anterior, a portadora poderia ser uma senoide de frequência <strong>90,5 MHz</strong>.</p>
+<p><img alt="alt text" src="../am-modulation.png" /></p>
+<p>Por meio de manipulações matemáticas, o sinal que queremos transmitir, como uma música, é codificado nessa senoide portadora. Essa codificação recebe o nome de <strong>modulação</strong>.</p>
+<hr />
+<h2 id="portadora-e-sinal-de-informacao">Portadora e sinal de informação</h2>
+<p>Vamos considerar, de maneira genérica, que o sinal de uma onda portadora seja:</p>
+<p>$$
+C(t) = A_c \cdot \sin(2\pi f_c \cdot t + \phi)
+$$</p>
+<p>Onde:</p>
+<ul>
+<li>$C(t)$ é o sinal da portadora;</li>
+<li>$A_c$ é a amplitude da portadora;</li>
+<li>$f_c$ é a frequência da portadora;</li>
+<li>$\phi$ é a fase da portadora;</li>
+<li>$t$ representa o tempo.</li>
+</ul>
+<p>A portadora possui frequência $f_c$, normalmente muito maior do que as frequências típicas dos sinais $m(t)$ que contêm a informação a ser transmitida, como áudio, voz ou dados.</p>
+<p>A solução matemática denominada <strong>modulação</strong> consiste em fazer algum parâmetro da portadora variar no tempo de maneira proporcional ao sinal de informação $m(t)$.</p>
+<p>Os parâmetros que podem ser alterados são, principalmente:</p>
+<ul>
+<li>amplitude;</li>
+<li>frequência;</li>
+<li>fase.</li>
+</ul>
+<p>Se o parâmetro escolhido for a amplitude $A_c$, a amplitude da portadora passa a variar de acordo com a intensidade do sinal a ser transmitido. Nesse caso, temos a <strong>modulação por amplitude</strong>, ou <strong>AM</strong> (<em>Amplitude Modulation</em>).</p>
+<p>De forma simplificada, podemos escrever o sinal transmitido como:</p>
+<p>$$
+S(t) = m(t) \cdot \sin(2\pi f_c \cdot t + \phi)
+$$</p>
+<p>Nesse caso, a informação é transmitida por meio da variação da amplitude da portadora.</p>
+<hr />
+<h2 id="soma-de-sinais-nao-e-modulacao">Soma de sinais não é modulação</h2>
+<p>Antes de estudar a modulação AM propriamente dita, é importante entender uma ideia fundamental:</p>
+<blockquote>
+<p>Somar o sinal de informação com a portadora não é o mesmo que modular.</p>
+</blockquote>
+<p>Talvez o primeiro palpite seja construir um sinal como:</p>
+<p>$$
+m(t) + C(t)
+$$</p>
+<p>Porém, esse sinal resultante não codifica a informação dentro de uma região de altas frequências. Ele apenas contém, simultaneamente, as componentes de frequência do sinal de informação e da portadora.</p>
+<p>Pensando no domínio da frequência, a soma de dois sinais mantém componentes nas frequências que compõem ambos os sinais. Portanto, se o sinal de informação possui componentes em baixa frequência, elas continuarão aparecendo na transformada de Fourier do sinal somado.</p>
+<p>Isso não atende ao objetivo da modulação, pois queremos transmitir apenas dentro da banda permitida.</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_1" id="exercise_1_0">
+<p class="admonition-title">Exercício 1</p>
+<form class="exercise-form">
+<p><strong>Exercício 1</strong></p>
+<p>Construa uma senoide de frequência <strong>2 kHz</strong>. Considere que essa senoide seja sua informação a ser transmitida.</p>
+<p>Considere também que sua banda permitida de transmissão seja de <strong>12 kHz a 18 kHz</strong>. Dessa forma, a transformada de Fourier do sinal transmitido não pode apresentar componentes, ou harmônicos, fora desse intervalo.</p>
+<p>Construa então uma portadora de <strong>15 kHz</strong> e some à sua senoide que representa a informação. Faça a transformada de Fourier do sinal resultante da soma e verifique que esse sinal não pode ser enviado, pois não está na banda de transmissão.</p>
+<p>Utilize taxa de amostragem de <strong>44100 Hz</strong>. Apresente os gráficos.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<hr />
+<h2 id="modulacao-am">Modulação AM</h2>
+<p>Como podemos fazer a amplitude do sinal da portadora variar de maneira correspondente ao sinal que transmite a informação?</p>
+<p>A resposta é: por meio da <strong>multiplicação entre os sinais</strong>.</p>
+<p>Isso pode não parecer intuitivo inicialmente, mas a multiplicação entre dois sinais no domínio do tempo produz um deslocamento de componentes no domínio da frequência. Esse deslocamento permite levar a informação para uma faixa de frequência mais alta, próxima à frequência da portadora.</p>
+<p>Vamos supor que queremos transmitir uma informação:</p>
+<p>$$
+m(t) = A_m \cdot \sin(2\pi f_m t)
+$$</p>
+<p>E que temos uma portadora:</p>
+<p>$$
+C(t) = A_c \cdot \sin(2\pi f_c t)
+$$</p>
+<p>A portadora está no centro da banda permitida para transmissão, e sua frequência é muito maior do que a frequência do sinal de informação.</p>
+<p>O sinal modulado em amplitude pode ser construído por:</p>
+<p>$$
+S(t) = C(t) \cdot m(t)
+$$</p>
+<p>Ou seja:</p>
+<p>$$
+S(t) = A_c \sin(2\pi f_c t) \cdot A_m \sin(2\pi f_m t)
+$$</p>
+<p>Usando relações trigonométricas, é possível mostrar que essa multiplicação gera componentes em torno da frequência da portadora:</p>
+<p>$$
+f_c - f_m
+$$</p>
+<p>e</p>
+<p>$$
+f_c + f_m
+$$</p>
+<p>Assim, o sinal resultante possui frequências deslocadas para a região da portadora.</p>
+<p>De forma geral, o produto pode ser representado como:</p>
+<p>$$
+S(t) =
+\frac{1}{2} A_m A_c
+\left{
+\sin[(2\pi f_c + 2\pi f_m)t + \phi]
++
+\sin[(2\pi f_c - 2\pi f_m)t + \phi]
+\right}
+$$</p>
+<p>Repare que o sinal resultante possui componentes dentro do intervalo:</p>
+<p>$$
+[f_c - f_m, f_c + f_m]
+$$</p>
+<p>Ou seja, podemos garantir que o sinal $S(t)$ está dentro da banda permitida se esse intervalo não ultrapassar os limites da banda.</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_2" id="exercise_2_0">
+<p class="admonition-title">Exercício 2</p>
+<form class="exercise-form">
+<p><strong>Exercício 2</strong></p>
+<p>Considere o exemplo do exercício 1, onde o sinal contendo a informação $m(t)$ seja uma senoide de frequência <strong>2 kHz</strong> e a portadora seja uma senoide de <strong>15 kHz</strong>.</p>
+<p>Nesse caso, qual seria a banda mínima para a transmissão desse sinal modulado em AM através da simples multiplicação entre os sinais?</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_3" id="exercise_3_0">
+<p class="admonition-title">Exercício 3</p>
+<form class="exercise-form">
+<p><strong>Exercício 3</strong></p>
+<p>Construa os sinais $m(t)$ e $C(t)$ com os valores do exercício anterior, <strong>2 kHz</strong> e <strong>15 kHz</strong>.</p>
+<p>Utilize sinais com <strong>2 segundos</strong> de duração e amostragem de <strong>44100 Hz</strong>.</p>
+<p>Construa então o sinal modulado multiplicando ponto a ponto os sinais.</p>
+<p>Repare que multiplicar ponto a ponto duas listas contendo os sinais fornece o sinal resultante:</p>
+<p>$$
+S(t) = C(t) \cdot m(t)
+$$</p>
+<p>Faça o gráfico da transformada de Fourier da multiplicação e observe que as componentes estão dentro do intervalo mínimo, isto é, dentro da banda permitida.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_4" id="exercise_4_0">
+<p class="admonition-title">Exercício 4</p>
+<form class="exercise-form">
+<p><strong>Exercício 4</strong></p>
+<p>Considere agora que o sinal contendo a informação $m(t)$ seja composto por muitas senoides cujas frequências variam de <strong>20 Hz até 2000 Hz</strong>.</p>
+<p>Sendo a portadora uma senoide de <strong>15 kHz</strong> e a banda permitida para a transmissão sendo de <strong>14 kHz a 16 kHz</strong>, o que poderia ser feito com o sinal $m(t)$ antes da modulação para podermos modulá-lo dentro da banda permitida?</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<hr />
+<h2 id="demodulacao-am">Demodulação AM</h2>
+<p>Uma vez que a informação tenha sido modulada e transmitida, o receptor precisa recuperar a informação presente no sinal transmitido.</p>
+<p>A <strong>demodulação de um sinal AM</strong> consiste no processo de recuperar a informação original, geralmente áudio ou dados, que foi transmitida por meio da modulação da amplitude de uma portadora senoidal.</p>
+<p>Existem várias formas de demodular um sinal AM. As principais são:</p>
+<h3 id="1-demodulacao-por-deteccao-de-envoltoria">1. Demodulação por detecção de envoltória</h3>
+<p>Esse é o método mais simples e mais comum para sinais AM de dupla banda lateral com portadora.</p>
+<p>Essa demodulação é feita analogicamente, em duas etapas:</p>
+<ul>
+<li>o sinal AM passa por um diodo retificador, que permite apenas a parte positiva ou negativa do sinal;</li>
+<li>um capacitor e um resistor formam um filtro passa-baixa, suavizando a forma de onda e extraindo a envoltória, que corresponde à forma original da mensagem.</li>
+</ul>
+<h3 id="2-demodulacao-sincrona-ou-coerente">2. Demodulação síncrona ou coerente</h3>
+<p>Essa demodulação pode ser feita digitalmente em duas etapas:</p>
+<ul>
+<li>o sinal AM é multiplicado por uma cópia da portadora original, ou por uma portadora recriada localmente com mesma frequência e fase;</li>
+<li>essa multiplicação desloca o espectro e permite recuperar o sinal original por meio de uma filtragem passa-baixa.</li>
+</ul>
+<p>Neste projeto, a demodulação será feita digitalmente por meio da <strong>demodulação síncrona</strong>. Para isso, basta multiplicar o sinal modulado pela portadora novamente e, em seguida, aplicar um filtro passa-baixa.</p>
+<p>Primeiramente, considere o sinal modulado. Ao multiplicá-lo novamente pela portadora, obtém-se um novo sinal $S'(t)$.</p>
+<p><img alt="alt text" src="../image-1.png" /></p>
+<p>De forma simplificada, essa multiplicação produz dois tipos de componentes:</p>
+<ul>
+<li>componentes relacionadas à informação original;</li>
+<li>componentes de alta frequência.</li>
+</ul>
+<p>As componentes de alta frequência podem ser eliminadas por um filtro passa-baixa, restando a informação original.</p>
+<p><img alt="alt text" src="../image-2.png" /></p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_5" id="exercise_5_0">
+<p class="admonition-title">Exercício 5</p>
+<form class="exercise-form">
+<p><strong>Exercício 5</strong></p>
+<p>Para esse exercício, use um arquivo de áudio de poucos segundos.</p>
+<ol>
+<li>Examine o gráfico da transformada de Fourier desse áudio e repare na faixa, ou banda, de frequências que o sinal ocupa. Execute o áudio.</li>
+<li>Gere uma portadora de <strong>16 kHz</strong> com exatamente o mesmo número de pontos que o sinal.</li>
+<li>Module o sinal em AM através da multiplicação de modo que o sinal modulado esteja dentro da faixa de <strong>14 kHz a 18 kHz</strong>. Note que talvez você precise tratar o sinal original, antes da modulação, para que ele possa ser acomodado dentro da faixa pedida.</li>
+<li>Faça o gráfico de Fourier do sinal modulado e verifique se está dentro da banda.</li>
+<li>Execute o áudio do sinal modulado.</li>
+<li>Demodule o sinal através da multiplicação e aplique o filtro passa-baixa.</li>
+<li>Faça o gráfico da transformada de Fourier do sinal demodulado e verifique que o sinal original foi recuperado.</li>
+<li>Execute o sinal demodulado.</li>
+</ol>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<hr />
+<h2 id="modulacao-fm">Modulação FM</h2>
+<p>A <strong>modulação em frequência</strong>, ou <strong>FM</strong> (<em>Frequency Modulation</em>), é um tipo de modulação analógica em que a frequência da portadora é variada de acordo com a amplitude do sinal de informação, chamado também de sinal modulante.</p>
+<p><img alt="alt text" src="../image-3.png" /></p>
+<p>Nesse caso, a amplitude da portadora permanece constante, enquanto sua frequência sofre pequenas variações controladas pelo sinal de informação.</p>
+<p>Matematicamente, um sinal modulado em frequência pode ser representado por uma portadora cuja frequência é controlada pelo sinal a ser transmitido $m(t)$:</p>
+<p>$$
+S'(t) = A_c \cos(2\pi f_c \cdot t + \phi(t))
+$$</p>
+<p>Nessa expressão, $\phi(t)$ é uma fase controlada pelo sinal $m(t)$.</p>
+<p>Uma forma de representar essa relação é:</p>
+<p>$$
+\phi(t) = \int_0^t m(\tau) \, d\tau
+$$</p>
+<p>Ou seja, o sinal $m(t)$ atua como uma frequência adicional que, ao ser integrada, gera uma fase que se soma à fase da portadora.</p>
+<p>Existem dispositivos analógicos e digitais que geram sinais modulados em FM. Digitalmente, essa modulação pode ser feita por algoritmos específicos.</p>
+<p>Para a demodulação FM, também há dispositivos capazes de comparar a fase do sinal modulado à fase de uma portadora, extraindo a diferença entre as fases. Diferenciando-se essa diferença de fases, obtém-se o sinal original $m(t)$.</p>
+<hr />
+<h2 id="modulacao-digital">Modulação Digital</h2>
+<p>Na <strong>modulação digital</strong>, os dados binários, isto é, os bits 0 e 1, são usados para alterar alguma característica de uma onda portadora.</p>
+<p>Essa característica pode ser:</p>
+<ul>
+<li>amplitude;</li>
+<li>frequência;</li>
+<li>fase;</li>
+<li>ou uma combinação dessas grandezas.</li>
+</ul>
+<p>O objetivo é transmitir bits por meio de sinais analógicos que possam se propagar por canais físicos, como cabos, rádio, fibra óptica, entre outros.</p>
+<hr />
+<h2 id="tipos-de-modulacao-digital">Tipos de modulação digital</h2>
+<h3 id="ask-amplitude-shift-keying">ASK – Amplitude Shift Keying</h3>
+<p>Na <strong>ASK</strong> (<em>Amplitude Shift Keying</em>), ou modulação por chaveamento de amplitude, a amplitude da portadora varia de acordo com o bit transmitido.</p>
+<p>Exemplo:</p>
+<ul>
+<li>bit 1 → onda com amplitude $A$;</li>
+<li>bit 0 → onda com amplitude 0 ou menor.</li>
+</ul>
+<p><img alt="alt text" src="../image-4.png" /></p>
+<h3 id="fsk-frequency-shift-keying">FSK – Frequency Shift Keying</h3>
+<p>Na <strong>FSK</strong> (<em>Frequency Shift Keying</em>), ou modulação por chaveamento de frequência, a frequência da portadora muda conforme o bit transmitido.</p>
+<p>Exemplo:</p>
+<ul>
+<li>bit 0 → frequência $f_0$;</li>
+<li>bit 1 → frequência $f_1$.</li>
+</ul>
+<p><img alt="alt text" src="../image-5.png" /></p>
+<h3 id="psk-phase-shift-keying">PSK – Phase Shift Keying</h3>
+<p>Na <strong>PSK</strong> (<em>Phase Shift Keying</em>), ou modulação por chaveamento de fase, a fase da portadora é alterada para representar os bits.</p>
+<p>Exemplo simples:</p>
+<ul>
+<li>bit 0 → fase de 0°;</li>
+<li>bit 1 → fase de 180°.</li>
+</ul>
+<p><img alt="alt text" src="../image-6.png" /></p>
+<h3 id="qpsk-quadrature-psk">QPSK – Quadrature PSK</h3>
+<p>Na <strong>QPSK</strong> (<em>Quadrature Phase Shift Keying</em>), a fase da portadora pode assumir quatro valores diferentes.</p>
+<p>Com isso, é possível transmitir <strong>2 bits por símbolo</strong>.</p>
+<p>Exemplo:</p>
+<ul>
+<li>0° → 00;</li>
+<li>90° → 01;</li>
+<li>180° → 10;</li>
+<li>270° → 11.</li>
+</ul>
+<p>A QPSK é mais eficiente que a PSK simples, pois transmite mais bits por símbolo.</p>
+<p><img alt="alt text" src="../image-7.png" /></p>
+<h3 id="qam-quadrature-amplitude-modulation">QAM – Quadrature Amplitude Modulation</h3>
+<p>Na <strong>QAM</strong> (<em>Quadrature Amplitude Modulation</em>), amplitude e fase são combinadas.</p>
+<p>Essa técnica é muito usada em sistemas como Wi-Fi, 4G, 5G e TV digital.</p>
+<p>Exemplos:</p>
+<ul>
+<li>16-QAM → transmite 4 bits por símbolo;</li>
+<li>64-QAM → transmite 6 bits por símbolo;</li>
+<li>256-QAM → transmite 8 bits por símbolo.</li>
+</ul>
+<p>No caso da 16-QAM, por exemplo, há combinações de amplitudes e fases que formam diferentes símbolos. Cada símbolo representa um conjunto de bits.</p>
+<p><img alt="alt text" src="../image-8.png" /></p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_6" id="exercise_6_0">
+<p class="admonition-title">Exercício 6</p>
+<form class="exercise-form">
+<p><strong>Exercício 6</strong></p>
+<p>Um sinal digital foi modulado utilizando-se a técnica <strong>64-QAM</strong>, onde tanto a amplitude como a fase podem variar em <strong>8 níveis</strong>: 8 possíveis fases e 8 possíveis amplitudes.</p>
+<p>Considere que a portadora utilizada foi uma onda com frequência <strong>2,4 GHz</strong>.</p>
+<p>Considere ainda que, tanto na modulação quanto na demodulação, a fase e a amplitude da portadora sofriam variações apenas a cada <strong>dois períodos</strong>, garantindo a estabilidade de cada estado por limitações de hardware.</p>
+<p>Assim, cada conjunto de bits era modulado a cada dois períodos e o mesmo ocorreu na demodulação, com o estado de fase e amplitude lido a cada dois períodos.</p>
+<p>Nessas condições, qual a taxa de transmissão possível através desse sinal modulado?</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<div class="admonition exercise self-progress" data-slug="classes/projeto8/intro/exercise_7" id="exercise_7_0">
+<p class="admonition-title">Exercício 7</p>
+<form class="exercise-form">
+<p><strong>Exercício 7</strong></p>
+<p>Um sinal digital foi modulado utilizando-se a técnica <strong>256-QAM</strong>, onde tanto a amplitude como a fase podem variar em <strong>16 níveis</strong>.</p>
+<p>Considere que a portadora utilizada foi uma onda com frequência <strong>2,4 GHz</strong>.</p>
+<p>Considere ainda que, tanto na modulação quanto na demodulação, a fase e a amplitude da portadora sofriam variações, no mínimo, a cada <strong>10 períodos</strong>.</p>
+<p>Quanto tempo esse sinal levaria para transmitir <strong>480 MBytes</strong>?</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+            <a href="../../projeto7/enunciado/"
+               class="ah-prev"
+               title="Enunciado">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Enunciado</span>
+            </a>
+          
+          
+            <a href="../enunciado/"
+               class="ah-next"
+               title="Enunciado">
+              <span class="nav-label">Próximo</span>
+              <span class="nav-title">Enunciado</span>
+            </a>
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>
