@@ -12,4 +12,4 @@ Data de entrega de cada projeto
 | xx-Abril  | [Projeto-06](classes/projeto6/enunciado.md)  | xx-Abril   |
 | xx-Abril | [Projeto-07](classes/projeto7/enunciado.md)  | 07-Maio   |
 | 11-Maio | [Projeto-08](classes/projeto8/enunciado.md)  | 21-Maio   |
-| 21-Maio | [Projeto-09](classes/projeto9/enunciado.md)  |xx-xx   |
+| 21-Maio | [Projeto-09](classes/projeto9/enunciado.md)  |04-Junho  |
