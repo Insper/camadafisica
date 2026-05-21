@@ -1,52 +1,19 @@
-# Projeto 9: Modulação FM (Frequency Modulation)
+## Enunciado do projeto
 
-## Objetivo
+Nesse projeto você deverá produzir um texto, um pequeno artigo, cujo tema esteja relacionado a um dos projetos do curso ou qualquer outro assunto de interesse relacionado a engenharia de computação ou simplesmente tecnologia em geral. Esse texto poderá ser uma dissertação genérica sobre o assunto escolhido mostrando o surgimento, evolução e estado atual. Ou ainda um texto mais específico, explicando ou explorando um certo assunto ou problema ou solução tecnológica. Você tem total liberdade em relação ao conteúdo, porém esse texto deverá ser produzido nos moldes de uma publicação científica. Além disso, você deverá executar as seguintes tarefas:
 
-Implementar um sistema de modulação e demodulação FM, demonstrando os conceitos fundamentais de modulação de frequência e comunicação analógica.
+1. Tendo um tema definido, encontre ao menos 3 revistas científicas que publicam resultados de pesquisas sobre o mesmo tema que escolheu.
+2. Encontre o fator de impacto de uma das 3 revistas mencionadas no item anterior (diga qual é a revista).
+3. Encontre o citescore de uma das 3 revistas mencionadas no item anterior (diga qual é a revista).
+4. Quanto ao seu texto, escreva-o usando LATEX com as seguintes características:
+   a. Coloque as referências usando um arquivo bib.
+   b. Numere equações e seções de modo a poder referenciá-las ao longo do texto.
+   c. Use uma diagramação semelhante a uma das revistas escolhidas no item 1.
+   d. Preferencialmente em inglês.
+   e. Em torno de 3 páginas.
 
-## Descrição
+Submeta via Blackboard seu texto e as respostas para o item 1 (há um exercício na pasta do projeto para o envio).
 
-Neste projeto, você irá desenvolver um programa que:
+Uma submissão por trio, com os nomes de todos!
 
-1. Implementa a modulação FM
-2. Realiza a demodulação FM
-3. Implementa um sistema de comunicação FM
-4. Demonstra o funcionamento de um sistema FM
-
-## Requisitos
-
-- Python 3.x
-- Biblioteca numpy
-- Biblioteca scipy
-- Conhecimentos sobre modulação
-- Familiaridade com processamento de sinais
-
-## Entregáveis
-
-1. Código fonte do programa implementado
-2. Relatório técnico contendo:
-   - Descrição da implementação FM
-   - Análise do espectro de frequência
-   - Resultados dos testes realizados
-   - Discussão sobre possíveis melhorias
-
-## Avaliação
-
-O projeto será avaliado considerando:
-
-- Funcionalidade do sistema implementado
-- Qualidade do código e documentação
-- Relatório técnico
-- Apresentação oral
-
-## Datas
-
-- Entrega: [Data a ser definida]
-- Apresentação: [Data a ser definida]
-
-## Recursos Adicionais
-
-- [Link para documentação sobre modulação FM]
-- [Link para tutoriais sobre comunicação analógica]
-- [Link para exemplos de código]
-
+Data limite para entrega: 04/06/2026

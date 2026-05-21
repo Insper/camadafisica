@@ -1,151 +1,243 @@
-# Transmissão e Recepção Serial UART
+# CAMADA FÍSICA DA COMPUTAÇÃO
 
-## Introdução à Comunicação Serial
+**ENGENHARIA DA COMPUTAÇÃO - Rodrigo Carareto**
 
-A comunicação serial é uma forma de transmitir dados entre dispositivos eletrônicos de forma sequencial, enviando um bit por vez, ao longo de uma única linha de comunicação. Ao contrário da comunicação paralela, onde vários bits são enviados simultaneamente em várias linhas, a comunicação serial utiliza menos cabos, é mais simples e é frequentemente utilizada em dispositivos que precisam enviar informações a longas distâncias ou com recursos limitados.
+## Divulgação Científica
 
-## O Que é UART?
+As revistas acadêmicas indexadas são publicações científicas reconhecidas por fazerem parte de bases de dados especializadas, chamadas de indexadores. Essas revistas têm como principal objetivo divulgar pesquisas científicas produzidas por pesquisadores, professores e estudantes de universidades e centros de pesquisa.
 
-UART, ou **Universal Asynchronous Receiver-Transmitter**, é um protocolo de comunicação serial assíncrona amplamente utilizado para permitir a troca de dados entre um dispositivo (como um microcontrolador) e um periférico (como um computador). Esse protocolo é assíncrono porque não requer um sinal de clock comum para sincronizar os dispositivos comunicantes.
+Diferentemente das revistas de divulgação científica, que utilizam uma linguagem mais acessível ao público geral, as revistas acadêmicas apresentam textos técnicos, estruturados de acordo com normas científicas e voltados para a comunidade acadêmica. Nelas são publicados artigos originais, revisões de literatura, estudos de caso e resultados de pesquisas.
 
-### Estrutura de Dados na Comunicação UART
+Uma característica importante dessas revistas é o processo de revisão por pares (“peer review”). Antes de um artigo ser publicado, ele é avaliado por especialistas da mesma área do conhecimento, que analisam a qualidade da metodologia, a relevância do tema, a clareza dos resultados e a consistência científica do trabalho. Esse processo ajuda a garantir maior confiabilidade às informações publicadas.
 
-A comunicação UART transmite os dados em "frames". Um frame é uma sequência de bits que inclui os dados a serem transmitidos e informações de controle, como bits de início, parada e, opcionalmente, paridade. A estrutura básica de um frame UART é a seguinte:
+Quando uma revista é considerada “indexada”, significa que ela foi incluída em bases de dados reconhecidas nacional ou internacionalmente, como SciELO, Scopus, Web of Science e PubMed. Para ser aceita nesses indexadores, a revista precisa cumprir critérios de qualidade editorial, regularidade de publicação, padronização e rigor científico.
 
-1. **Start Bit**: Um único bit que indica o início da transmissão de um frame. O start bit é sempre um '0' (nível baixo).
-2. **Data Bits**: Entre 5 e 9 bits que representam os dados a serem transmitidos.
-3. **Parity Bit (Opcional)**: Um bit adicional utilizado para verificar erros durante a transmissão.
-4. **Stop Bit**: Um ou dois bits que indicam o final de um frame. O stop bit é sempre '1' (nível alto).
+A indexação é importante porque aumenta a visibilidade e a credibilidade da revista e dos artigos nela publicados. Pesquisas publicadas em revistas indexadas têm maior chance de serem encontradas, lidas e citadas por outros pesquisadores. Além disso, em muitos cursos de graduação e pós-graduação, a publicação em periódicos indexados é considerada um indicador de qualidade acadêmica.
 
-### Diagrama de um Frame UART:
+Para vocês. estudantes de graduação, compreender o funcionamento das revistas acadêmicas indexadas é fundamental, pois elas representam uma das principais fontes de informação científica confiável. Consultar artigos publicados nesses periódicos contribui para o desenvolvimento do pensamento crítico, da capacidade de pesquisa e da formação acadêmica baseada em evidências científicas.
 
-| Start | Data Bits (5-9) | Paridade (Opcional) | Stop (1-2) |
+Algumas revistas acadêmicas indexadas são reconhecidas mundialmente pela qualidade científica, pelo rigor na avaliação dos artigos e pelo grande impacto das pesquisas que publicam. Abaixo estão alguns exemplos bastante conhecidos, organizados por áreas do conhecimento.
 
+## Exemplos de revistas indexadas em Computação
 
-## Termos Importantes
+### Inteligência Artificial e Ciência de Dados
 
-Aqui estão alguns termos que você precisa entender para compreender a comunicação UART:
+- Artificial Intelligence
+- Journal of Artificial Intelligence Research (JAIR)
+- IEEE Transactions on Neural Networks and Learning Systems
+- Machine Learning
+- Data Mining and Knowledge Discovery
 
-1. **Transmissão Assíncrona**: É um tipo de comunicação onde o receptor e o transmissor não compartilham um sinal de clock comum. Em vez disso, o receptor sincroniza com o transmissor através dos bits de start e stop do frame de dados.
-   
-2. **Start Bit**: Sinaliza o início da transmissão. Normalmente, é um nível lógico baixo (0).
-   
-3. **Stop Bit**: Indica o fim de uma transmissão. É um nível lógico alto (1) e pode haver um ou dois bits de stop.
-   
-4. **TX, RX, GND**: TX é o pino de transmissão, RX é o pino de recepção, e GND é o aterramento comum entre os dispositivos.
-   
-5. **Baud Rate**: A taxa de bits por segundo (bps) transmitidos na comunicação UART. Exemplo: 9600 bps significa que 9600 bits são transmitidos a cada segundo.
-   
-6. **Bit Rate**: Refere-se à quantidade de dados (bits) transmitidos ou recebidos por unidade de tempo.
-   
-7. **Buffer**: Área de memória usada temporariamente para armazenar os dados durante a comunicação.
-   
-8. **Frame**: A estrutura completa de dados transmitidos, composta por bits de início, dados, paridade e parada.
-   
-9. **Bit de Paridade**: Bit opcional usado para detecção de erros. Pode ser par ou ímpar.
-   
-10. **CRC (Cyclic Redundancy Check)**: Um método de verificação de erros mais robusto do que a paridade simples, utilizado para garantir a integridade dos dados.
+Essas revistas publicam pesquisas sobre IA, aprendizado de máquina, mineração de dados e redes neurais.
 
-## O Que é Loopback?
+### Engenharia de Software
 
-O conceito de **loopback** envolve conectar o pino de transmissão (TX) ao pino de recepção (RX) para criar um ciclo fechado de comunicação. Nesse projeto, o loopback é feito para que tudo o que o seu computador enviar ao Arduino seja imediatamente devolvido, espelhando a transmissão de dados. Isso é útil para testar a comunicação sem um segundo dispositivo.
+- IEEE Transactions on Software Engineering
+- Empirical Software Engineering
+- Journal of Systems and Software
+- Software: Practice and Experience
 
+São importantes para pesquisas sobre desenvolvimento, testes, qualidade e manutenção de software.
 
-## Leituras Recomendadas
+### Redes e Sistemas Computacionais
 
-Para se aprofundar na transmissão serial UART, consulte os seguintes links:
+- Computer Networks
+- IEEE/ACM Transactions on Networking
+- Journal of Network and Computer Applications
+- Future Generation Computer Systems
 
-- [UART em FreeBSD](https://docs.freebsd.org/pt-br/articles/serial-uart/)
-- [Transmissão Serial UART](http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf)
-- [Transmissão e Recepção Assíncrona](https://www2.pcs.usp.br/~labdig/pdffiles_2012/tx_e_rx_as.pdf)
-- [UART Basics](https://ece353.engr.wisc.edu/serial-interfaces/uart-basics/)
+Publicam estudos sobre redes, computação distribuída, nuvem e infraestrutura computacional.
 
-# Introdução à Modulação FM
+### Segurança da Informação
 
-## Visão Geral
+- Computers & Security
+- IEEE Transactions on Information Forensics and Security
+- Journal of Cybersecurity
 
-Neste projeto, você irá trabalhar com modulação FM (Frequency Modulation), uma técnica de comunicação analógica que oferece melhor qualidade de áudio e maior imunidade a ruídos quando comparada à modulação AM.
+Focadas em criptografia, proteção de dados, segurança digital e privacidade.
 
-## O que é Modulação FM?
+### Computação em geral
 
-Modulação FM é um processo onde a frequência da onda portadora é variada proporcionalmente ao sinal de mensagem. O sinal modulado mantém amplitude constante, mas sua frequência varia de acordo com a informação.
+- Communications of the ACM
+- IEEE Computer
+- ACM Computing Surveys
+- The Computer Journal
 
-## Características da Modulação FM
+Abrangem diversos temas da computação e frequentemente publicam revisões e tendências tecnológicas.
 
-### 1. Espectro de Frequência
-- Desvio de frequência
-- Banda de Carson
-- Componentes laterais
-- Largura de banda
+## Revistas brasileiras em Computação
 
-### 2. Índice de Modulação
-- Relação entre desvio e frequência
-- Profundidade da modulação
-- Qualidade do sinal
-- Eficiência espectral
+Algumas revistas brasileiras também possuem indexação importante:
 
-## Tipos de Modulação FM
+- Journal of the Brazilian Computer Society (JBCS)
+- Revista Brasileira de Computação Aplicada
+- iSys – Revista Brasileira de Sistemas de Informação
 
-### 1. FM de Banda Estreita
-- Pequeno desvio
-- Menor largura de banda
-- Menor qualidade
+Muitas delas estão indexadas em bases como:
 
-### 2. FM de Banda Larga
-- Grande desvio
-- Maior largura de banda
-- Melhor qualidade
+- SciELO
+- Scopus
+- DBLP
+- Google Scholar
 
-## Demodulação FM
+## Revistas multidisciplinares
 
-### 1. Detecção de Frequência
-- Discriminador
-- PLL
-- Detecção de zero
+Publicam pesquisas de diversas áreas da ciência.
 
-### 2. Detecção de Fase
-- Detector de fase
-- Demodulador de quadratura
-- Sincronização
+- Nature
+- Science
+- Proceedings of the National Academy of Sciences (PNAS)
 
-## Aplicações Práticas
+Essas estão entre as revistas científicas mais prestigiadas do mundo.
 
-### 1. Rádio FM
-- Radiodifusão
-- Comunicação de alta fidelidade
-- Rádio amador
+## Área da saúde e medicina
 
-### 2. Comunicações
-- Telefonia móvel
-- Televisão
-- Telemetria
+- The Lancet
+- New England Journal of Medicine (NEJM)
+- JAMA (Journal of the American Medical Association)
+- BMJ (British Medical Journal)
 
-### 3. Sistemas Especiais
-- Radar
-- Sonar
-- Telemetria
+São referências em pesquisas médicas e saúde pública.
 
-## Implementação no Projeto
+## Ciências humanas e sociais
 
-No seu projeto, você irá:
+- American Sociological Review
+- Educational Research Review
+- Journal of Educational Psychology
+- Revista Brasileira de Educação
 
-1. Implementar a modulação FM
-2. Desenvolver a demodulação
-3. Analisar o espectro
-4. Testar o sistema
+## Engenharia e tecnologia
 
-## Ferramentas e Recursos
+- IEEE Access
+- IEEE Transactions
+- ACM Computing Surveys
+- Computer Networks
 
-- Python para implementação
-- Bibliotecas de processamento de sinais
-- Ferramentas de análise espectral
-- Visualização de sinais
+Muito utilizadas nas áreas de computação, engenharia elétrica e tecnologia.
 
-## Próximos Passos
+## Administração e economia
 
-1. Familiarize-se com a modulação FM
-2. Implemente a modulação
-3. Desenvolva a demodulação
-4. Teste e documente
+- Harvard Business Review (mais voltada à gestão e divulgação especializada)
+- Academy of Management Journal
+- Journal of Finance
+- Econometrica
+
+## Revistas brasileiras indexadas conhecidas
+
+Muitas estão presentes em bases como SciELO e Scopus.
+
+- Pesquisa FAPESP (divulgação científica)
+- Cadernos de Saúde Pública
+- Revista de Saúde Pública
+- Revista Brasileira de Educação
+- Ciência & Saúde Coletiva
+- Memórias do Instituto Oswaldo Cruz
+
+## Principais bases de indexação onde essas revistas aparecem
+
+- Scopus
+- Web of Science
+- SciELO
+- PubMed
+- DOAJ
+
+## Editoras
+
+Uma mesma editora pode publicar várias revistas acadêmicas indexadas, muitas vezes em diferentes áreas do conhecimento.
+
+Na prática, a editora funciona como a instituição responsável pela:
+
+- organização editorial;
+- publicação dos periódicos;
+- gerenciamento das submissões;
+- padronização científica;
+- divulgação das revistas.
+
+Cada revista, porém, possui:
+
+- seu próprio nome;
+- ISSN;
+- conselho editorial;
+- área temática;
+- critérios de avaliação;
+- indexação específica.
+
+Como exemplo, atualmente há grandes editoras como a Elsevier, Springer Nature e IEEE.
+
+## Fator de impacto
+
+O fator de impacto é uma métrica utilizada para medir a relevância e a influência de uma revista científica dentro da comunidade acadêmica. Ele indica, em média, quantas vezes os artigos publicados em uma revista foram citados por outros pesquisadores em determinado período.
+
+De maneira geral, quanto maior o fator de impacto, maior tende a ser a visibilidade e o prestígio da revista científica.
+
+O cálculo do fator de impacto de uma dada revista considera o número de citações recebidas pelos artigos da revista dividido pela quantidade de artigos publicados.
+
+Normalmente, o cálculo utiliza um período de dois anos.
+
+### Exemplo simples
+
+Imagine que uma revista publicou:
+
+- 100 artigos em dois anos.
+
+Esses artigos receberam:
+
+- 500 citações no total.
+
+Então: fator de impacto igual a 5. E isso significa que, em média, cada artigo foi citado cinco vezes.
+
+Um fator de impacto alto geralmente sugere que:
+
+- os artigos da revista são bastante utilizados por outros pesquisadores;
+- a revista possui grande circulação acadêmica;
+- o periódico tem relevância científica na área.
+
+Por isso, muitas universidades e programas de pós-graduação consideram essa métrica ao avaliar publicações científicas.
+
+Não é correto comparar diretamente revistas de áreas diferentes.
+
+Por exemplo:
+
+- Medicina costuma ter fatores de impacto muito altos;
+- Matemática e Computação frequentemente possuem valores menores.
+
+Assim, uma revista com fator 4 em Computação pode ser extremamente respeitada, enquanto em Medicina esse valor pode ser considerado mediano.
+
+## Latex
+
+O editor LaTeX é uma ferramenta usada para escrever documentos científicos e técnicos com alta qualidade tipográfica, especialmente quando esses documentos contêm fórmulas matemáticas, tabelas, figuras e referências. É um sistema de preparação de documentos baseado em comandos de marcação. Em vez de formatar o texto “à mão” como no Word, você escreve o conteúdo com código e o LaTeX gera um PDF bonito, com estrutura profissional!
+
+Você deverá usar um programa editor, que é o programa (ou ambiente online) onde você escreve, edita e compila seus arquivos .tex. Existem vários editores, por exemplo:
+
+[Overleaf](https://www.overleaf.com/) - online, atualmente o mais popular, colaborações em tempo real, compilação automática.
+
+TeXstudio - offline, necessita do compilador.
+
+TeXmaker - offline, necessita do compilador.
+
+LyX- offline, necessita do compilador, tem uma interface mais amigável, parecida com Word, mas baseada em LaTeX.
+
+Você deverá se familiarizar com esse novo modo de produção de textos.Com uma simples pesquisa Google com “Latex tutorial” você encontrará dezenas de textos e vídeos para iniciar seu aprendizado! Veja como construir as citações utilizando um arquivo .bib.
+
+Um bom modo de encontrar artigos que sustentarão suas colocações é a procura no Google Scholar, estará disponível os dados para se colocar um item (artigo a ser citado) no arquivo bib.
+
+[![alt text](image.png)
+
+Ao clicar em citar, selecione bibtex, e então você terá os dados a serem incluídos no arquivo .bib.
+
+```bibtex
+@article{baptista2012collective,
+  title={Collective almost synchronisation in complex networks},
+  author={Baptista, Murilo S and Ren, Hai-Peng and Swarts, Johen CM and Carareto, Rodrigo and Nijmeijer, Henk and Grebogi, Celso},
+  journal={PloS one},
+  volume={7},
+  number={11},
+  pages={e48118},
+  year={2012},
+  publisher={Public Library of Science San Francisco, USA}
+}
+```
+
+Para citar o arquivo, você precisará apenas usar o comando Latex de citação colocando como argumento a campo article.
 
 
