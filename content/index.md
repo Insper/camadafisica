@@ -24,20 +24,14 @@ A cada projeto, os alunos participarão de:
 
 ### Avaliações
 
-- Um projeto só pode ser avaliado se você já teve o anterior avaliado. Atrasos na entrega
-acarretam penalizações de nota (25% por semana).
-
-- Um projeto deve ser avaliado com a presença dos dois integrantes da dupla. Caso queiram
-apresentar o projeto sem um dos integrantes, o aluno ausente terá a nota reduzida em a 50%.
-
-- Haverá provas (QUIZZES) sobre os projetos.
+- Os projetos são desenvolvidos em duplas. Cada dupla deve apresentar o projeto em sala de aula.
+- O quizz será aplicado após cada projeto. o aluno só podera fazer o quizz se tiver apresentado o projeto.
 
 
 ### Critérios de avaliação
 
-- Média projetos: peso 33%
-- Prova final: peso 33%
-- Média quizzes: peso 33%
+- Prova final: peso 50%
+- Média quizzes: peso 50%
 
 Aprovação média ponderada maior ou igual a 5.
 
@@ -59,7 +53,7 @@ Esta disciplina explora os fundamentos teóricos e práticos da camada física e
 
 **Laboratório de Informática** - Sala 404
 
-- **Segunda-feira** 12:00
+- **Segunda-feira** 9:45
 - **Quinta-feira** 14:15 
 
 
@@ -72,8 +66,4 @@ Horário de atendimento:
 !!! people "Equipe"
     - ![Carareto](equipe/carareto.jpeg) **Rodrigo Carareto** *Professor*
     - ![Arnaldo](equipe/arnaldo.jpeg) **Arnaldo Alves Viana Junior** *Prof. Auxiliar*
-    - ![Rogério](equipe/rogerio.jpeg) **Rogério Cuenca** *Técnico de lab*
-    
-    <!-- - **Rodrigo Carareto** *Professor*
-    - **Arnaldo Alves Viana Junior** *Prof. Auxiliar*
-    - **Rogério Cuenca** *Técnico de lab* -->
+   

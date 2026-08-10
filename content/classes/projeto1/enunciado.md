@@ -43,11 +43,11 @@ Ao rodar seu arquivo `aplicação.py`, o software deve:
   - **TX do Arduino** → **RX do computador**
 - Para criar o loopback:
   - Conecte o **pino TX do Arduino** ao **pino RX do próprio Arduino**.
-- Alguns Arduinos (UNO) precisam:
+- Para o Arduino UNO, você deve:
   - Ficar com o **botão RESET pressionado**  
   - Ou **pino RESET aterrado**.
 
-![alt text](image-10.png)
+![alt text](image-12.png)
 
 
 ## Funcionamento Esperado
@@ -84,37 +84,30 @@ imageR = "./imgs/image.png"
 imageW = "./imgs/recebidaCopia.png"
 ```
 2. Ler imagem e converter para `bytearray`.
+
 ```python
 # Carrega imagem
 print("Carregando imagem para transmissão :)")
-print("- {}".format(imageR))
+print(f"- {imageR}")
 print("-------------------------")
-txBuffer = open(imageR, 'rb').read()
+with open(imageR, 'rb') as f:
+    txBuffer = bytearray(f.read())
+
+print(f" - Tamanho do buffer: {len(txBuffer)} bytes")
 ```
+
 3. Enviar via porta serial.
 4. Receber os bytes.
 5. Salvar como **arquivo cópia**.
+
 ```python
 print("Salvando dados no arquivo :")
-print(" - {}".format(imageW))
-f = open(imageW, 'wb')
-f.write(rxBuffer)
-
-# Fecha arquivo de imagem
-f.close()
+print(f" - {imageW}")
+with open(imageW, 'wb') as f:
+    f.write(rxBuffer)
 ```
+
 6. Verificar se abre corretamente.
-
-
-## Critérios de Avaliação
-
-| Conceito | Descrição |
-|----------|-----------|
-| **C**    | Mostrar a transmissão e recepção da imagem ocorrendo corretamente. |
-| **B**    | Atender o conceito C e responder perguntas sobre as funções: `getBufferLen`, `getAllBuffer`, `getBuffer`, `getNData`, `sendBuffer`. |
-| **B+**   | Atender os conceitos C e B, além de explicar os todos os termos da comunicação UART (veja tabela abaixo). |
-| **A+**   | Atender todos os conceitos anteriores e corrigir a função `getStatus` para que funcione corretamente. |
-
 
 ### Termos da Comunicação UART
 
@@ -131,10 +124,11 @@ f.close()
 | 9  | Bit de Paridade        |
 | 10 | CRC                    |
 
----
+--
 
-## Entrega
+## O que é esperado na entrega
 
-- **Avaliação presencial**: você e sua dupla apresentarão o projeto para o professor, que fará perguntas.
-- A apresentação deve ocorrer até **a próxima semana**.  
-  - Após esta data, há **redução de 25% da nota por semana** de atraso.
+- Mostrar a transmissão e recepção da imagem ocorrendo corretamente.
+- Compreender e responder perguntas sobre as funções principais: `getBufferLen`, `getAllBuffer`, `getBuffer`, `getNData`, `sendBuffer`. 
+- Compreender e explicar os termos da comunicação UART.
+- Corrigir a função `getStatus` para que funcione corretamente.
