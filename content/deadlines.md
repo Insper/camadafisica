@@ -4,11 +4,10 @@ Data de cada projeto
 
 | Data Inicio | Projeto                          | Entrega |
 |------------|-------------------------------------|----------|
-| 10-Agosto  | [Projeto-01](classes/projeto1/enunciado.md)  | 13-Agosto   |
+| 10-Agosto  | [Projeto-01](classes/projeto1/enunciado.md)  | 17-Agosto   |
+| 17-Agosto  | [Projeto-02](classes/projeto2/enunciado.md)  | 24-Agosto   |
 
-
-<!-- | 19-Agosto  | [Projeto-02](classes/projeto2/enunciado.md)  | 26-Fevereiro   |
-| 26-Fevereiro  | [Projeto-03](classes/projeto3/enunciado.md)  | 12-Março   |
+<!-- | 26-Fevereiro  | [Projeto-03](classes/projeto3/enunciado.md)  | 12-Março   |
 | 16-Março  | [Projeto-04](classes/projeto4/enunciado.md)  | 19-Março   |
 | 19-Março | [Projeto-05](classes/projeto5/enunciado.md)  | xx-Abril   |
 | xx-Abril  | [Projeto-06](classes/projeto6/enunciado.md)  | xx-Abril   |

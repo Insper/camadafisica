@@ -63,7 +63,7 @@ Se o server não retornar nada em até 5 segundos, o cliente deverá expor uma m
 !!! info
     **Importante! Lembre-se que o server não conhece a quantidade de números que serão transmitidos!**
 
-## 4) Avaliação
+## 4) Auto avaliação (como saber como está seu projeto)
 
 Você e sua dupla deverão apresentar para seu professor o código funcionando em 3 situações.
 
