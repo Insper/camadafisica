@@ -42,21 +42,21 @@ Os arquivos devem ser salvos no computador do cliente e não podem estar "corrom
 Um print com o resumo da transmissão deve aparecer, mostrando tamanho dos arquivos recebidos, número de pacotes de cada arquivo.
 
 
-## Critérios de Entrega
+## Auto avaliação (como saber como está seu projeto)
 
-Fique atento à data de entrega.
+Conforme o projeto for sendo desenvolvido, você poderá ir se auto avaliando. Abaixo estão os critérios de avaliação:
 
-### Conceito C (nota 5)
+### Conceito C 
 - Uma transmissão de sucesso de 2 arquivos simultâneos escolhidos pelo usuário.
 
-### Conceito B (nota 7,5)
+### Conceito B
 - Transmissão de sucesso mais a funcionalidade em que o usuário client poderá apartar uma tecla para pausar
 o processo, uma outra tecla para reiniciar o processo e outra para abortar a transmissão.
 
-### Conceito A (nota 9)
+### Conceito A 
 - Uma simulação em que se os fios entre os Arduinos (qualquer um deles ou ambos) forem desconectados e conectados novamente, a transmissão retorna e termina com sucesso!
 
-### Conceito A+ (nota 10)
+### Conceito A+ 
 - Todas as funcionalidades com prints caprichados de todo o processo no lado cliente e também server!
 
 
