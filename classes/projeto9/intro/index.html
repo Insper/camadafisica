@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 3 - Datagrama</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto3/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto3/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 4 - Checksum</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto4/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto4/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="camada-fisica-da-computacao">CAMADA FÍSICA DA COMPUTAÇÃO</h1>
+<p><strong>ENGENHARIA DA COMPUTAÇÃO - Rodrigo Carareto</strong></p>
+<h2 id="divulgacao-cientifica">Divulgação Científica</h2>
+<p>As revistas acadêmicas indexadas são publicações científicas reconhecidas por fazerem parte de bases de dados especializadas, chamadas de indexadores. Essas revistas têm como principal objetivo divulgar pesquisas científicas produzidas por pesquisadores, professores e estudantes de universidades e centros de pesquisa.</p>
+<p>Diferentemente das revistas de divulgação científica, que utilizam uma linguagem mais acessível ao público geral, as revistas acadêmicas apresentam textos técnicos, estruturados de acordo com normas científicas e voltados para a comunidade acadêmica. Nelas são publicados artigos originais, revisões de literatura, estudos de caso e resultados de pesquisas.</p>
+<p>Uma característica importante dessas revistas é o processo de revisão por pares (“peer review”). Antes de um artigo ser publicado, ele é avaliado por especialistas da mesma área do conhecimento, que analisam a qualidade da metodologia, a relevância do tema, a clareza dos resultados e a consistência científica do trabalho. Esse processo ajuda a garantir maior confiabilidade às informações publicadas.</p>
+<p>Quando uma revista é considerada “indexada”, significa que ela foi incluída em bases de dados reconhecidas nacional ou internacionalmente, como SciELO, Scopus, Web of Science e PubMed. Para ser aceita nesses indexadores, a revista precisa cumprir critérios de qualidade editorial, regularidade de publicação, padronização e rigor científico.</p>
+<p>A indexação é importante porque aumenta a visibilidade e a credibilidade da revista e dos artigos nela publicados. Pesquisas publicadas em revistas indexadas têm maior chance de serem encontradas, lidas e citadas por outros pesquisadores. Além disso, em muitos cursos de graduação e pós-graduação, a publicação em periódicos indexados é considerada um indicador de qualidade acadêmica.</p>
+<p>Para vocês. estudantes de graduação, compreender o funcionamento das revistas acadêmicas indexadas é fundamental, pois elas representam uma das principais fontes de informação científica confiável. Consultar artigos publicados nesses periódicos contribui para o desenvolvimento do pensamento crítico, da capacidade de pesquisa e da formação acadêmica baseada em evidências científicas.</p>
+<p>Algumas revistas acadêmicas indexadas são reconhecidas mundialmente pela qualidade científica, pelo rigor na avaliação dos artigos e pelo grande impacto das pesquisas que publicam. Abaixo estão alguns exemplos bastante conhecidos, organizados por áreas do conhecimento.</p>
+<h2 id="exemplos-de-revistas-indexadas-em-computacao">Exemplos de revistas indexadas em Computação</h2>
+<h3 id="inteligencia-artificial-e-ciencia-de-dados">Inteligência Artificial e Ciência de Dados</h3>
+<ul>
+<li>Artificial Intelligence</li>
+<li>Journal of Artificial Intelligence Research (JAIR)</li>
+<li>IEEE Transactions on Neural Networks and Learning Systems</li>
+<li>Machine Learning</li>
+<li>Data Mining and Knowledge Discovery</li>
+</ul>
+<p>Essas revistas publicam pesquisas sobre IA, aprendizado de máquina, mineração de dados e redes neurais.</p>
+<h3 id="engenharia-de-software">Engenharia de Software</h3>
+<ul>
+<li>IEEE Transactions on Software Engineering</li>
+<li>Empirical Software Engineering</li>
+<li>Journal of Systems and Software</li>
+<li>Software: Practice and Experience</li>
+</ul>
+<p>São importantes para pesquisas sobre desenvolvimento, testes, qualidade e manutenção de software.</p>
+<h3 id="redes-e-sistemas-computacionais">Redes e Sistemas Computacionais</h3>
+<ul>
+<li>Computer Networks</li>
+<li>IEEE/ACM Transactions on Networking</li>
+<li>Journal of Network and Computer Applications</li>
+<li>Future Generation Computer Systems</li>
+</ul>
+<p>Publicam estudos sobre redes, computação distribuída, nuvem e infraestrutura computacional.</p>
+<h3 id="seguranca-da-informacao">Segurança da Informação</h3>
+<ul>
+<li>Computers &amp; Security</li>
+<li>IEEE Transactions on Information Forensics and Security</li>
+<li>Journal of Cybersecurity</li>
+</ul>
+<p>Focadas em criptografia, proteção de dados, segurança digital e privacidade.</p>
+<h3 id="computacao-em-geral">Computação em geral</h3>
+<ul>
+<li>Communications of the ACM</li>
+<li>IEEE Computer</li>
+<li>ACM Computing Surveys</li>
+<li>The Computer Journal</li>
+</ul>
+<p>Abrangem diversos temas da computação e frequentemente publicam revisões e tendências tecnológicas.</p>
+<h2 id="revistas-brasileiras-em-computacao">Revistas brasileiras em Computação</h2>
+<p>Algumas revistas brasileiras também possuem indexação importante:</p>
+<ul>
+<li>Journal of the Brazilian Computer Society (JBCS)</li>
+<li>Revista Brasileira de Computação Aplicada</li>
+<li>iSys – Revista Brasileira de Sistemas de Informação</li>
+</ul>
+<p>Muitas delas estão indexadas em bases como:</p>
+<ul>
+<li>SciELO</li>
+<li>Scopus</li>
+<li>DBLP</li>
+<li>Google Scholar</li>
+</ul>
+<h2 id="revistas-multidisciplinares">Revistas multidisciplinares</h2>
+<p>Publicam pesquisas de diversas áreas da ciência.</p>
+<ul>
+<li>Nature</li>
+<li>Science</li>
+<li>Proceedings of the National Academy of Sciences (PNAS)</li>
+</ul>
+<p>Essas estão entre as revistas científicas mais prestigiadas do mundo.</p>
+<h2 id="area-da-saude-e-medicina">Área da saúde e medicina</h2>
+<ul>
+<li>The Lancet</li>
+<li>New England Journal of Medicine (NEJM)</li>
+<li>JAMA (Journal of the American Medical Association)</li>
+<li>BMJ (British Medical Journal)</li>
+</ul>
+<p>São referências em pesquisas médicas e saúde pública.</p>
+<h2 id="ciencias-humanas-e-sociais">Ciências humanas e sociais</h2>
+<ul>
+<li>American Sociological Review</li>
+<li>Educational Research Review</li>
+<li>Journal of Educational Psychology</li>
+<li>Revista Brasileira de Educação</li>
+</ul>
+<h2 id="engenharia-e-tecnologia">Engenharia e tecnologia</h2>
+<ul>
+<li>IEEE Access</li>
+<li>IEEE Transactions</li>
+<li>ACM Computing Surveys</li>
+<li>Computer Networks</li>
+</ul>
+<p>Muito utilizadas nas áreas de computação, engenharia elétrica e tecnologia.</p>
+<h2 id="administracao-e-economia">Administração e economia</h2>
+<ul>
+<li>Harvard Business Review (mais voltada à gestão e divulgação especializada)</li>
+<li>Academy of Management Journal</li>
+<li>Journal of Finance</li>
+<li>Econometrica</li>
+</ul>
+<h2 id="revistas-brasileiras-indexadas-conhecidas">Revistas brasileiras indexadas conhecidas</h2>
+<p>Muitas estão presentes em bases como SciELO e Scopus.</p>
+<ul>
+<li>Pesquisa FAPESP (divulgação científica)</li>
+<li>Cadernos de Saúde Pública</li>
+<li>Revista de Saúde Pública</li>
+<li>Revista Brasileira de Educação</li>
+<li>Ciência &amp; Saúde Coletiva</li>
+<li>Memórias do Instituto Oswaldo Cruz</li>
+</ul>
+<h2 id="principais-bases-de-indexacao-onde-essas-revistas-aparecem">Principais bases de indexação onde essas revistas aparecem</h2>
+<ul>
+<li>Scopus</li>
+<li>Web of Science</li>
+<li>SciELO</li>
+<li>PubMed</li>
+<li>DOAJ</li>
+</ul>
+<h2 id="editoras">Editoras</h2>
+<p>Uma mesma editora pode publicar várias revistas acadêmicas indexadas, muitas vezes em diferentes áreas do conhecimento.</p>
+<p>Na prática, a editora funciona como a instituição responsável pela:</p>
+<ul>
+<li>organização editorial;</li>
+<li>publicação dos periódicos;</li>
+<li>gerenciamento das submissões;</li>
+<li>padronização científica;</li>
+<li>divulgação das revistas.</li>
+</ul>
+<p>Cada revista, porém, possui:</p>
+<ul>
+<li>seu próprio nome;</li>
+<li>ISSN;</li>
+<li>conselho editorial;</li>
+<li>área temática;</li>
+<li>critérios de avaliação;</li>
+<li>indexação específica.</li>
+</ul>
+<p>Como exemplo, atualmente há grandes editoras como a Elsevier, Springer Nature e IEEE.</p>
+<h2 id="fator-de-impacto">Fator de impacto</h2>
+<p>O fator de impacto é uma métrica utilizada para medir a relevância e a influência de uma revista científica dentro da comunidade acadêmica. Ele indica, em média, quantas vezes os artigos publicados em uma revista foram citados por outros pesquisadores em determinado período.</p>
+<p>De maneira geral, quanto maior o fator de impacto, maior tende a ser a visibilidade e o prestígio da revista científica.</p>
+<p>O cálculo do fator de impacto de uma dada revista considera o número de citações recebidas pelos artigos da revista dividido pela quantidade de artigos publicados.</p>
+<p>Normalmente, o cálculo utiliza um período de dois anos.</p>
+<h3 id="exemplo-simples">Exemplo simples</h3>
+<p>Imagine que uma revista publicou:</p>
+<ul>
+<li>100 artigos em dois anos.</li>
+</ul>
+<p>Esses artigos receberam:</p>
+<ul>
+<li>500 citações no total.</li>
+</ul>
+<p>Então: fator de impacto igual a 5. E isso significa que, em média, cada artigo foi citado cinco vezes.</p>
+<p>Um fator de impacto alto geralmente sugere que:</p>
+<ul>
+<li>os artigos da revista são bastante utilizados por outros pesquisadores;</li>
+<li>a revista possui grande circulação acadêmica;</li>
+<li>o periódico tem relevância científica na área.</li>
+</ul>
+<p>Por isso, muitas universidades e programas de pós-graduação consideram essa métrica ao avaliar publicações científicas.</p>
+<p>Não é correto comparar diretamente revistas de áreas diferentes.</p>
+<p>Por exemplo:</p>
+<ul>
+<li>Medicina costuma ter fatores de impacto muito altos;</li>
+<li>Matemática e Computação frequentemente possuem valores menores.</li>
+</ul>
+<p>Assim, uma revista com fator 4 em Computação pode ser extremamente respeitada, enquanto em Medicina esse valor pode ser considerado mediano.</p>
+<h2 id="latex">Latex</h2>
+<p>O editor LaTeX é uma ferramenta usada para escrever documentos científicos e técnicos com alta qualidade tipográfica, especialmente quando esses documentos contêm fórmulas matemáticas, tabelas, figuras e referências. É um sistema de preparação de documentos baseado em comandos de marcação. Em vez de formatar o texto “à mão” como no Word, você escreve o conteúdo com código e o LaTeX gera um PDF bonito, com estrutura profissional!</p>
+<p>Você deverá usar um programa editor, que é o programa (ou ambiente online) onde você escreve, edita e compila seus arquivos .tex. Existem vários editores, por exemplo:</p>
+<p><a href="https://www.overleaf.com/">Overleaf</a> - online, atualmente o mais popular, colaborações em tempo real, compilação automática.</p>
+<p>TeXstudio - offline, necessita do compilador.</p>
+<p>TeXmaker - offline, necessita do compilador.</p>
+<p>LyX- offline, necessita do compilador, tem uma interface mais amigável, parecida com Word, mas baseada em LaTeX.</p>
+<p>Você deverá se familiarizar com esse novo modo de produção de textos.Com uma simples pesquisa Google com “Latex tutorial” você encontrará dezenas de textos e vídeos para iniciar seu aprendizado! Veja como construir as citações utilizando um arquivo .bib.</p>
+<p>Um bom modo de encontrar artigos que sustentarão suas colocações é a procura no Google Scholar, estará disponível os dados para se colocar um item (artigo a ser citado) no arquivo bib.</p>
+<p>[<img alt="alt text" src="../image.png" /></p>
+<p>Ao clicar em citar, selecione bibtex, e então você terá os dados a serem incluídos no arquivo .bib.</p>
+<div class="language-bibtex highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nc">@article</span><span class="p">{</span><span class="nl">baptista2012collective</span><span class="p">,</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{Collective almost synchronisation in complex networks}</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Baptista, Murilo S and Ren, Hai-Peng and Swarts, Johen CM and Carareto, Rodrigo and Nijmeijer, Henk and Grebogi, Celso}</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="na">journal</span><span class="p">=</span><span class="s">{PloS one}</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="na">volume</span><span class="p">=</span><span class="s">{7}</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="na">number</span><span class="p">=</span><span class="s">{11}</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="na">pages</span><span class="p">=</span><span class="s">{e48118}</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2012}</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="na">publisher</span><span class="p">=</span><span class="s">{Public Library of Science San Francisco, USA}</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>Para citar o arquivo, você precisará apenas usar o comando Latex de citação colocando como argumento a campo article.</p>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>
