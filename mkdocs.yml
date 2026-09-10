@@ -44,9 +44,9 @@ nav:
   - Projeto 3 - Datagrama:
     - Introdução: classes/projeto3/intro.md
     - Enunciado: classes/projeto3/enunciado.md
-  # - Projeto 4 - Checksum:
-  #   - Introdução: classes/projeto4/intro.md
-  #   - Enunciado: classes/projeto4/enunciado.md
+  - Projeto 4 - Checksum:
+    - Introdução: classes/projeto4/intro.md
+    - Enunciado: classes/projeto4/enunciado.md
   # - Projeto 5 - Serialização:
   #   - Introdução: classes/projeto5/intro.md
   #   - Enunciado: classes/projeto5/enunciado.md
