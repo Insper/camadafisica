@@ -12,7 +12,7 @@ Neste projeto, você irá desenvolver um programa que:
 2. Implementa um protocolo de comunicação com serialização
 3. Demonstra o funcionamento do sistema
 
-## Critérios de Entrega
+## Critérios de Auto avaliação (como saber como está seu projeto)
 
 Como entrega você poderá apresentar para seu professor em a transmissão.
 
