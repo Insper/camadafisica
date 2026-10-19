@@ -37,7 +37,7 @@
 | Formato do áudio    | `.wav`, 16 bits, mono ou estéreo (tratar ambos os canais) |
 
 
-## Rubrica
+## Critérios de Auto avaliação (como saber como está seu projeto)
 
 | Nota | Requisitos |
 |------|------------|

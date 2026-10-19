@@ -71,7 +71,7 @@ print("... FIM")
 - Plotar o **gráfico da transformada de Fourier** do sinal recebido.  
 
 
-## Rubrica de Avaliação
+## Critérios de Auto avaliação (como saber como está seu projeto)
 
 | Conceito | Critério de Desempenho |
 |-----------|------------------------|
