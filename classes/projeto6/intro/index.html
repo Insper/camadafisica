@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+        <title>Intro - Camada Física da Computação - Insper</title>
+      
+    
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:700|Oxygen+Mono|Source+Sans+Pro:700|Source+Serif+Pro&amp;display=swap">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <script>
+      // SETUP GLOBAL CONSTANTS
+      var base_url = '../../..';
+      
+      var telemetryEnabled = false;
+      var backendUrl = "";
+      var courseSlug = "";
+      
+      
+      var dashboardEnabled = false;
+      var tagTree = {};
+      
+
+      // SETUP PLUGIN
+      window.initialized = false;
+      if (!window.initializers) window.initializers = [];
+      window.registerInitializer = (initialize) => {
+        if (window.initialized) initialize();
+        else window.initializers.push(initialize);
+      };
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://unpkg.com/hyperscript.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="../../../assets/js/main.js"></script>
+    
+    <link rel="stylesheet" href="../../../css/termynal.css"><link rel="stylesheet" href="../../../css/equipe.css"><link rel="stylesheet" href="../../../css/ansi-colours.css"><link rel="stylesheet" href="../../../css/jupyter-cells.css"><link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+  </head>
+  <body>
+    <div class="ah-main-container">
+      <header class="ah-header">
+        <button class="ah-menu-btn ah-button ah-button--borderless"
+                aria-label="toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+</svg>
+        </button>
+        <a href="../../.."
+           title="Camada Física da Computação - Insper"
+           class="ah-logo"
+           aria-label="Camada Física da Computação - Insper">
+          Camada Física da Computação - Insper
+        </a>
+        <div class="ah-header--right">
+          
+          
+          
+          <button id="resetHandoutButton">
+            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span>
+          </button>
+          
+
+          
+        </div>
+      </header>
+      <nav class="ah-navigation preload">
+        <div class="ah-nav-container">
+          <button class="ah-menu-btn ah-button ah-button--borderless close-menu"
+                  aria-label="close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+</svg>
+          </button>
+          <ul class="ah-nav-body">
+            
+              
+  
+    <li>
+      <a href="../../..">Home</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../deadlines/">Deadlines</a>
+    </li>
+  
+
+            
+              
+  
+    <li>
+      <a href="../../../infra/">Instalação</a>
+    </li>
+  
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 0 - Base Python</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto0/teoria/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto0/atividade-aula1/">Atividade Python</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 1 - Loopback</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto1/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto1/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 2 - Ponto Flutuante</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto2/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto2/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 3 - Datagrama</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto3/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto3/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 4 - Checksum</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto4/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto4/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 5 - Serialização</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto5/intro/">Introdução</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto5/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item opened">
+    <span class="ah-togglable-handle">Projeto 6 - Digitalização de Áudio</span>
+    <ul>
+      
+        
+  
+
+    <li class="active ah-togglable-item opened">
+      <span class="ah-togglable-handle">Intro</span>
+      <ul>
+        
+          
+            
+            
+              <li class="ah-toc-item">
+                <a href="#contexto-global-da-digitalizacao">Contexto Global da Digitalização</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#o-mundo-analogico-e-a-digitalizacao">O Mundo Analógico e a Digitalização</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#perdas-envolvidas-no-processo-de-digitalizacao">Perdas Envolvidas no Processo de Digitalização</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#etapas-da-digitalizacao">Etapas da Digitalização</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#taxa-de-amostragem-e-periodo-de-amostragem">Taxa de Amostragem e Período de Amostragem</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#resolucao-e-quantizacao">Resolução e Quantização</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#exemplo-digitalizacao-de-audio">Exemplo: Digitalização de Áudio</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#exemplo-numerico-1-hora-de-audio-estereo">Exemplo Numérico: 1 Hora de Áudio Estéreo</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#taxa-de-dados-em-sinais-digitalizados">Taxa de Dados em Sinais Digitalizados</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#hardware-ad">Hardware A/D</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#relacao-entre-resolucao-e-faixa-do-sinal">Relação entre Resolução e Faixa do Sinal</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#aplicacoes-da-digitalizacao">Aplicações da Digitalização</a>
+              </li>
+            
+              <li class="ah-toc-item">
+                <a href="#exercicios">Exercícios</a>
+              </li>
+            
+        
+      </ul>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+              
+  <li class="ah-togglable-item">
+    <span class="ah-togglable-handle">Projeto 7 - Filtros Digitais</span>
+    <ul>
+      
+        
+  
+    <li>
+      <a href="../../projeto7/intro/">Intro</a>
+    </li>
+  
+
+      
+        
+  
+    <li>
+      <a href="../../projeto7/enunciado/">Enunciado</a>
+    </li>
+  
+
+      
+    </ul>
+  </li>
+
+            
+          </ul>
+        </div>
+      </nav>
+      <main class="ah-content ah-typeset">
+        
+          <div class="ah-title-box">
+            <ul class="ah-breadcrumbs">
+              
+                
+                  
+                    <li>Projeto 6 - Digitalização de Áudio</li>
+                  
+                
+                <li></li>
+            </ul>
+            
+            
+          </div>
+          
+            <section class="progress-section show">
+<h1 id="digitalizacao">Digitalização</h1>
+<h2 id="contexto-global-da-digitalizacao">Contexto Global da Digitalização</h2>
+<p>Vivemos cercados por dispositivos digitais: celulares, computadores, microcontroladores, placas de aquisição, sensores inteligentes, sistemas embarcados e equipamentos médicos. Apesar disso, o mundo físico ao nosso redor não é digital. Temperatura, pressão, luminosidade, velocidade, massa, som e tensão elétrica são exemplos de grandezas que variam de maneira <strong>contínua</strong>.</p>
+<p>Quando um sistema computacional precisa medir, armazenar, transmitir ou processar essas grandezas, surge um problema fundamental: computadores trabalham com valores <strong>discretos</strong> e finitos, enquanto o mundo físico se comporta, em geral, de forma <strong>analógica</strong>.</p>
+<p>A <strong>digitalização</strong> é justamente o processo que permite transformar uma grandeza analógica em uma representação digital, adequada para armazenamento, processamento e comunicação em sistemas computacionais.</p>
+<h2 id="o-mundo-analogico-e-a-digitalizacao">O Mundo Analógico e a Digitalização</h2>
+<p>As grandezas físicas do mundo real são, em sua maioria, analógicas. Isso significa que podem assumir qualquer valor dentro de um intervalo contínuo.</p>
+<p>Pense, por exemplo, na temperatura de uma sala. Entre 10 °C e 30 °C, não existem apenas alguns valores possíveis. Em teoria, qualquer valor nesse intervalo pode ocorrer: 18 °C, 18,5 °C, 18,53 °C, 18,531 °C e assim por diante.</p>
+<p>Entretanto, se desejarmos registrar essa temperatura em um computador, não conseguiremos armazenar uma quantidade infinita de valores nem acompanhar todos os instantes do tempo continuamente. Para isso, precisamos transformar essa variação contínua em uma sequência finita de valores digitais.</p>
+<p>Esse processo envolve duas limitações fundamentais:</p>
+<ol>
+<li><strong>Não é possível registrar o valor em todos os instantes do tempo</strong>, pois isso exigiria infinitas amostras.</li>
+<li><strong>Cada valor medido precisa ser aproximado</strong> para um dos níveis que podem ser representados com uma quantidade finita de bits.</li>
+</ol>
+<p>Essa aproximação recebe o nome de <strong>quantização</strong>.</p>
+<p>Assim, uma variável contínua passa a ser representada por uma sequência de amostras discretas. Dizemos, então, que houve uma <strong>discretização</strong> da variável.</p>
+<p><img alt="Digitalização de sinal" src="../image.png" /></p>
+<p>No gráfico acima:</p>
+<ul>
+<li>a curva senoidal representa o <strong>sinal analógico contínuo</strong>;</li>
+<li>os pontos redondos representam as <strong>amostras coletadas</strong>;</li>
+<li>os pontos quadrados representam os <strong>valores quantizados</strong>, isto é, os valores efetivamente armazenados em variáveis digitais de <code>n</code> bits.</li>
+</ul>
+<h2 id="perdas-envolvidas-no-processo-de-digitalizacao">Perdas Envolvidas no Processo de Digitalização</h2>
+<p>Ao digitalizar uma grandeza analógica, sempre ocorre algum nível de perda de informação. Isso acontece porque a representação digital nunca é uma cópia perfeita do sinal contínuo original.</p>
+<p>As duas perdas principais são:</p>
+<h3 id="1-perda-temporal">1. Perda temporal</h3>
+<p>Como a medição acontece em instantes discretos, o sistema deixa de conhecer o comportamento exato do sinal entre duas amostras consecutivas.</p>
+<h3 id="2-perda-por-quantizacao">2. Perda por quantização</h3>
+<p>Mesmo no instante em que a amostra é coletada, o valor obtido precisa ser aproximado para um nível representável digitalmente.</p>
+<p>Essas perdas são inerentes ao processo de conversão analógico-digital e estão diretamente relacionadas à qualidade da digitalização.</p>
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_1" id="exercise_1_0">
+<p class="admonition-title">Exercício 1</p>
+<form class="exercise-form">
+<p>Explique, com suas palavras, por que a digitalização de uma grandeza analógica sempre implica perda de informação. Em sua resposta, diferencie:</p>
+<ol>
+<li>a perda associada ao tempo;</li>
+<li>a perda associada aos níveis de representação.</li>
+</ol>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+</div>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto6/intro/choice_1" id="choice_1_0">
+<p class="admonition-title">Grandezas Analógicas e Digitais 2</p>
+<form class="exercise-form">
+<p>Qual alternativa descreve corretamente a principal diferença entre uma grandeza analógica e uma grandeza digital?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    A grandeza analógica varia continuamente, enquanto a digital é representada por valores discretos.
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    A grandeza analógica assume apenas valores inteiros, enquanto a digital assume valores reais.
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    A grandeza analógica não pode ser medida por sensores.
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    A grandeza digital é sempre mais precisa que a analógica.
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Grandezas analógicas podem assumir qualquer valor dentro de um intervalo, variando continuamente no tempo. Já as grandezas digitais são representadas por um conjunto finito de valores discretos.</p>
+</div>
+</div>
+<h2 id="etapas-da-digitalizacao">Etapas da Digitalização</h2>
+<p>De forma resumida, o processo de digitalização pode ser entendido em três etapas principais.</p>
+<h3 id="1-amostragem-sampling">1. Amostragem (Sampling)</h3>
+<p>O sinal analógico é observado em instantes regulares de tempo. Em vez de registrar todos os instantes possíveis, o sistema coleta apenas alguns valores pontuais.</p>
+<p>A quantidade de amostras realizadas por segundo é chamada de <strong>frequência de amostragem</strong> ou <strong>taxa de amostragem</strong>.</p>
+<p>O intervalo de tempo entre duas amostras consecutivas é chamado de <strong>período de amostragem</strong>.</p>
+<p>A relação entre essas duas grandezas é:</p>
+<p>$$
+f_s = \frac{1}{T_s}
+$$</p>
+<p>Onde:</p>
+<ul>
+<li>$ f_s $ = frequência de amostragem</li>
+<li>$ T_s $ = período de amostragem</li>
+</ul>
+<h3 id="2-quantizacao-quantization">2. Quantização (Quantization)</h3>
+<p>Depois de coletada, cada amostra precisa ser ajustada para um dos níveis possíveis de representação.</p>
+<p>Como só existe um número finito de níveis disponíveis, o valor real é aproximado para o nível mais próximo. Essa diferença gera o chamado <strong>erro de quantização</strong>.</p>
+<h3 id="3-codificacao-encoding">3. Codificação (Encoding)</h3>
+<p>Por fim, o valor quantizado é transformado em uma sequência binária de 0s e 1s. Essa etapa torna possível armazenar ou transmitir a informação digitalmente.</p>
+<p>O número de bits usados na codificação define quantos níveis podem ser representados:</p>
+<ul>
+<li>8 bits → $2^8 = 256$ níveis</li>
+<li>10 bits → $2^{10} = 1024$ níveis</li>
+<li>12 bits → $2^{12} = 4096$ níveis</li>
+<li>16 bits → $2^{16} = 65536$ níveis</li>
+</ul>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="1" data-slug="classes/projeto6/intro/choice_2" id="choice_2_0">
+<p class="admonition-title">Etapas da Digitalização 3</p>
+<form class="exercise-form">
+<p>Em qual etapa da digitalização ocorre o arredondamento de um valor analógico para um nível discreto representável?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Amostragem
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Modulação
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Codificação
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    Quantização
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>A quantização é a etapa em que cada amostra do sinal é aproximada para um valor pertencente a um conjunto finito de níveis possíveis de representação.</p>
+</div>
+</div>
+<h2 id="taxa-de-amostragem-e-periodo-de-amostragem">Taxa de Amostragem e Período de Amostragem</h2>
+<p>A qualidade com que o comportamento temporal de um sinal é capturado depende diretamente da frequência de amostragem.</p>
+<h3 id="definicoes-importantes">Definições importantes</h3>
+<table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>Definição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Taxa de amostragem</strong></td>
+<td>Número de amostras coletadas por segundo</td>
+</tr>
+<tr>
+<td><strong>Período de amostragem</strong></td>
+<td>Tempo entre duas amostras consecutivas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="relacao-entre-as-grandezas">Relação entre as grandezas</h3>
+<p>Se um sinal é amostrado a:</p>
+<ul>
+<li><strong>1000 Hz</strong>, então o sistema coleta <strong>1000 amostras por segundo</strong></li>
+<li>o período de amostragem será:</li>
+</ul>
+<p>$$
+T_s = \frac{1}{1000} = 0,001 \text{ s} = 1 \text{ ms}
+$$</p>
+<p>Quanto maior a taxa de amostragem, mais fiel tende a ser a representação temporal do sinal.</p>
+<div class="admonition warning">
+<p class="admonition-title">Importante</p>
+<p>Aumentar a taxa de amostragem melhora a representação temporal do sinal, mas também aumenta a quantidade de dados gerados, exigindo mais memória, mais largura de banda e maior capacidade de processamento.</p>
+</div>
+<h2 id="resolucao-e-quantizacao">Resolução e Quantização</h2>
+<p>Outro aspecto fundamental da digitalização é a <strong>resolução</strong>.</p>
+<p>A resolução está relacionada à quantidade de níveis disponíveis para representar o sinal. Quanto maior o número de bits usados por amostra, menor tende a ser a diferença entre dois níveis consecutivos, e menor tende a ser o erro de quantização.</p>
+<p>Imagine que queremos digitalizar um sinal no intervalo de 0 a 5 V.</p>
+<ul>
+<li>Com <strong>8 bits</strong>, temos 256 níveis possíveis.</li>
+<li>Com <strong>10 bits</strong>, temos 1024 níveis possíveis.</li>
+<li>Com <strong>12 bits</strong>, temos 4096 níveis possíveis.</li>
+</ul>
+<p>Logo, com mais bits, os níveis ficam mais “próximos” uns dos outros, permitindo uma representação mais precisa do sinal.</p>
+<p>De forma simplificada, o tamanho do menor incremento representável pode ser estimado por:</p>
+<p>$$
+\Delta = \frac{V_{max} - V_{min}}{2^n}
+$$</p>
+<p>Onde:</p>
+<ul>
+<li>$ \Delta $ = passo de quantização</li>
+<li>$ n $ = número de bits</li>
+<li>$ V_{max} - V_{min} $ = faixa do sinal</li>
+</ul>
+<p>Quanto menor for esse passo, melhor a resolução.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto6/intro/choice_3" id="choice_3_0">
+<p class="admonition-title">Resolução 4</p>
+<form class="exercise-form">
+<p>Um conversor A/D de 12 bits possui quantos níveis de quantização?</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    256
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    8192
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    1024
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    4096
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Um conversor de 12 bits pode representar $2^{12} = 4096$ níveis discretos.</p>
+</div>
+</div>
+<h2 id="exemplo-digitalizacao-de-audio">Exemplo: Digitalização de Áudio</h2>
+<p>Um dos exemplos mais conhecidos de digitalização é o som.</p>
+<p>O som é uma perturbação mecânica no ar que provoca variações de pressão ao longo do tempo. Quando essa variação atinge o ouvido humano, estruturas biológicas convertem essa grandeza mecânica em impulsos elétricos que são interpretados pelo cérebro como sensação auditiva.</p>
+<p>Para digitalizar o som, primeiro é necessário converter essa variação de pressão em um sinal elétrico. Essa tarefa é realizada por um <strong>transdutor</strong>, que nesse caso é o <strong>microfone</strong>.</p>
+<h3 id="transdutores">Transdutores</h3>
+<p>Transdutores são dispositivos capazes de transformar uma forma de energia em outra.</p>
+<p>No caso do microfone:</p>
+<ul>
+<li>a entrada é uma grandeza <strong>mecânica</strong> associada à pressão sonora;</li>
+<li>a saída é uma grandeza <strong>elétrica</strong>, tipicamente uma tensão que varia no tempo.</li>
+</ul>
+<p><img alt="alt text" src="../image-2.png" /></p>
+<p>Um microfone de bobina móvel possui:</p>
+<ul>
+<li>um <strong>diafragma</strong>, que vibra com a pressão sonora;</li>
+<li>uma <strong>bobina</strong>, acoplada ao diafragma;</li>
+<li>um <strong>campo magnético</strong>, no qual essa bobina se move.</li>
+</ul>
+<p>Quando a bobina vibra dentro do campo magnético, surge uma força eletromotriz variável no tempo, correspondente ao som captado.</p>
+<p>A partir daí, esse sinal elétrico pode ser amostrado, quantizado e codificado.</p>
+<h2 id="exemplo-numerico-1-hora-de-audio-estereo">Exemplo Numérico: 1 Hora de Áudio Estéreo</h2>
+<p>Considere um sistema de digitalização de áudio com as seguintes características:</p>
+<ul>
+<li>frequência de amostragem: <strong>44,1 kHz</strong></li>
+<li>número de canais: <strong>2</strong> (estéreo)</li>
+<li>resolução: <strong>16 bits por amostra</strong></li>
+<li>duração: <strong>1 hora</strong></li>
+</ul>
+<p>Queremos calcular quanto de memória é necessário para armazenar esse áudio.</p>
+<h3 id="passo-1-numero-de-amostras-por-segundo">Passo 1: número de amostras por segundo</h3>
+<p>Como são dois canais:</p>
+<p>$$
+44100 \times 2 = 88200 \text{ amostras por segundo}
+$$</p>
+<h3 id="passo-2-quantidade-de-bits-por-segundo">Passo 2: quantidade de bits por segundo</h3>
+<p>Cada amostra possui 16 bits:</p>
+<p>$$
+88200 \times 16 = 1.411.200 \text{ bits por segundo}
+$$</p>
+<h3 id="passo-3-converter-para-bytes-por-segundo">Passo 3: converter para bytes por segundo</h3>
+<p>$$
+\frac{1.411.200}{8} = 176.400 \text{ bytes por segundo}
+$$</p>
+<h3 id="passo-4-calcular-para-1-hora">Passo 4: calcular para 1 hora</h3>
+<p>$$
+176.400 \times 3600 = 635.040.000 \text{ bytes}
+$$</p>
+<p>Isso equivale aproximadamente a:</p>
+<ul>
+<li><strong>635 MB</strong> em base decimal</li>
+<li>ou cerca de <strong>606 MiB</strong> em base binária</li>
+</ul>
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_2" id="exercise_2_0">
+<p class="admonition-title">Exercício 5</p>
+<form class="exercise-form">
+<p>Quanto de memória computacional é necessário para gravarmos em um computador 1 hora de áudio estéreo com:</p>
+<ul>
+<li>taxa de amostragem de 44,1 kHz;</li>
+<li>resolução de 16 bits por amostra;</li>
+<li>dois canais?</li>
+</ul>
+<p>Apresente o cálculo completo.</p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Para cada segundo:</p>
+<ul>
+<li>44.100 amostras por segundo por canal</li>
+<li>2 canais → 88.200 amostras por segundo</li>
+<li>cada amostra tem 16 bits</li>
+</ul>
+<p>Então:</p>
+<p>$$
+88.200 \times 16 = 1.411.200 \text{ bits/s}
+$$</p>
+<p>Convertendo para bytes:</p>
+<p>$$
+\frac{1.411.200}{8} = 176.400 \text{ bytes/s}
+$$</p>
+<p>Em 1 hora:</p>
+<p>$$
+176.400 \times 3600 = 635.040.000 \text{ bytes}
+$$</p>
+<p>Aproximadamente, isso corresponde a 635 MB.</p>
+</div>
+</div>
+<hr />
+<h2 id="taxa-de-dados-em-sinais-digitalizados">Taxa de Dados em Sinais Digitalizados</h2>
+<p>Sempre que um sinal é digitalizado, ele passa a produzir uma taxa de dados que depende de três fatores principais:</p>
+<p>$$
+\text{Taxa de bits} = f_s \times n \times C
+$$</p>
+<p>Onde:</p>
+<ul>
+<li>$ f_s $ = frequência de amostragem</li>
+<li>$ n $ = número de bits por amostra</li>
+<li>$ C $ = número de canais</li>
+</ul>
+<p>Essa fórmula é extremamente importante em sistemas digitais, pois permite estimar:</p>
+<ul>
+<li>necessidade de memória;</li>
+<li>largura de banda de transmissão;</li>
+<li>capacidade de armazenamento;</li>
+<li>desempenho do sistema.</li>
+</ul>
+<h3 id="exemplo">Exemplo</h3>
+<p>Um sinal mono, digitalizado com:</p>
+<ul>
+<li>$ f_s = 1000 $ Hz</li>
+<li>$ n = 14 $ bits</li>
+<li>$ C = 1 $</li>
+</ul>
+<p>gera:</p>
+<p>$$
+1000 \times 14 = 14.000 \text{ bits/s}
+$$</p>
+<hr />
+<h2 id="hardware-ad">Hardware A/D</h2>
+<p>A digitalização de sinais analógicos exige a presença de um circuito eletrônico específico chamado <strong>conversor analógico-digital</strong> ou <strong>ADC (Analog-to-Digital Converter)</strong>.</p>
+<p>Existem diversas arquiteturas de ADC, cada uma com características próprias de velocidade, custo, precisão e complexidade.</p>
+<p>Uma arquitetura clássica e conceitualmente muito importante é aquela baseada em um <strong>banco de comparadores</strong>.</p>
+<p><img alt="Hardware A/D" src="../image-1.png" /></p>
+<h3 id="funcionamento-geral">Funcionamento geral</h3>
+<p>Nesse tipo de conversor:</p>
+<ol>
+<li>o sinal analógico é aplicado a vários comparadores;</li>
+<li>cada comparador possui uma tensão de referência diferente;</li>
+<li>à medida que o sinal cresce, mais comparadores mudam de estado;</li>
+<li>um <strong>encoder</strong> interpreta esse padrão e produz a saída binária correspondente ao nível detectado.</li>
+</ol>
+<h3 id="intuicao-fisica">Intuição física</h3>
+<p>Esse tipo de circuito funciona como uma “escada de decisão”:</p>
+<ul>
+<li>se o sinal ultrapassa a primeira referência, um comparador ativa;</li>
+<li>se ultrapassa a segunda, outro ativa;</li>
+<li>e assim por diante.</li>
+</ul>
+<p>Ao final, o encoder transforma a quantidade de níveis atingidos em um número binário.</p>
+<h3 id="vantagem-principal">Vantagem principal</h3>
+<ul>
+<li>alta velocidade de conversão</li>
+</ul>
+<h3 id="limitacao-principal">Limitação principal</h3>
+<ul>
+<li>exige muitos comparadores para resoluções maiores</li>
+</ul>
+<p>Por isso, embora seja muito rápido, esse tipo de arquitetura pode se tornar caro e complexo para conversores com muitos bits.</p>
+<h2 id="relacao-entre-resolucao-e-faixa-do-sinal">Relação entre Resolução e Faixa do Sinal</h2>
+<p>A resolução não depende apenas do número de bits. Ela também está ligada à faixa de valores que o sinal pode assumir.</p>
+<p>Se um mesmo número de níveis digitais for distribuído em um intervalo muito grande, a distância entre dois níveis consecutivos será maior. Se esse intervalo for reduzido, a distância entre níveis diminui, melhorando a sensibilidade da representação.</p>
+<h3 id="exemplo-conceitual">Exemplo conceitual</h3>
+<p>Considere dois conversores de 10 bits:</p>
+<ul>
+<li>Conversor A: faixa de 0 a 10 V</li>
+<li>Conversor B: faixa de 0 a 1 V</li>
+</ul>
+<p>Ambos têm $2^{10} = 1024$ níveis, mas no segundo caso os níveis estão distribuídos em uma faixa menor, o que reduz o passo de quantização.</p>
+<p>Isso significa que, para uma mesma quantidade de bits, um sinal com faixa menor pode ser digitalizado com melhor detalhamento.</p>
+<hr />
+<h2 id="aplicacoes-da-digitalizacao">Aplicações da Digitalização</h2>
+<p>A digitalização está presente em praticamente todos os sistemas modernos.</p>
+<h3 id="exemplos-de-aplicacao">Exemplos de aplicação</h3>
+<table>
+<thead>
+<tr>
+<th>Aplicação</th>
+<th>Grandeza analógica</th>
+<th>Forma digitalizada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Áudio</td>
+<td>Pressão sonora</td>
+<td>Amostras de tensão</td>
+</tr>
+<tr>
+<td>ECG</td>
+<td>Potencial elétrico do corpo</td>
+<td>Sequência digital de amostras</td>
+</tr>
+<tr>
+<td>Sensor de temperatura</td>
+<td>Tensão proporcional à temperatura</td>
+<td>Valores digitais em registradores</td>
+</tr>
+<tr>
+<td>Imagem digital</td>
+<td>Intensidade luminosa</td>
+<td>Pixels quantizados</td>
+</tr>
+<tr>
+<td>Acelerômetro</td>
+<td>Aceleração</td>
+<td>Amostras digitais por eixo</td>
+</tr>
+</tbody>
+</table>
+<p>A compreensão desse processo é fundamental em eletrônica, sistemas embarcados, telecomunicações, instrumentação e processamento digital de sinais.</p>
+<div class="admonition exercise choice tag-choice-exercise" data-answer-idx="2" data-slug="classes/projeto6/intro/choice_4" id="choice_4_0">
+<p class="admonition-title">Hardware A/D 6</p>
+<form class="exercise-form">
+<p>Em um conversor A/D baseado em banco de comparadores, o encoder tem como principal função:</p>
+<div class="form-elements">
+<div class="alternative-set">
+  
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="3" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    amplificar o sinal digital de saída
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="1" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    reduzir a frequência de amostragem
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="0" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    gerar o sinal analógico de entrada
+  </div>
+</label>
+
+<label class="alternative">
+  <div class="content">
+    <input type="radio" name="data" value="2" _="   on click    set alternative to closest .alternative    if alternative matches <:not(.selected)/> then     set selected to false    else     set selected to true    end    remove .selected from .alternative in closest .alternative-set    if selected then     remove .selected from alternative     add @disabled to <input[type='submit']/> in closest .form-elements    else     add .selected to alternative     remove @disabled from <input[type='submit']/> in closest .form-elements    end   end   ">
+    converter o estado dos comparadores em uma palavra binária
+  </div>
+</label>
+
+</div>
+<input class="ah-button ah-button--primary" type="submit" name="sendButton" value="Enviar" disabled />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>O encoder observa quais comparadores mudaram de estado e transforma essa informação em um número binário correspondente ao nível do sinal analógico.</p>
+</div>
+</div>
+<h2 id="exercicios">Exercícios</h2>
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_3" id="exercise_3_0">
+<p class="admonition-title">Exercício 7</p>
+<form class="exercise-form">
+<ol>
+<li>Um sinal de <strong>eletrocardiograma (ECG)</strong> de 5 minutos necessita ser enviado por um enlace de comunicação que consegue transmitir dados a um <strong>baudrate de 1000 bps</strong>, porém possui um <strong>overhead de 10%</strong>. O ECG é amostrado a uma taxa de <strong>1 kHz</strong> e possui resolução de <strong>14 bits</strong>.</li>
+</ol>
+<p><strong>Em quantos minutos o ECG será transmitido aproximadamente?</strong></p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Primeiro, calculamos a quantidade total de dados do ECG.</p>
+<p>Duração do sinal:</p>
+<p>$$
+5 \text{ min} = 300 \text{ s}
+$$</p>
+<p>Taxa de geração de dados:</p>
+<p>$$
+1000 \text{ amostras/s} \times 14 \text{ bits} = 14.000 \text{ bits/s}
+$$</p>
+<p>Total de bits:</p>
+<p>$$
+14.000 \times 300 = 4.200.000 \text{ bits}
+$$</p>
+<p>O enlace tem 1000 bps com overhead de 10%, portanto a taxa útil é:</p>
+<p>$$
+1000 \times 0,9 = 900 \text{ bps}
+$$</p>
+<p>Tempo de transmissão:</p>
+<p>$$
+\frac{4.200.000}{900} \approx 4666,67 \text{ s}
+$$</p>
+<p>Convertendo para minutos:</p>
+<p>$$
+\frac{4666,67}{60} \approx 77,8 \text{ min}
+$$</p>
+<p>Portanto, a transmissão levará aproximadamente <strong>78 minutos</strong>.</p>
+</div>
+</div>
+<hr />
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_4" id="exercise_4_0">
+<p class="admonition-title">Exercício 8</p>
+<form class="exercise-form">
+<ol>
+<li>Um sinal proveniente de um <strong>captador de guitarra elétrica</strong> deve ser digitalizado.
+O intervalo do sinal é de <strong>–50 a +50 mV</strong>. Deseja-se uma resolução de, no mínimo, <strong>10 microvolts</strong>.</li>
+</ol>
+<p><strong>Quantos bits, no mínimo, serão necessários por amostra?</strong></p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>A faixa total do sinal é:</p>
+<p>$$
+50 - (-50) = 100 \text{ mV} = 100.000 \text{ microvolts}
+$$</p>
+<p>Se queremos resolução de 10 microvolts, então precisamos de pelo menos:</p>
+<p>$$
+\frac{100.000}{10} = 10.000 \text{ níveis}
+$$</p>
+<p>Agora buscamos o menor número de bits tal que:</p>
+<p>$$
+2^n \geq 10.000
+$$</p>
+<p>Testando:</p>
+<ul>
+<li>$2^{13} = 8192$</li>
+<li>$2^{14} = 16384$</li>
+</ul>
+<p>Logo, o menor valor que atende é:</p>
+<p>$$
+n = 14
+$$</p>
+<p>Portanto, serão necessários <strong>14 bits por amostra</strong>.</p>
+</div>
+</div>
+<hr />
+<div class="admonition exercise self-progress" data-slug="classes/projeto6/intro/exercise_5" id="exercise_5_0">
+<p class="admonition-title">Exercício 9</p>
+<form class="exercise-form">
+<ol>
+<li>Um sinal de áudio <strong>senoidal de 4400 Hz</strong> foi digitalizado e armazenado com um <strong>período de amostragem</strong> $T_s$ de <strong>25 microssegundos</strong>. Posteriormente, esse sinal foi reproduzido com uma <strong>frequência de amostragem</strong> de <strong>80000 Hz</strong>.</li>
+</ol>
+<p><strong>Qual será a frequência da senoide analógica ouvida na reprodução?</strong></p>
+<div class="form-elements">
+<input type="hidden" name="data" value="OK" />
+<input class="ah-button ah-button--primary" type="submit" name="Enviar" value="Marcar como feito" />
+</div>
+</form>
+<div class="admonition answer no-indent">
+<p class="admonition-title">Resposta!</p>
+<p>Primeiro, calculamos a frequência de amostragem usada na digitalização:</p>
+<p>$$
+f_s = \frac{1}{T_s} = \frac{1}{25 \times 10^{-6}} = 40.000 \text{ Hz}
+$$</p>
+<p>Ou seja, o sinal foi originalmente amostrado a <strong>40 kHz</strong>.</p>
+<p>A senoide original tem 4400 Hz. Em termos de amostras, sua frequência normalizada ficou preservada no arquivo digital.</p>
+<p>Se o áudio for reproduzido usando 80.000 Hz em vez de 40.000 Hz, a reprodução ocorrerá com velocidade dobrada.</p>
+<p>Assim, a frequência ouvida também será dobrada:</p>
+<p>$$
+4400 \times \frac{80000}{40000} = 8800 \text{ Hz}
+$$</p>
+<p>Portanto, a frequência ouvida será <strong>8800 Hz</strong>.</p>
+</div>
+</div>
+
+
+</section>
+          
+        
+      </main>
+      <footer class="ah-footer ah-typeset">
+        <div class="ah-footer-nav">
+          
+            <a href="../../projeto5/enunciado/"
+               class="ah-prev"
+               title="Enunciado">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Enunciado</span>
+            </a>
+          
+          
+            <a href="../enunciado/"
+               class="ah-next"
+               title="Enunciado">
+              <span class="nav-label">Próximo</span>
+              <span class="nav-title">Enunciado</span>
+            </a>
+          
+        </div>
+      </footer>
+    </div>
+    
+      <script src="../../../js/tabs.js"></script><script src="../../../js/termynal.js"></script><script src="../../../js/custom.js"></script>
+    
+  </body>
+</html>
